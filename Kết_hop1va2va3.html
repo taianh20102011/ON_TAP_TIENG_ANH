@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ngữ Pháp Tiếng Anh Toàn Diện</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0d0f14; --surface:#141720; --surface2:#1c2030; --surface3:#242840;
+  --border:rgba(255,255,255,0.07); --border2:rgba(255,255,255,0.13);
+  --gold:#f5c842; --gold2:#e8a020; --teal:#3ecfcf; --rose:#f56565;
+  --purple:#a78bfa; --green:#4ade80; --blue:#60a5fa; --orange:#fb923c;
+  --text:#e8eaf0; --text2:#9aa0b8; --text3:#5a6080;
+  --radius:12px; --shadow:0 8px 32px rgba(0,0,0,0.5);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.4;}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(245,200,66,.12) 0%,transparent 70%),radial-gradient(ellipse 50% 40% at 80% 80%,rgba(62,207,207,.08) 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 20% 70%,rgba(167,139,250,.06) 0%,transparent 60%);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:60px 60px;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.3);color:var(--gold);padding:6px 16px;border-radius:100px;font-size:.8rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2rem;position:relative;animation:fadeUp .8s ease both;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,7rem);font-weight:900;line-height:1;position:relative;animation:fadeUp .8s .1s ease both;letter-spacing:-.02em;}
+.hero-title em{font-style:normal;color:var(--gold);position:relative;}
+.hero-title em::after{content:'';position:absolute;bottom:4px;left:0;right:0;height:3px;background:var(--gold);transform:scaleX(0);transform-origin:left;animation:underlineGrow .8s 1s ease forwards;}
+.hero-sub{font-size:1.1rem;color:var(--text2);max-width:580px;margin:1.5rem auto 0;animation:fadeUp .8s .2s ease both;font-weight:300;}
+.hero-nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:3rem;position:relative;animation:fadeUp .8s .3s ease both;}
+.hero-nav a{display:flex;align-items:center;gap:8px;padding:9px 18px;background:var(--surface);border:1px solid var(--border);border-radius:100px;color:var(--text2);text-decoration:none;font-size:.85rem;font-weight:500;transition:all .25s;}
+.hero-nav a:hover{background:var(--surface2);border-color:rgba(255,255,255,.15);color:var(--text);transform:translateY(-2px);}
+.hero-nav a .dot{width:7px;height:7px;border-radius:50%;}
+
+/* NAV */
+nav.topnav{position:sticky;top:0;z-index:100;background:rgba(13,15,20,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 2rem;}
+.nav-inner{max-width:1160px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:54px;gap:1rem;}
+.nav-logo{font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;color:var(--gold);text-decoration:none;white-space:nowrap;}
+.nav-links{display:flex;gap:3px;flex-wrap:wrap;}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:.8rem;font-weight:500;padding:5px 11px;border-radius:8px;transition:all .2s;white-space:nowrap;}
+.nav-links a:hover{background:var(--surface2);color:var(--text);}
+
+/* LAYOUT */
+main{max-width:1160px;margin:0 auto;padding:4rem 2rem 8rem;}
+section{margin-bottom:5rem;scroll-margin-top:64px;}
+.section-header{margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:1.5rem;}
+.section-number{font-family:'Playfair Display',serif;font-size:4rem;font-weight:900;color:rgba(245,200,66,.15);line-height:1;flex-shrink:0;user-select:none;}
+.section-title-group h2{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--text);margin-bottom:.3rem;}
+.section-title-group p{color:var(--text2);font-size:.95rem;}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;transition:border-color .2s,transform .2s;}
+.card:hover{border-color:rgba(255,255,255,.12);transform:translateY(-2px);}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.25rem;}
+.card-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border);}
+.card-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;}
+.card-title-text{font-weight:600;font-size:1rem;}
+
+/* TENSE GROUP */
+.tense-group{margin-bottom:2rem;}
+.tense-group-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:10px;}
+.tense-group-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.tense-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem;}
+.tense-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .25s;}
+.tense-card:hover{border-color:rgba(255,255,255,.15);transform:translateY(-3px);box-shadow:var(--shadow);}
+.tense-card-header{padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;}
+.tense-card-name{font-weight:600;font-size:.95rem;}
+.tense-level{font-size:.7rem;padding:3px 10px;border-radius:100px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;}
+.level-basic{background:rgba(74,222,128,.15);color:var(--green);}
+.level-advanced{background:rgba(167,139,250,.15);color:var(--purple);}
+.tense-card-body{padding:1rem 1.25rem;border-top:1px solid var(--border);}
+
+/* FORMULA / EXAMPLES */
+.formula{font-family:'DM Mono',monospace;font-size:.82rem;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--teal);margin-bottom:.75rem;line-height:1.7;white-space:pre-wrap;}
+.signals{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:.75rem;}
+.signal-tag{font-size:.75rem;padding:3px 10px;border-radius:100px;background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.2);color:var(--gold);font-family:'DM Mono',monospace;}
+.example{font-size:.85rem;color:var(--text2);font-style:italic;padding-left:12px;border-left:2px solid var(--border);}
+.example strong,.example em{color:var(--teal);font-style:normal;}
+
+/* GRAMMAR BLOCKS (accordion) */
+.grammar-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:1rem;}
+.grammar-block-header{padding:1rem 1.5rem;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;transition:background .2s;}
+.grammar-block-header:hover{background:var(--surface2);}
+.grammar-block-letter{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;flex-shrink:0;}
+.grammar-block-title{font-weight:600;font-size:1rem;flex:1;}
+.grammar-block-subtitle{font-size:.78rem;color:var(--text3);margin-left:4px;}
+.grammar-block-arrow{color:var(--text3);transition:transform .3s;font-size:.8rem;}
+.grammar-block.open .grammar-block-arrow{transform:rotate(180deg);}
+.grammar-block-body{display:none;padding:1.5rem;border-top:1px solid var(--border);}
+.grammar-block.open .grammar-block-body{display:block;}
+
+/* ADVANCED / NOTE BOXES */
+.advanced-box{background:rgba(167,139,250,.05);border:1px solid rgba(167,139,250,.2);border-radius:10px;padding:1.25rem;margin-top:1rem;}
+.advanced-box-title{color:var(--purple);font-weight:600;font-size:.85rem;letter-spacing:.05em;text-transform:uppercase;margin-bottom:.75rem;display:flex;align-items:center;gap:8px;}
+.note-box{background:rgba(245,200,66,.05);border:1px solid rgba(245,200,66,.2);border-radius:10px;padding:1.25rem;margin-top:1rem;}
+.note-title{color:var(--gold);font-weight:600;font-size:.85rem;margin-bottom:.5rem;display:flex;align-items:center;gap:8px;}
+.warn-box{background:rgba(245,101,101,.05);border:1px solid rgba(245,101,101,.2);border-radius:10px;padding:1.25rem;margin-top:1rem;}
+.warn-title{color:var(--rose);font-weight:600;font-size:.85rem;margin-bottom:.5rem;display:flex;align-items:center;gap:8px;}
+
+ul.glist{list-style:none;display:flex;flex-direction:column;gap:6px;}
+ul.glist li{padding-left:1.2rem;position:relative;font-size:.88rem;color:var(--text2);}
+ul.glist li::before{content:'→';position:absolute;left:0;color:var(--gold);font-size:.8rem;}
+ul.glist li strong{color:var(--text);}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;font-size:.86rem;margin:.75rem 0;}
+.tbl th{padding:.7rem 1rem;background:var(--surface2);text-align:left;color:var(--text2);font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--border);}
+.tbl td{padding:.65rem 1rem;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:hover td{background:rgba(255,255,255,.02);}
+.tbl td em{color:var(--teal);font-style:normal;font-family:'DM Mono',monospace;font-size:.83rem;}
+.tbl td strong{color:var(--text);}
+
+/* COMPARE STRIP */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:10px;overflow:hidden;border:1px solid var(--border);margin:.75rem 0;}
+.compare-l,.compare-r{padding:1rem 1.25rem;font-size:.86rem;}
+.compare-l{background:rgba(245,101,101,.06);border-right:1px solid var(--border);}
+.compare-r{background:rgba(74,222,128,.06);}
+.compare-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.4rem;}
+.compare-l .compare-label{color:var(--rose);}
+.compare-r .compare-label{color:var(--green);}
+
+/* CONDITIONAL GRID */
+.cond-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-bottom:1rem;}
+.cond-card{border-radius:10px;padding:1.25rem;border:1px solid var(--border);}
+.cond-type{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.4rem;}
+.cond-title{font-weight:600;margin-bottom:.7rem;font-size:.92rem;}
+
+/* PHONETICS */
+.phon-rule{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:1.5rem;}
+.phon-rule-title{padding:.9rem 1.5rem;background:var(--surface2);font-weight:600;display:flex;align-items:center;gap:10px;font-size:.92rem;border-bottom:1px solid var(--border);}
+.phon-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+.phon-cell{padding:1.25rem 1.5rem;border-right:1px solid var(--border);transition:background .2s;}
+.phon-cell:last-child{border-right:none;}
+.phon-cell:hover{background:var(--surface2);}
+.phon-sound{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;margin-bottom:.4rem;}
+.phon-rule-text{font-size:.8rem;color:var(--text2);margin-bottom:.65rem;}
+.phon-examples{display:flex;flex-wrap:wrap;gap:5px;}
+.phon-ex{font-family:'DM Mono',monospace;font-size:.74rem;background:var(--surface3);padding:3px 8px;border-radius:5px;color:var(--text2);}
+
+/* IPA GRID */
+.ipa-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin:.75rem 0;}
+.ipa-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center;transition:transform .18s;}
+.ipa-card:hover{transform:scale(1.04);border-color:rgba(255,255,255,.15);}
+.ipa-symbol{font-size:1.6rem;font-family:'Playfair Display',serif;color:var(--gold);font-weight:700;}
+.ipa-type{font-size:.6rem;text-transform:uppercase;color:var(--text3);letter-spacing:.08em;margin:3px 0;}
+.ipa-example{font-size:.75rem;color:var(--text2);font-style:italic;}
+
+/* STRESSED */
+.stressed{color:var(--rose);font-weight:700;text-decoration:underline;}
+
+/* PREP GRID */
+.prep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem;}
+.prep-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .25s;}
+.prep-card:hover{transform:translateY(-3px);box-shadow:var(--shadow);}
+.prep-card-header{padding:.9rem 1.25rem;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);}
+.prep-word{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;}
+.prep-card-body{padding:.9rem 1.25rem;}
+.prep-item{display:flex;gap:10px;margin-bottom:8px;font-size:.84rem;align-items:flex-start;}
+.prep-rule{background:var(--surface2);padding:3px 10px;border-radius:6px;font-family:'DM Mono',monospace;font-size:.76rem;color:var(--teal);white-space:nowrap;flex-shrink:0;}
+
+/* ADJ+PREP GRID */
+.adj-prep-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:7px;}
+.adj-prep-item{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 13px;font-size:.84rem;transition:all .2s;}
+.adj-prep-item:hover{border-color:rgba(255,255,255,.15);background:var(--surface3);}
+.adj-prep-item strong{color:var(--text);}
+.adj-prep-item .prep{color:var(--teal);font-family:'DM Mono',monospace;font-size:.79rem;}
+.adj-prep-item .mean{color:var(--text2);font-size:.77rem;display:block;margin-top:2px;}
+
+/* PHRASAL */
+.phrasal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;}
+.phrasal-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .25s;}
+.phrasal-card:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.12);}
+.phrasal-verb-header{padding:.75rem 1.25rem;background:var(--surface2);border-bottom:1px solid var(--border);font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;display:flex;align-items:center;gap:8px;}
+.phrasal-list{padding:.75rem 1.25rem;display:flex;flex-direction:column;gap:7px;}
+.phrasal-item{display:flex;align-items:flex-start;gap:10px;font-size:.84rem;}
+.phrasal-full{font-family:'DM Mono',monospace;font-size:.8rem;color:var(--gold);white-space:nowrap;flex-shrink:0;padding:2px 0;}
+.phrasal-meaning{color:var(--text2);}
+
+/* VERB TABLE */
+.verb-search{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.95rem;outline:none;transition:border-color .2s;margin-bottom:1.5rem;}
+.verb-search:focus{border-color:var(--gold);}
+.verb-search::placeholder{color:var(--text3);}
+.verb-table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+.verb-table{width:100%;border-collapse:collapse;font-size:.87rem;}
+.verb-table thead th{padding:.85rem 1.2rem;text-align:left;color:var(--text2);font-size:.76rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--surface2);border-bottom:1px solid var(--border);}
+.verb-table tbody tr:hover td{background:var(--surface2);}
+.verb-table td{padding:.7rem 1.2rem;border-bottom:1px solid var(--border);vertical-align:middle;}
+.verb-table tr:last-child td{border-bottom:none;}
+.v1{font-weight:600;color:var(--text);}
+.v2{color:var(--teal);font-family:'DM Mono',monospace;font-size:.83rem;}
+.v3{color:var(--purple);font-family:'DM Mono',monospace;font-size:.83rem;}
+.vmean{color:var(--text2);font-size:.81rem;}
+.verb-count{font-size:.8rem;color:var(--text3);margin-bottom:.5rem;font-family:'DM Mono',monospace;}
+
+/* QUIZ */
+.quiz-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:2rem;}
+.quiz-section-header{padding:1rem 1.5rem;background:var(--surface2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.quiz-section-title{font-weight:600;font-size:.95rem;display:flex;align-items:center;gap:8px;}
+.quiz-score-badge{font-family:'DM Mono',monospace;font-size:.85rem;color:var(--gold);background:rgba(245,200,66,.1);padding:4px 14px;border-radius:100px;border:1px solid rgba(245,200,66,.25);}
+.quiz-progress{height:3px;background:var(--surface3);}
+.quiz-progress-fill{height:100%;background:linear-gradient(90deg,var(--purple),var(--teal));transition:width .4s;}
+.q-card{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);}
+.q-card:last-of-type{border-bottom:none;}
+.q-meta{display:flex;align-items:center;gap:8px;margin-bottom:.65rem;}
+.q-num{width:22px;height:22px;border-radius:50%;background:var(--purple);color:#fff;font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.q-topic-tag{font-size:.72rem;font-weight:500;padding:2px 8px;border-radius:100px;background:var(--surface3);color:var(--text2);}
+.q-text{font-size:.93rem;color:var(--text);font-weight:500;line-height:1.65;margin-bottom:.9rem;}
+.blank{display:inline-block;min-width:60px;border-bottom:2px solid var(--purple);color:var(--purple);font-family:'DM Mono',monospace;font-size:.83rem;padding:0 5px;text-align:center;vertical-align:middle;}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+@media(max-width:480px){.opts{grid-template-columns:1fr;}}
+.opt-btn{padding:9px 13px;border-radius:8px;border:1px solid var(--border2);background:var(--surface2);color:var(--text2);font-size:.86rem;cursor:pointer;transition:all .15s;text-align:left;font-family:'DM Sans',sans-serif;}
+.opt-btn:hover:not(:disabled){border-color:var(--purple);color:var(--text);background:var(--surface3);}
+.opt-btn.correct{background:rgba(74,222,128,.12);border-color:var(--green);color:var(--green);}
+.opt-btn.wrong{background:rgba(245,101,101,.1);border-color:var(--rose);color:var(--rose);}
+.opt-btn:disabled{cursor:default;}
+.q-explain{display:none;margin-top:.75rem;padding:10px 13px;background:var(--bg);border-radius:8px;border-left:3px solid var(--purple);font-size:.82rem;color:var(--text2);line-height:1.65;}
+.q-explain.show{display:block;}
+.q-explain strong{color:var(--purple);}
+.result-box{display:none;text-align:center;padding:2.5rem 1.5rem;border-top:1px solid var(--border);}
+.result-box.show{display:block;}
+.result-big{font-family:'Playfair Display',serif;font-size:3.5rem;color:var(--gold);}
+.result-msg{font-size:1.1rem;color:var(--text);margin:.5rem 0 .3rem;font-weight:500;}
+.result-sub{font-size:.88rem;color:var(--text2);}
+.btn-retry{margin-top:1.25rem;padding:10px 28px;border-radius:8px;background:var(--purple);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:background .2s;}
+.btn-retry:hover{background:#7c3aed;}
+
+/* PER-TOPIC MINI QUIZ */
+.mini-quiz-wrap{margin-top:1rem;}
+.mq-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;margin-bottom:.75rem;}
+.mq-num{font-size:.75rem;color:var(--text3);font-family:'DM Mono',monospace;margin-bottom:.4rem;}
+.mq-q{font-size:.9rem;font-weight:500;margin-bottom:.75rem;line-height:1.6;}
+.mq-opts{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+@media(max-width:480px){.mq-opts{grid-template-columns:1fr;}}
+.mq-opt{padding:7px 12px;border-radius:7px;border:1px solid var(--border2);background:var(--surface3);color:var(--text2);font-size:.83rem;cursor:pointer;transition:all .15s;text-align:left;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:8px;}
+.mq-opt:hover:not(:disabled){border-color:var(--teal);color:var(--text);}
+.mq-opt.correct{background:rgba(74,222,128,.1);border-color:var(--green);color:var(--green);}
+.mq-opt.wrong{background:rgba(245,101,101,.08);border-color:var(--rose);color:var(--rose);}
+.mq-opt:disabled{cursor:default;}
+.opt-letter{width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;flex-shrink:0;}
+.mq-fb{display:none;margin-top:.6rem;padding:8px 12px;border-radius:7px;font-size:.8rem;}
+.mq-fb.show{display:block;}
+.mq-fb.ok{background:rgba(74,222,128,.1);color:var(--green);}
+.mq-fb.no{background:rgba(245,101,101,.08);color:var(--rose);}
+.mq-check{margin-top:.7rem;padding:8px 18px;background:var(--purple);color:#fff;border:none;border-radius:7px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.82rem;}
+.mq-check:hover{background:#7c3aed;}
+.mq-score{display:none;background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.2);border-radius:10px;padding:1rem;text-align:center;margin-top:1rem;}
+.mq-score.show{display:block;}
+.mq-score-num{font-family:'Playfair Display',serif;font-size:2rem;color:var(--purple);}
+.mq-score-lbl{font-size:.82rem;color:var(--text2);}
+
+/* TAGS */
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;padding:3px 10px;border-radius:100px;font-weight:600;letter-spacing:.04em;}
+.tag-teal{background:rgba(62,207,207,.1);color:var(--teal);border:1px solid rgba(62,207,207,.2);}
+.tag-rose{background:rgba(245,101,101,.1);color:var(--rose);border:1px solid rgba(245,101,101,.2);}
+.tag-gold{background:rgba(245,200,66,.1);color:var(--gold);border:1px solid rgba(245,200,66,.25);}
+.tag-purple{background:rgba(167,139,250,.1);color:var(--purple);border:1px solid rgba(167,139,250,.2);}
+.tag-green{background:rgba(74,222,128,.1);color:var(--green);border:1px solid rgba(74,222,128,.2);}
+.tag-blue{background:rgba(96,165,250,.1);color:var(--blue);border:1px solid rgba(96,165,250,.2);}
+
+.divider{height:1px;background:var(--border);margin:1.25rem 0;}
+.sub-label{font-size:.75rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin:1rem 0 .4rem;}
+.sub-label:first-child{margin-top:0;}
+p.note-text{font-size:.86rem;color:var(--text2);line-height:1.7;margin-bottom:.6rem;}
+p.note-text strong{color:var(--text);}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes underlineGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.visible{opacity:1;transform:none;}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:3px;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .phon-grid{grid-template-columns:1fr;}
+  .prep-grid{grid-template-columns:1fr;}
+  .nav-links{display:none;}
+  .section-number{font-size:2.5rem;}
+  .cond-grid{grid-template-columns:1fr;}
+  .compare{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-badge">📚 Tài liệu ôn tập lớp 10 — Toàn diện</div>
+  <h1 class="hero-title">Ngữ Pháp<br><em>Tiếng Anh</em></h1>
+  <p class="hero-sub">Tổng hợp đầy đủ từ cơ bản đến nâng cao · Lý thuyết · Bài tập tương tác · Động từ bất quy tắc</p>
+  <div class="hero-nav">
+    <a href="#tenses"><span class="dot" style="background:#f5c842"></span>Các Thì</a>
+    <a href="#grammar"><span class="dot" style="background:#3ecfcf"></span>Cấu Trúc</a>
+    <a href="#advanced-grammar"><span class="dot" style="background:#a78bfa"></span>Nâng Cao</a>
+    <a href="#phonetics"><span class="dot" style="background:#f56565"></span>Phát Âm</a>
+    <a href="#prepositions"><span class="dot" style="background:#fb923c"></span>Giới Từ</a>
+    <a href="#irregular"><span class="dot" style="background:#4ade80"></span>ĐT Bất QT</a>
+    <a href="#quiz-main"><span class="dot" style="background:#60a5fa"></span>Bài Tập</a>
+  </div>
+</div>
+
+<!-- STICKY NAV -->
+<nav class="topnav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">✦ EN Grammar</a>
+    <div class="nav-links">
+      <a href="#tenses">⏱ Các Thì</a>
+      <a href="#grammar">📐 Cấu Trúc</a>
+      <a href="#advanced-grammar">⚡ Nâng Cao</a>
+      <a href="#phonetics">🔊 Phát Âm</a>
+      <a href="#prepositions">📍 Giới Từ</a>
+      <a href="#irregular">📋 ĐT BQT</a>
+      <a href="#quiz-main">✏️ Bài Tập</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 1: TENSES -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="tenses">
+  <div class="section-header reveal">
+    <div class="section-number">01</div>
+    <div class="section-title-group">
+      <h2>Các Thì Trong Tiếng Anh</h2>
+      <p>9 thì trọng tâm · công thức · dấu hiệu · ví dụ · phân biệt nâng cao</p>
+    </div>
+  </div>
+
+  <!-- HIỆN TẠI -->
+  <div class="tense-group reveal">
+    <div class="tense-group-title">🟡 Nhóm Hiện Tại</div>
+    <div class="tense-cards">
+      <div class="tense-card">
+        <div class="tense-card-header" style="background:rgba(245,200,66,.06)">
+          <div class="tense-card-name">Hiện Tại Đơn</div><span class="tense-level level-basic">Cơ bản</span>
+        </div>
+        <div class="tense-card-body">
+          <div class="formula">(+) S + V(s/es) / am/is/are
+(-) S + do/does + not + V
+(?) Do/Does + S + V?</div>
+          <p style="font-size:.82rem;color:var(--text2);margin-bottom:.5rem;">Thói quen, sự thật hiển nhiên, lịch trình cố định. <strong style="color:var(--rose)">⚠️ Stative verbs</strong> (know, love, like, want, believe, own, see...) KHÔNG dùng -ing.</p>
+          <div class="signals"><span class="signal-tag">always</span><span class="signal-tag">usually</span><span class="signal-tag">often</span><span class="signal-tag">sometimes</span><span class="signal-tag">never</span><span class="signal-tag">every day/week</span></div>
+          <div class="example">She <strong>works</strong> at a hospital. / Water <strong>boils</strong> at 100°C.</div>
+        </div>
+      </div>
+      <div class="tense-card">
+        <div class="tense-card-header" style="background:rgba(245,200,66,.06)">
+          <div class="tense-card-name">Hiện Tại Tiếp Diễn</div><span class="tense-level level-basic">Cơ bản</span>
+        </div>
+        <div class="tense-card-body">
+          <div class="formula">(+) S + am/is/are + V-ing
+(-) S + am/is/are + not + V-ing
+(?) Am/Is/Are + S + V-ing?</div>
+          <p style="font-size:.82rem;color:var(--text2);margin-bottom:.5rem;">Đang xảy ra lúc nói, kế hoạch tương lai đã sắp xếp.</p>
+          <div class="signals"><span class="signal-tag">now</span><span class="signal-tag">right now</span><span class="signal-tag">at the moment</span><span class="signal-tag">Look!</span><span class="signal-tag">Listen!</span></div>
+          <div class="example">They <strong>are studying</strong> English now.</div>
+        </div>
+      </div>
+      <div class="tense-card">
+        <div class="tense-card-header" style="background:rgba(245,200,66,.06)">
+          <div class="tense-card-name">Hiện Tại Hoàn Thành</div><span class="tense-level level-basic">Cơ bản</span>
+        </div>
+        <div class="tense-card-body">
+          <div class="formula">(+) S + have/has + V3/ed
+(-) S + have/has + not + V3/ed
+(?) Have/Has + S + V3/ed?</div>
+          <p style="font-size:.82rem;color:var(--text2);margin-bottom:.5rem;">Đã xảy ra, ảnh hưởng đến hiện tại. Không dùng kèm mốc thời gian xác định.</p>
+          <div class="signals"><span class="signal-tag">since</span><span class="signal-tag">for</span><span class="signal-tag">already</span><span class="signal-tag">yet</span><span class="signal-tag">ever/never</span><span class="signal-tag">just</span><span class="signal-tag">recently</span></div>
+          <div class="example">I <strong>have visited</strong> Hanoi three times.</div>
+        </div>
+      </div>
+      <div class="tense-card" style="border-color:rgba(167,139,250,.3)">
+        <div class="tense-card-header" style="background:rgba(167,139,250,.06)">
+          <div class="tense-card-name">Hiện Tại Hoàn Thành Tiếp Diễn</div><span class="tense-level level-advanced">Nâng cao</span>
+        </div>
+        <div class="tense-card-body">
+          <div class="formula" style="color:var(--purple)">(+) S + have/has + been + V-ing</div>
+          <p style="font-size:.82rem;color:var(--text2);margin-bottom:.5rem;">Nhấn mạnh tính <em>liên tục</em> từ quá khứ đến hiện tại (và có thể tiếp tục).</p>
+          <div class="signals"><span class="signal-tag">for</span><span class="signal-tag">since</span><span class="signal-tag">all day/morning</span><span class="signal-tag">lately</span></div>
+          <div class="example">I <strong>have been studying</strong> for 3 hours. (vẫn đang học)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUÁ KHỨ -->
+  <div class="tense-group reveal">
+    <div class="tense-group-title">🔵 Nhóm Quá Khứ</div>
+    <div class="tense-cards">
+      <div class="tense-card">
+        <div class="tense-card-header" style="background:rgba(62,207,207,.06)">
+          <div class="tense-card-name">Quá Khứ Đơn</div><span class="tense-level level-basic">Cơ bản</span>
+        </div>
+        <div class="tense-card-body">
+          <div class="formula">(+) S + V2/ed / was/were
+(-) S + did + not + V
+(?) Did + S + V?</div>
+          <p style="font-size:.82rem;color:var(--text2);margin-bottom:.5rem;">Hoàn toàn xảy ra và kết thúc trong quá khứ tại thời điểm xác định.</p>
+          <div class="signals"><span class="signal-tag">yesterday</span><span class="signal-tag">last night/year</span><span class="signal-tag">ago</span><span class="signal-tag">in 2020</span></div>
+          <div class="example">She <strong>visited</strong> Paris last year.</div>
+        </div>
+      </div>
+      <div class="tense-card">
+        <div class="tense-card-header" style="background:rgba(62,207,207,.06)">
+          <div class="tense-card-name">Quá Khứ Tiếp Diễn</div><span class="tense-level level-basic">Cơ bản</span>
+        </div>
+        <div class="tense-card-body">
+          <div class="formula">(+) S + was/were + V-ing
+(-) S + was/were + not + V-ing</div>
+          <p style="font-size:.82rem;color:var(--text2);margin-bottom:.5rem;">Đang diễn ra tại một thời điểm trong quá khứ; thường bị gián đoạn bởi QKĐ.</p>
+          <div class="signals"><span class="signal-tag">when</span><span class="signal-tag">while</span><span class="signal-tag">at 8pm yesterday</span></div>
+          <div class="example">I <strong>was sleeping</strong> when he called.</div>
+        </div>
+      </div>
+      <div class="tense-card">
+        <div class="tense-card-header" style="background:rgba(62,207,207,.06)">
+          <div class="tense-card-name">Quá Khứ Hoàn Thành</div><span class="tense-level level-basic">Cơ bản</span>
+        </div>
+        <div class="tense-card-body">
+          <div class="formula">(+) S + had + V3/ed
+(-) S + had + not + V3/ed
+(?) Had + S + V3/ed?</div>
+          <p style="font-size:.82rem;color:var(--text2);margin-bottom:.5rem;">Xảy ra <em>trước</em> một hành động khác trong quá khứ. Thường đi kèm QKĐ.</p>
+          <div class="signals"><span class="signal-tag">before</span><span class="signal-tag">after</span><span class="signal-tag">by the time</span><span class="signal-tag">already</span></div>
+          <div class="example">She <strong>had left</strong> before I arrived.</div>
+          <div class="note-box" style="margin-top:.7rem;padding:.7rem 1rem;">
+            <div class="note-title" style="font-size:.77rem;margin-bottom:.25rem;">💡 Kết hợp thì quan trọng</div>
+            <p style="font-size:.8rem;color:var(--text2);">QKHT + QKĐ: khi hành động xảy ra trước dùng had+V3, hành động sau dùng QKĐ.<br>QKTD + QKĐ: QKTD là nền (while/when) + QKĐ gián đoạn.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TƯƠNG LAI -->
+  <div class="tense-group reveal">
+    <div class="tense-group-title">🟢 Nhóm Tương Lai</div>
+    <div class="tense-cards">
+      <div class="tense-card">
+        <div class="tense-card-header" style="background:rgba(74,222,128,.06)">
+          <div class="tense-card-name">Tương Lai Đơn (Will)</div><span class="tense-level level-basic">Cơ bản</span>
+        </div>
+        <div class="tense-card-body">
+          <div class="formula">(+) S + will + V-inf
+(-) S + will not + V-inf
+(?) Will + S + V-inf?</div>
+          <p style="font-size:.82rem;color:var(--text2);margin-bottom:.5rem;">Quyết định tức thì, dự đoán chung, lời hứa, đề nghị ("I'll help you!").</p>
+          <div class="signals"><span class="signal-tag">tomorrow</span><span class="signal-tag">next year</span><span class="signal-tag">in the future</span><span class="signal-tag">I think/believe</span></div>
+          <div class="example">It <strong>will rain</strong> tomorrow. / I <strong>will open</strong> the door! (quyết định tức thì)</div>
+        </div>
+      </div>
+      <div class="tense-card">
+        <div class="tense-card-header" style="background:rgba(74,222,128,.06)">
+          <div class="tense-card-name">Tương Lai Gần (Be going to)</div><span class="tense-level level-basic">Cơ bản</span>
+        </div>
+        <div class="tense-card-body">
+          <div class="formula">(+) S + am/is/are + going to + V</div>
+          <p style="font-size:.82rem;color:var(--text2);margin-bottom:.5rem;">Kế hoạch đã định trước, ý định, dự đoán có bằng chứng hiện tại.</p>
+          <div class="signals"><span class="signal-tag">plan to</span><span class="signal-tag">intend to</span><span class="signal-tag">this weekend</span></div>
+          <div class="example">Look at those clouds! It <strong>is going to</strong> rain. (bằng chứng rõ)</div>
+          <div class="compare" style="margin-top:.75rem;font-size:.83rem;">
+            <div class="compare-l"><div class="compare-label">Will — tức thì</div>"The phone is ringing!" → "I'll answer it!"</div>
+            <div class="compare-r"><div class="compare-label">Going to — kế hoạch</div>"We're going to see a film tonight." (đã lên kế hoạch)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mệnh đề trạng ngữ -->
+  <div class="reveal">
+    <div class="advanced-box">
+      <div class="advanced-box-title">🔮 Nâng Cao: Mệnh Đề Trạng Ngữ Thời Gian & Stative Verbs</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;flex-wrap:wrap;">
+        <div>
+          <p class="note-text"><strong>Sau liên từ:</strong> when, while, as soon as, until, before, after, by the time — KHÔNG dùng thì tương lai, thay bằng HTĐ hoặc HTHT.</p>
+          <div class="compare" style="font-size:.82rem;">
+            <div class="compare-l"><div class="compare-label">❌ SAI</div>When she <em>will come</em>, I will cook.</div>
+            <div class="compare-r"><div class="compare-label">✅ ĐÚNG</div>When she <em>comes</em>, I will cook.</div>
+          </div>
+        </div>
+        <div>
+          <p class="note-text"><strong>Stative Verbs — KHÔNG dùng V-ing:</strong></p>
+          <ul class="glist">
+            <li><strong>Cảm xúc:</strong> love, hate, like, prefer, want, wish</li>
+            <li><strong>Nhận thức:</strong> know, believe, understand, remember, forget</li>
+            <li><strong>Giác quan:</strong> see, hear, smell, taste, feel</li>
+            <li><strong>Sở hữu:</strong> have, own, belong, possess</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 2: CẤU TRÚC NGỮ PHÁP CƠ BẢN -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="grammar">
+  <div class="section-header reveal">
+    <div class="section-number">02</div>
+    <div class="section-title-group">
+      <h2>Cấu Trúc Ngữ Pháp Trọng Tâm</h2>
+      <p>Bị động · Điều kiện · Quan hệ · So sánh · Câu gián tiếp · Danh động từ</p>
+    </div>
+  </div>
+
+  <!-- A. PASSIVE -->
+  <div class="grammar-block open reveal">
+    <div class="grammar-block-header" onclick="toggleBlock(this)">
+      <div class="grammar-block-letter" style="background:rgba(62,207,207,.12);color:var(--teal)">A</div>
+      <div class="grammar-block-title">Câu Bị Động <span class="grammar-block-subtitle">Passive Voice</span></div>
+      <div class="grammar-block-arrow">▼</div>
+    </div>
+    <div class="grammar-block-body">
+      <div class="note-box" style="margin-bottom:1.25rem;">
+        <div class="note-title">📌 Công thức chung</div>
+        <p class="note-text">Chủ động: <strong>S + V + O</strong> → Bị động: <strong>S(mới) + Be(chia thì) + V3/ed + (by + agent)</strong></p>
+        <div class="compare" style="font-size:.84rem;"><div class="compare-l"><div class="compare-label">Chủ động</div>Tom <em>writes</em> a letter.</div><div class="compare-r"><div class="compare-label">Bị động</div>A letter <em>is written</em> by Tom.</div></div>
+      </div>
+      <p class="sub-label">Bảng bị động theo thì</p>
+      <div class="verb-table-wrap" style="margin-bottom:1.25rem;">
+        <table class="tbl">
+          <thead><tr><th>Thì</th><th>Chủ động</th><th>Bị động</th></tr></thead>
+          <tbody>
+            <tr><td>HTĐ</td><td style="color:var(--text2)">She cleans the room.</td><td><em>The room is cleaned.</em></td></tr>
+            <tr><td>HTTD</td><td style="color:var(--text2)">She is cleaning it.</td><td><em>It is being cleaned.</em></td></tr>
+            <tr><td>HTHT</td><td style="color:var(--text2)">She has cleaned it.</td><td><em>It has been cleaned.</em></td></tr>
+            <tr><td>QKĐ</td><td style="color:var(--text2)">She cleaned it.</td><td><em>It was cleaned.</em></td></tr>
+            <tr><td>QKTD</td><td style="color:var(--text2)">She was cleaning it.</td><td><em>It was being cleaned.</em></td></tr>
+            <tr><td>QKHT</td><td style="color:var(--text2)">She had cleaned it.</td><td><em>It had been cleaned.</em></td></tr>
+            <tr><td>TLĐ</td><td style="color:var(--text2)">She will clean it.</td><td><em>It will be cleaned.</em></td></tr>
+            <tr><td>Modal</td><td style="color:var(--text2)">She must clean it.</td><td><em>It must be cleaned.</em></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note-box" style="margin-bottom:1rem;">
+        <div class="note-title">📋 4 Bước chuyển đổi</div>
+        <ul class="glist">
+          <li><strong>Bước 1:</strong> Tân ngữ (O) của câu chủ động → làm chủ ngữ câu bị động.</li>
+          <li><strong>Bước 2:</strong> Chia động từ "be" theo đúng thì của câu gốc.</li>
+          <li><strong>Bước 3:</strong> Chuyển động từ chính sang V3/ed (past participle).</li>
+          <li><strong>Bước 4:</strong> Thêm "by + chủ ngữ cũ" nếu cần thiết (quan trọng hoặc để rõ ràng).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- B. CAUSATIVE -->
+  <div class="grammar-block reveal">
+    <div class="grammar-block-header" onclick="toggleBlock(this)">
+      <div class="grammar-block-letter" style="background:rgba(251,146,60,.12);color:var(--orange)">B</div>
+      <div class="grammar-block-title">Thể Nhờ Vả <span class="grammar-block-subtitle">Causative — Have / Get / Make / Let / Help</span></div>
+      <div class="grammar-block-arrow">▼</div>
+    </div>
+    <div class="grammar-block-body">
+      <div class="tbl" style="margin-bottom:0">
+        <table class="tbl">
+          <thead><tr><th>Động từ</th><th>Cấu trúc</th><th>Ví dụ</th><th>Ghi chú</th></tr></thead>
+          <tbody>
+            <tr><td style="color:var(--teal);font-weight:600">have</td><td><em>have + O người + V (bare)</em><br><em>have + O vật + V3/ed</em></td><td><em>I had him fix my car.</em><br><em>I had my car fixed.</em></td><td style="font-size:.8rem;color:var(--text2)">Sắp xếp/nhờ ai làm</td></tr>
+            <tr><td style="color:var(--teal);font-weight:600">get</td><td><em>get + O người + to-V</em><br><em>get + O vật + V3/ed</em></td><td><em>She got him to clean it.</em><br><em>She got her hair cut.</em></td><td style="font-size:.8rem;color:var(--text2)">Thuyết phục/nhờ</td></tr>
+            <tr><td style="color:var(--rose);font-weight:600">make</td><td><em>make + O + V (bare)</em><br><em>Bị động: be made to-V</em></td><td><em>The teacher made students rewrite.</em><br><em>Students were made to rewrite.</em></td><td style="font-size:.8rem;color:var(--text2)">Ép buộc</td></tr>
+            <tr><td style="color:var(--green);font-weight:600">let</td><td><em>let + O + V (bare)</em><br><em>Bị động: be allowed to-V</em></td><td><em>Dad let me use the car.</em></td><td style="font-size:.8rem;color:var(--text2)">Cho phép</td></tr>
+            <tr><td style="color:var(--gold);font-weight:600">help</td><td><em>help + O + (to) V</em></td><td><em>She helped him (to) understand.</em></td><td style="font-size:.8rem;color:var(--text2)">Giúp đỡ</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- C. CONDITIONAL -->
+  <div class="grammar-block reveal">
+    <div class="grammar-block-header" onclick="toggleBlock(this)">
+      <div class="grammar-block-letter" style="background:rgba(245,200,66,.12);color:var(--gold)">C</div>
+      <div class="grammar-block-title">Câu Điều Kiện <span class="grammar-block-subtitle">Conditional Sentences — Loại 0, 1, 2, 3, Mixed</span></div>
+      <div class="grammar-block-arrow">▼</div>
+    </div>
+    <div class="grammar-block-body">
+      <div class="cond-grid">
+        <div class="cond-card" style="background:rgba(62,207,207,.05);border-color:rgba(62,207,207,.2)">
+          <div class="cond-type" style="color:var(--teal)">Loại 0 — Sự thật</div>
+          <div class="formula" style="color:var(--teal);margin-bottom:.5rem">If + HTĐ, HTĐ</div>
+          <div class="example">If you <strong>heat</strong> water, it <strong>boils</strong>. (luôn luôn đúng)</div>
+        </div>
+        <div class="cond-card" style="background:rgba(74,222,128,.05);border-color:rgba(74,222,128,.2)">
+          <div class="cond-type" style="color:var(--green)">Loại 1 — Có thể xảy ra</div>
+          <div class="formula" style="color:var(--green);margin-bottom:.5rem">If + HTĐ, will + V</div>
+          <div class="example">If it <strong>rains</strong>, I <strong>will stay</strong> home. (tương lai có thể)</div>
+        </div>
+        <div class="cond-card" style="background:rgba(245,200,66,.05);border-color:rgba(245,200,66,.2)">
+          <div class="cond-type" style="color:var(--gold)">Loại 2 — Không thật (HT)</div>
+          <div class="formula" style="color:var(--gold);font-size:.78rem;margin-bottom:.5rem">If + V2/were, would + V</div>
+          <div class="example">If I <strong>were</strong> you, I <strong>would apologize</strong>. <span style="color:var(--gold);font-size:.8rem">⚠️ "were" cho mọi ngôi</span></div>
+        </div>
+        <div class="cond-card" style="background:rgba(167,139,250,.05);border-color:rgba(167,139,250,.2)">
+          <div class="cond-type" style="color:var(--purple)">Loại 3 — Không thật (QK)</div>
+          <div class="formula" style="color:var(--purple);font-size:.78rem;margin-bottom:.5rem">If + had + V3, would have + V3</div>
+          <div class="example">If she <strong>had studied</strong>, she <strong>would have passed</strong>. (tiếc nuối QK)</div>
+        </div>
+        <div class="cond-card" style="background:rgba(245,101,101,.05);border-color:rgba(245,101,101,.2)">
+          <div class="cond-type" style="color:var(--rose)">Mixed — QK → HT</div>
+          <div class="formula" style="color:var(--rose);font-size:.78rem;margin-bottom:.5rem">If + had V3(QK), would + V(HT)</div>
+          <div class="example">If I <strong>had taken</strong> the job, I <strong>would be</strong> rich now.</div>
+        </div>
+        <div class="cond-card" style="background:rgba(96,165,250,.05);border-color:rgba(96,165,250,.2)">
+          <div class="cond-type" style="color:var(--blue)">Mixed — HT → QK</div>
+          <div class="formula" style="color:var(--blue);font-size:.78rem;margin-bottom:.5rem">If + V2/were(HT), would have + V3(QK)</div>
+          <div class="example">If I <strong>were</strong> smarter, I <strong>would have solved</strong> it.</div>
+        </div>
+      </div>
+      <div class="advanced-box">
+        <div class="advanced-box-title">🔮 Đảo Ngữ, Unless, Provided, As long as</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div>
+            <p class="sub-label">Đảo ngữ (bỏ "If")</p>
+            <ul class="glist">
+              <li><strong>Loại 1:</strong> Should + S + V → Should you need help...</li>
+              <li><strong>Loại 2:</strong> Were + S (+ to-V) → Were I rich...</li>
+              <li><strong>Loại 3:</strong> Had + S + V3 → Had she known...</li>
+            </ul>
+          </div>
+          <div>
+            <p class="sub-label">Từ thay thế "If"</p>
+            <ul class="glist">
+              <li><strong>Unless</strong> = if not: Unless you hurry, you'll be late.</li>
+              <li><strong>Provided/As long as</strong> = miễn là: You can go provided you finish first.</li>
+              <li><strong>Suppose/Supposing</strong> = giả sử: Suppose he calls, what will you say?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- D. RELATIVE CLAUSES -->
+  <div class="grammar-block reveal">
+    <div class="grammar-block-header" onclick="toggleBlock(this)">
+      <div class="grammar-block-letter" style="background:rgba(167,139,250,.12);color:var(--purple)">D</div>
+      <div class="grammar-block-title">Mệnh Đề Quan Hệ <span class="grammar-block-subtitle">Relative Clauses</span></div>
+      <div class="grammar-block-arrow">▼</div>
+    </div>
+    <div class="grammar-block-body">
+      <div class="verb-table-wrap" style="margin-bottom:1.25rem;">
+        <table class="tbl">
+          <thead><tr><th>Đại từ</th><th>Thay thế</th><th>Ví dụ</th></tr></thead>
+          <tbody>
+            <tr><td style="color:var(--purple);font-weight:600">who</td><td style="color:var(--text2)">Người (chủ ngữ)</td><td><em>The man who lives next door is kind.</em></td></tr>
+            <tr><td style="color:var(--purple);font-weight:600">whom</td><td style="color:var(--text2)">Người (tân ngữ)</td><td><em>The girl whom I met was smart.</em></td></tr>
+            <tr><td style="color:var(--purple);font-weight:600">which</td><td style="color:var(--text2)">Vật, con vật</td><td><em>The book which I bought is great.</em></td></tr>
+            <tr><td style="color:var(--purple);font-weight:600">that</td><td style="color:var(--text2)">Người/Vật (xác định)</td><td><em>The car that he bought is red.</em> (không có dấu phẩy)</td></tr>
+            <tr><td style="color:var(--purple);font-weight:600">whose</td><td style="color:var(--text2)">Sở hữu (người/vật)</td><td><em>The student whose bag was stolen...</em></td></tr>
+            <tr><td style="color:var(--purple);font-weight:600">where</td><td style="color:var(--text2)">Địa điểm</td><td><em>The city where I was born...</em></td></tr>
+            <tr><td style="color:var(--purple);font-weight:600">when</td><td style="color:var(--text2)">Thời gian</td><td><em>The day when we met...</em></td></tr>
+            <tr><td style="color:var(--purple);font-weight:600">what</td><td style="color:var(--text2)">= the thing(s) that</td><td><em>What she said surprised everyone.</em></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="compare" style="margin-bottom:1rem;font-size:.84rem;">
+        <div class="compare-l"><div class="compare-label">Xác định (Defining) — không dấu phẩy</div><em>The woman who lives next door is a doctor.</em><br><small style="color:var(--text3)">Thiếu mệnh đề → câu mất nghĩa. Dùng được "that".</small></div>
+        <div class="compare-r"><div class="compare-label">Không xác định (Non-defining) — có dấu phẩy</div><em>My mother, who is 50, loves cooking.</em><br><small style="color:var(--text3)">Bỏ mệnh đề vẫn hiểu câu. KHÔNG dùng "that".</small></div>
+      </div>
+      <div class="advanced-box">
+        <div class="advanced-box-title">🔮 Rút Gọn & Giới Từ + which/whom</div>
+        <ul class="glist">
+          <li><strong>Chủ ngữ chủ động → V-ing:</strong> The man who is standing → The man <em>standing</em>...</li>
+          <li><strong>Chủ ngữ bị động → V3/ed:</strong> The car which was made in Japan → The car <em>made</em> in Japan</li>
+          <li><strong>Sau first/last/only + số thứ tự → to-V:</strong> He is the first man <em>to walk</em> on the moon.</li>
+          <li><strong>Giới từ + which/whom (trang trọng):</strong> The house <em>in which</em> she lives. / The man <em>with whom</em> I spoke.</li>
+          <li><strong>Which chỉ cả mệnh đề trước:</strong> He passed the exam, <em>which</em> surprised everyone.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- E. REPORTED SPEECH -->
+  <div class="grammar-block reveal">
+    <div class="grammar-block-header" onclick="toggleBlock(this)">
+      <div class="grammar-block-letter" style="background:rgba(96,165,250,.12);color:var(--blue)">E</div>
+      <div class="grammar-block-title">Câu Gián Tiếp / Tường Thuật <span class="grammar-block-subtitle">Reported Speech</span></div>
+      <div class="grammar-block-arrow">▼</div>
+    </div>
+    <div class="grammar-block-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+        <div>
+          <p class="sub-label">Quy tắc lùi thì</p>
+          <table class="tbl">
+            <thead><tr><th>Trực tiếp</th><th>Gián tiếp</th></tr></thead>
+            <tbody>
+              <tr><td style="color:var(--text2)">Simple Present</td><td><em>Simple Past</em></td></tr>
+              <tr><td style="color:var(--text2)">Present Continuous</td><td><em>Past Continuous</em></td></tr>
+              <tr><td style="color:var(--text2)">Present Perfect</td><td><em>Past Perfect</em></td></tr>
+              <tr><td style="color:var(--text2)">Past Simple</td><td><em>Past Perfect</em></td></tr>
+              <tr><td style="color:var(--text2)">will</td><td><em>would</em></td></tr>
+              <tr><td style="color:var(--text2)">can / may / must</td><td><em>could / might / had to</em></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <p class="sub-label">Đổi trạng từ & đại từ</p>
+          <table class="tbl">
+            <thead><tr><th>Trực tiếp</th><th>Gián tiếp</th></tr></thead>
+            <tbody>
+              <tr><td style="color:var(--text2)">now / today</td><td><em>then / that day</em></td></tr>
+              <tr><td style="color:var(--text2)">yesterday</td><td><em>the day before</em></td></tr>
+              <tr><td style="color:var(--text2)">tomorrow</td><td><em>the next day</em></td></tr>
+              <tr><td style="color:var(--text2)">here / this / these</td><td><em>there / that / those</em></td></tr>
+              <tr><td style="color:var(--text2)">I / me / my</td><td><em>he/she / him/her / his/her</em></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="note-box" style="margin-bottom:1rem;">
+        <div class="note-title">📌 Các loại câu gián tiếp</div>
+        <ul class="glist">
+          <li><strong>Trần thuật:</strong> He said, "I am tired." → He said (that) he <em>was</em> tired.</li>
+          <li><strong>Yes/No:</strong> "Are you ready?" → She asked <em>if/whether</em> I was ready.</li>
+          <li><strong>Wh-:</strong> "Where do you live?" → He asked <em>where</em> I lived.</li>
+          <li><strong>Mệnh lệnh:</strong> "Open the window!" → She told him <em>to open</em> the window.</li>
+          <li><strong>Phủ định:</strong> "Don't smoke!" → He warned me <em>not to smoke</em>.</li>
+        </ul>
+      </div>
+      <div class="advanced-box">
+        <div class="advanced-box-title">🔮 Động Từ Tường Thuật Nâng Cao</div>
+        <table class="tbl">
+          <thead><tr><th>Cấu trúc</th><th>Động từ</th><th>Ví dụ</th></tr></thead>
+          <tbody>
+            <tr><td>V + to-inf</td><td style="color:var(--text2)">agree, refuse, promise, offer</td><td><em>She agreed to help me.</em></td></tr>
+            <tr><td>V + O + to-inf</td><td style="color:var(--text2)">tell, ask, warn, remind, invite</td><td><em>He warned me not to go.</em></td></tr>
+            <tr><td>V + that</td><td style="color:var(--text2)">say, claim, admit, deny</td><td><em>He admitted that he was wrong.</em></td></tr>
+            <tr><td>V + V-ing</td><td style="color:var(--text2)">suggest, recommend, deny</td><td><em>She suggested going out.</em></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- F. COMPARISON -->
+  <div class="grammar-block reveal">
+    <div class="grammar-block-header" onclick="toggleBlock(this)">
+      <div class="grammar-block-letter" style="background:rgba(74,222,128,.12);color:var(--green)">F</div>
+      <div class="grammar-block-title">Cấu Trúc So Sánh <span class="grammar-block-subtitle">Comparisons</span></div>
+      <div class="grammar-block-arrow">▼</div>
+    </div>
+    <div class="grammar-block-body">
+      <table class="tbl" style="margin-bottom:1rem;">
+        <thead><tr><th>Loại</th><th>Tính từ ngắn</th><th>Tính từ dài</th><th>Ví dụ</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--green);font-weight:600">So sánh bằng</td><td><em>as + adj + as</em></td><td><em>as + adj + as</em></td><td><em>She is as tall as her sister.</em></td></tr>
+          <tr><td style="color:var(--gold);font-weight:600">So sánh hơn</td><td><em>adj-er + than</em></td><td><em>more + adj + than</em></td><td><em>He is taller / more intelligent than me.</em></td></tr>
+          <tr><td style="color:var(--rose);font-weight:600">So sánh nhất</td><td><em>the + adj-est</em></td><td><em>the most + adj</em></td><td><em>She is the tallest / the most beautiful.</em></td></tr>
+          <tr><td style="color:var(--teal);font-weight:600">So sánh kém</td><td><em>less + adj + than</em></td><td><em>less + adj + than</em></td><td><em>This book is less interesting than that.</em></td></tr>
+          <tr><td style="color:var(--teal);font-weight:600">Kém nhất</td><td><em>the least + adj</em></td><td><em>the least + adj</em></td><td><em>She is the least experienced.</em></td></tr>
+        </tbody>
+      </table>
+      <div class="note-box" style="margin-bottom:1rem;">
+        <div class="note-title">📌 Bất quy tắc & Quy tắc thêm đuôi</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;font-size:.84rem;">
+          <ul class="glist">
+            <li>good/well → better → best</li>
+            <li>bad → worse → worst</li>
+            <li>far → farther/further → farthest/furthest</li>
+            <li>many/much → more → most</li>
+          </ul>
+          <ul class="glist">
+            <li>Tận cùng -e: nice → nicer → nicest</li>
+            <li>Phụ âm + y: happy → happier → happiest</li>
+            <li>1 nguyên âm + 1 phụ âm: big → bigger</li>
+            <li>twice/three times as...as: gấp đôi/ba</li>
+          </ul>
+        </div>
+      </div>
+      <div class="advanced-box">
+        <div class="advanced-box-title">🔮 Cấu Trúc Nâng Cao</div>
+        <ul class="glist">
+          <li><strong>So sánh kép (càng...càng):</strong> The more you study, the smarter you become.</li>
+          <li><strong>much/far/a lot + so sánh hơn:</strong> She is much smarter than him.</li>
+          <li><strong>Gấp đôi:</strong> This bag is twice as expensive as that one.</li>
+          <li><strong>No + so sánh hơn + than:</strong> He's no better than before.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- G. GERUND vs INFINITIVE -->
+  <div class="grammar-block reveal">
+    <div class="grammar-block-header" onclick="toggleBlock(this)">
+      <div class="grammar-block-letter" style="background:rgba(251,146,60,.12);color:var(--orange)">G</div>
+      <div class="grammar-block-title">Danh Động Từ & Nguyên Mẫu <span class="grammar-block-subtitle">Gerund vs Infinitive</span></div>
+      <div class="grammar-block-arrow">▼</div>
+    </div>
+    <div class="grammar-block-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+        <div>
+          <p class="sub-label">Gerund (V-ing) — dùng như danh từ</p>
+          <div class="formula" style="color:var(--teal);margin-bottom:.5rem">enjoy/mind/avoid/finish/suggest/consider/deny/miss/stop/keep + V-ing</div>
+          <div class="example" style="margin-bottom:.5rem">Swimming is good for health.<br>I enjoy <strong>reading</strong> books.</div>
+        </div>
+        <div>
+          <p class="sub-label">Infinitive (to-V) — mục đích, dự định</p>
+          <div class="formula" style="color:var(--green);margin-bottom:.5rem">want/need/decide/hope/plan/agree/refuse/offer/promise/try + to-V</div>
+          <div class="example" style="margin-bottom:.5rem">She wants <strong>to learn</strong> French.<br>He decided <strong>to quit</strong> his job.</div>
+        </div>
+      </div>
+      <div class="advanced-box">
+        <div class="advanced-box-title">🔮 Nghĩa Thay Đổi Theo Dạng</div>
+        <table class="tbl">
+          <thead><tr><th>Động từ</th><th>+ Gerund (V-ing)</th><th>+ Infinitive (to-V)</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:600">stop</td><td><em>stop doing</em> = dừng làm gì</td><td><em>stop to do</em> = dừng lại ĐỂ làm</td></tr>
+            <tr><td style="font-weight:600">remember</td><td><em>remember doing</em> = nhớ đã làm</td><td><em>remember to do</em> = nhớ phải làm</td></tr>
+            <tr><td style="font-weight:600">forget</td><td><em>forget doing</em> = quên rằng đã làm</td><td><em>forget to do</em> = quên chưa làm</td></tr>
+            <tr><td style="font-weight:600">try</td><td><em>try doing</em> = thử xem sao</td><td><em>try to do</em> = cố gắng làm</td></tr>
+            <tr><td style="font-weight:600">regret</td><td><em>regret doing</em> = hối tiếc đã làm</td><td><em>regret to do</em> = tiếc phải thông báo</td></tr>
+          </tbody>
+        </table>
+        <p class="note-text" style="margin-top:.75rem">⚠️ <strong>Sau giới từ:</strong> LUÔN dùng V-ing (không dùng to-V). VD: She is good at <em>solving</em> problems. / Instead of <em>complaining</em>, take action.</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 3: CẤU TRÚC NÂNG CAO -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="advanced-grammar">
+  <div class="section-header reveal">
+    <div class="section-number">03</div>
+    <div class="section-title-group">
+      <h2>Cấu Trúc Nâng Cao</h2>
+      <p>It's time · Wish · Would rather · Not only · Từ nối · Đảo ngữ · Bị động đặc biệt</p>
+    </div>
+  </div>
+
+  <!-- ITS TIME / WISH / WOULD RATHER -->
+  <div class="grammar-block open reveal">
+    <div class="grammar-block-header" onclick="toggleBlock(this)">
+      <div class="grammar-block-letter" style="background:rgba(245,200,66,.12);color:var(--gold)">A</div>
+      <div class="grammar-block-title">It's time · Wish · Would rather · As if <span class="grammar-block-subtitle">Subjunctive</span></div>
+      <div class="grammar-block-arrow">▼</div>
+    </div>
+    <div class="grammar-block-body">
+      <div class="sub-label">It's time</div>
+      <ul class="glist" style="margin-bottom:1rem;">
+        <li><strong>It's time + to-V</strong> (nói chung): It's time <em>to go</em>.</li>
+        <li><strong>It's (high/about) time + S + V₂</strong> (nhẹ trách cứ): It's high time you <em>went</em> to bed.</li>
+      </ul>
+      <div class="sub-label">Wish</div>
+      <table class="tbl" style="margin-bottom:1rem;">
+        <thead><tr><th>Loại</th><th>Cấu trúc</th><th>Ví dụ</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--green);font-weight:600">Ước HT (trái thực)</td><td><em>S + wish + S + V₂/were</em></td><td><em>I wish I were taller. (tôi không cao)</em></td></tr>
+          <tr><td style="color:var(--gold);font-weight:600">Ước QK (hối tiếc)</td><td><em>S + wish + S + had + V₃</em></td><td><em>I wish I had studied harder.</em></td></tr>
+          <tr><td style="color:var(--purple);font-weight:600">Ước TL (khó chịu)</td><td><em>S + wish + S + would + V</em></td><td><em>I wish he would stop talking loudly.</em></td></tr>
+        </tbody>
+      </table>
+      <div class="advanced-box" style="margin-bottom:1rem;">
+        <div class="advanced-box-title">🔮 If Only · Wish vs Hope</div>
+        <ul class="glist">
+          <li><strong>If only</strong> = wish nhưng mạnh hơn, cảm xúc hơn: <em>If only I had more time!</em></li>
+          <li><strong>Wish</strong> = không có thật / trái thực tế. <strong>Hope</strong> = điều có thể xảy ra. VD: <em>I wish it were sunny</em> (hôm nay mưa) vs <em>I hope it will be sunny tomorrow</em> (có thể).</li>
+        </ul>
+      </div>
+      <div class="sub-label">Would rather & As if / As though</div>
+      <ul class="glist">
+        <li><strong>Would rather + V (bare)</strong> [chính mình]: I <em>would rather stay</em> home than go out.</li>
+        <li><strong>Would rather + S + V₂</strong> [người khác]: I would rather you <em>didn't</em> tell him.</li>
+        <li><strong>As if/As though + V₂</strong> [HT giả định]: He talks <em>as if he knew</em> everything.</li>
+        <li><strong>As if/As though + had V₃</strong> [QK giả định]: She cried <em>as if she had lost</em> everything.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- NOT ONLY / BOTH / NEITHER / NO SOONER -->
+  <div class="grammar-block reveal">
+    <div class="grammar-block-header" onclick="toggleBlock(this)">
+      <div class="grammar-block-letter" style="background:rgba(62,207,207,.12);color:var(--teal)">B</div>
+      <div class="grammar-block-title">Not only...but also · Both/Either/Neither · No sooner <span class="grammar-block-subtitle">Correlative Conjunctions</span></div>
+      <div class="grammar-block-arrow">▼</div>
+    </div>
+    <div class="grammar-block-body">
+      <div class="formula" style="margin-bottom:.75rem">S + not only + A + but also + B
+Not only + aux + S + V, but S + also + V  (đảo ngữ khi đứng đầu câu)</div>
+      <div class="example" style="margin-bottom:1rem">She is <strong>not only</strong> smart <strong>but also</strong> kind.<br><strong>Not only did</strong> he sing, but he <strong>also</strong> danced. ← đảo ngữ mệnh đề đầu</div>
+      <div class="note-box" style="margin-bottom:1rem;">
+        <div class="note-title">📌 Các cặp tương quan khác</div>
+        <ul class="glist">
+          <li><strong>Both…and:</strong> She is <em>both</em> kind <em>and</em> smart. (cả hai)</li>
+          <li><strong>Either…or:</strong> Take <em>either</em> the bus <em>or</em> the train. (một trong hai)</li>
+          <li><strong>Neither…nor:</strong> <em>Neither</em> he <em>nor</em> she was there. (không cái nào)</li>
+          <li><strong>No sooner…than</strong> [đảo ngữ]: <em>No sooner had</em> she left <em>than</em> it rained. (vừa...thì ngay lập tức)</li>
+          <li><strong>Hardly/Scarcely…when</strong> [đảo ngữ]: <em>Hardly had</em> I arrived <em>when</em> he called.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- TỪ NỐI -->
+  <div class="grammar-block reveal">
+    <div class="grammar-block-header" onclick="toggleBlock(this)">
+      <div class="grammar-block-letter" style="background:rgba(74,222,128,.12);color:var(--green)">C</div>
+      <div class="grammar-block-title">Từ Nối (Connectors) <span class="grammar-block-subtitle">Linking Words — toàn diện</span></div>
+      <div class="grammar-block-arrow">▼</div>
+    </div>
+    <div class="grammar-block-body">
+      <table class="tbl">
+        <thead><tr><th>Loại</th><th>Từ nối</th><th>Lưu ý</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--teal);font-weight:600">Thêm ý</td><td><em>and, moreover, furthermore, in addition, besides, also, what is more</em></td><td style="font-size:.8rem;color:var(--text2)"></td></tr>
+          <tr><td style="color:var(--gold);font-weight:600">Tương phản</td><td><em>but, however, yet, nevertheless, whereas, while, on the other hand</em></td><td style="font-size:.8rem;color:var(--text2)"></td></tr>
+          <tr><td style="color:var(--purple);font-weight:600">Nhượng bộ</td><td><em>although/even though + S+V; despite/in spite of + N/V-ing</em></td><td style="font-size:.8rem;color:var(--rose)">⚠️ Không viết "Although…but…"!</td></tr>
+          <tr><td style="color:var(--rose);font-weight:600">Kết quả</td><td><em>so, therefore, thus, as a result, consequently, hence</em></td><td></td></tr>
+          <tr><td style="color:var(--green);font-weight:600">Mục đích</td><td><em>to/in order to/so as to + V; so that/in order that + S+can/will</em></td><td></td></tr>
+          <tr><td style="color:var(--blue);font-weight:600">Nguyên nhân</td><td><em>because, since, as, due to, because of, owing to + N/V-ing</em></td><td></td></tr>
+        </tbody>
+      </table>
+      <div class="advanced-box" style="margin-top:1rem;">
+        <div class="advanced-box-title">🔮 So...that · Such...that · Nhượng bộ đặc biệt · For fear that</div>
+        <ul class="glist">
+          <li><strong>So + adj/adv + that:</strong> She was <em>so tired that</em> she fell asleep.</li>
+          <li><strong>Such + (a/an) + adj + N + that:</strong> It was <em>such a hard exam that</em> many failed.</li>
+          <li><strong>Much as / Try as:</strong> <em>Much as</em> I'd like to help, I can't. / <em>Try as</em> he might, he couldn't open the door.</li>
+          <li><strong>No matter + wh-:</strong> <em>No matter what</em> you say, I won't change my mind. / <em>No matter how</em> hard it is, don't give up.</li>
+          <li><strong>For fear that / Lest:</strong> She whispered <em>for fear that</em> she might wake the baby. / He ran <em>lest</em> he should miss the train.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ĐẢO NGỮ -->
+  <div class="grammar-block reveal">
+    <div class="grammar-block-header" onclick="toggleBlock(this)">
+      <div class="grammar-block-letter" style="background:rgba(245,101,101,.12);color:var(--rose)">D</div>
+      <div class="grammar-block-title">Đảo Ngữ Nhấn Mạnh <span class="grammar-block-subtitle">Full Inversion</span></div>
+      <div class="grammar-block-arrow">▼</div>
+    </div>
+    <div class="grammar-block-body">
+      <div class="formula" style="margin-bottom:1rem">Trạng từ/cụm phủ định + aux + S + V</div>
+      <div class="tbl">
+        <table class="tbl">
+          <thead><tr><th>Cấu trúc</th><th>Ví dụ</th></tr></thead>
+          <tbody>
+            <tr><td style="font-family:'DM Mono',monospace;color:var(--teal);font-size:.83rem">Never + have/has + S + V3</td><td><em>Never have I seen such beauty.</em></td></tr>
+            <tr><td style="font-family:'DM Mono',monospace;color:var(--teal);font-size:.83rem">Seldom/Rarely + does/did + S + V</td><td><em>Seldom does she complain.</em></td></tr>
+            <tr><td style="font-family:'DM Mono',monospace;color:var(--teal);font-size:.83rem">Little + did + S + V</td><td><em>Little did he know the truth.</em></td></tr>
+            <tr><td style="font-family:'DM Mono',monospace;color:var(--teal);font-size:.83rem">Not only + did + S + V, but...</td><td><em>Not only did he fail, but he also quit.</em></td></tr>
+            <tr><td style="font-family:'DM Mono',monospace;color:var(--teal);font-size:.83rem">Only then + did + S + V</td><td><em>Only then did I understand.</em></td></tr>
+            <tr><td style="font-family:'DM Mono',monospace;color:var(--teal);font-size:.83rem">Only if + ... + will + S + V</td><td><em>Only if you try hard will you succeed.</em></td></tr>
+            <tr><td style="font-family:'DM Mono',monospace;color:var(--teal);font-size:.83rem">No sooner + had + S + V3 + than</td><td><em>No sooner had she left than it rained.</em></td></tr>
+            <tr><td style="font-family:'DM Mono',monospace;color:var(--teal);font-size:.83rem">Hardly + had + S + V3 + when</td><td><em>Hardly had I arrived when he called.</em></td></tr>
+            <tr><td style="font-family:'DM Mono',monospace;color:var(--teal);font-size:.83rem">So + adj + be + S</td><td><em>So tired was she that she fell asleep.</em></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- BỊ ĐỘNG NÂNG CAO -->
+  <div class="grammar-block reveal">
+    <div class="grammar-block-header" onclick="toggleBlock(this)">
+      <div class="grammar-block-letter" style="background:rgba(96,165,250,.12);color:var(--blue)">E</div>
+      <div class="grammar-block-title">Bị Động Nâng Cao <span class="grammar-block-subtitle">Passive Advanced</span></div>
+      <div class="grammar-block-arrow">▼</div>
+    </div>
+    <div class="grammar-block-body">
+      <div class="sub-label">Verbs of Perception (see, hear, watch, feel...)</div>
+      <div class="formula" style="margin-bottom:.75rem">S + be seen/heard/felt + to-V  (hoàn thành)
+S + be seen/heard/felt + V-ing  (tiếp diễn)</div>
+      <ul class="glist" style="margin-bottom:1rem;">
+        <li>He <em>was seen to enter</em> the building. (đã vào)</li>
+        <li>She <em>was heard singing</em> in the shower. (đang hát)</li>
+        <li>Make → <em>be made to-V</em>: He was made to work. | Let → <em>be allowed to-V</em>: We were allowed to go.</li>
+      </ul>
+      <div class="sub-label">Verbs of Thinking (say, think, believe, report, consider, know...)</div>
+      <div class="formula" style="margin-bottom:.75rem">It + be + V3 + that-clause
+S + be + V3 + to-V  (cùng thì)
+S + be + V3 + to have + V3  (trước thì)</div>
+      <ul class="glist" style="margin-bottom:1rem;">
+        <li><em>It is believed that</em> he is guilty. = He <em>is believed to be</em> guilty.</li>
+        <li>He <em>is believed to have committed</em> the crime. (đã xảy ra trước)</li>
+      </ul>
+      <div class="sub-label">2 tân ngữ & Bị động V-ing</div>
+      <ul class="glist">
+        <li>Active: She gave <em>him</em> a book. → Passive 1: <em>He</em> was given a book. / Passive 2: <em>A book</em> was given to him.</li>
+        <li><em>enjoy/avoid/consider + being + V3:</em> She enjoys <em>being praised</em>. / He hates <em>being ignored</em>.</li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 4: PHONETICS -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="phonetics">
+  <div class="section-header reveal">
+    <div class="section-number">04</div>
+    <div class="section-title-group">
+      <h2>Phát Âm và Nhấn Âm</h2>
+      <p>IPA · Đuôi -s/es và -ed · Trọng âm từ · Nhấn âm câu · Connected speech</p>
+    </div>
+  </div>
+
+  <!-- IPA -->
+  <div class="tense-group reveal">
+    <div class="tense-group-title">🔤 Bảng IPA — Nguyên Âm Tiếng Anh</div>
+    <div class="ipa-grid">
+      <div class="ipa-card"><div class="ipa-symbol">/iː/</div><div class="ipa-type">Nguyên âm dài</div><div class="ipa-example">s<u>ee</u>, t<u>ea</u></div></div>
+      <div class="ipa-card"><div class="ipa-symbol">/ɪ/</div><div class="ipa-type">Nguyên âm ngắn</div><div class="ipa-example">s<u>i</u>t, k<u>i</u>t</div></div>
+      <div class="ipa-card"><div class="ipa-symbol">/e/</div><div class="ipa-type">Nguyên âm</div><div class="ipa-example">b<u>e</u>d, s<u>e</u>t</div></div>
+      <div class="ipa-card"><div class="ipa-symbol">/æ/</div><div class="ipa-type">Nguyên âm</div><div class="ipa-example">c<u>a</u>t, b<u>a</u>d</div></div>
+      <div class="ipa-card"><div class="ipa-symbol">/ɑː/</div><div class="ipa-type">Nguyên âm dài</div><div class="ipa-example">f<u>a</u>ther, c<u>a</u>r</div></div>
+      <div class="ipa-card"><div class="ipa-symbol">/ɒ/</div><div class="ipa-type">Nguyên âm ngắn</div><div class="ipa-example">h<u>o</u>t, d<u>o</u>g</div></div>
+      <div class="ipa-card"><div class="ipa-symbol">/ɔː/</div><div class="ipa-type">Nguyên âm dài</div><div class="ipa-example">f<u>or</u>, d<u>oor</u></div></div>
+      <div class="ipa-card"><div class="ipa-symbol">/ʊ/</div><div class="ipa-type">Nguyên âm ngắn</div><div class="ipa-example">p<u>u</u>t, b<u>oo</u>k</div></div>
+      <div class="ipa-card"><div class="ipa-symbol">/uː/</div><div class="ipa-type">Nguyên âm dài</div><div class="ipa-example">f<u>oo</u>d, bl<u>ue</u></div></div>
+      <div class="ipa-card"><div class="ipa-symbol">/ʌ/</div><div class="ipa-type">Nguyên âm</div><div class="ipa-example">c<u>u</u>p, b<u>u</u>s</div></div>
+      <div class="ipa-card"><div class="ipa-symbol">/ɜː/</div><div class="ipa-type">Nguyên âm dài</div><div class="ipa-example">b<u>ir</u>d, w<u>or</u>k</div></div>
+      <div class="ipa-card"><div class="ipa-symbol">/ə/</div><div class="ipa-type">Schwa (phổ biến)</div><div class="ipa-example"><u>a</u>bout, moth<u>er</u></div></div>
+      <div class="ipa-card"><div class="ipa-symbol">/eɪ/</div><div class="ipa-type">Đôi âm</div><div class="ipa-example">d<u>ay</u>, f<u>ace</u></div></div>
+      <div class="ipa-card"><div class="ipa-symbol">/aɪ/</div><div class="ipa-type">Đôi âm</div><div class="ipa-example">m<u>y</u>, n<u>ight</u></div></div>
+      <div class="ipa-card"><div class="ipa-symbol">/ɔɪ/</div><div class="ipa-type">Đôi âm</div><div class="ipa-example">b<u>oy</u>, n<u>oise</u></div></div>
+      <div class="ipa-card"><div class="ipa-symbol">/aʊ/</div><div class="ipa-type">Đôi âm</div><div class="ipa-example">n<u>ow</u>, s<u>ou</u>nd</div></div>
+    </div>
+  </div>
+
+  <!-- PHÁT ÂM -S/ES -->
+  <div class="phon-rule reveal">
+    <div class="phon-rule-title">🔊 Quy tắc Vàng 1: Phát Âm Đuôi -s/es</div>
+    <div class="phon-grid">
+      <div class="phon-cell">
+        <div class="phon-sound" style="color:var(--rose)">/s/</div>
+        <div class="phon-rule-text">Tận cùng âm VÔ THANH:<br>p, t, k, f, th</div>
+        <div class="phon-examples">
+          <span class="phon-ex">stops</span><span class="phon-ex">cats</span><span class="phon-ex">books</span><span class="phon-ex">laughs</span><span class="phon-ex">months</span><span class="phon-ex">helps</span>
+        </div>
+      </div>
+      <div class="phon-cell">
+        <div class="phon-sound" style="color:var(--gold)">/iz/</div>
+        <div class="phon-rule-text">Tận cùng SIBILANT:<br>s, ss, sh, ch, x, z, ge, ce</div>
+        <div class="phon-examples">
+          <span class="phon-ex">buses</span><span class="phon-ex">watches</span><span class="phon-ex">dishes</span><span class="phon-ex">boxes</span><span class="phon-ex">pages</span><span class="phon-ex">faces</span>
+        </div>
+      </div>
+      <div class="phon-cell">
+        <div class="phon-sound" style="color:var(--green)">/z/</div>
+        <div class="phon-rule-text">CÁC TRƯỜNG HỢP CÒN LẠI<br>(âm hữu thanh, nguyên âm)</div>
+        <div class="phon-examples">
+          <span class="phon-ex">dogs</span><span class="phon-ex">boys</span><span class="phon-ex">trees</span><span class="phon-ex">days</span><span class="phon-ex">loves</span><span class="phon-ex">plays</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHÁT ÂM -ED -->
+  <div class="phon-rule reveal">
+    <div class="phon-rule-title">🔊 Quy tắc Vàng 2: Phát Âm Đuôi -ed</div>
+    <div class="phon-grid">
+      <div class="phon-cell">
+        <div class="phon-sound" style="color:var(--rose)">/t/</div>
+        <div class="phon-rule-text">Tận cùng âm VÔ THANH:<br>p, k, f, s, sh, ch</div>
+        <div class="phon-examples">
+          <span class="phon-ex">stopped</span><span class="phon-ex">cooked</span><span class="phon-ex">laughed</span><span class="phon-ex">washed</span><span class="phon-ex">watched</span><span class="phon-ex">helped</span>
+        </div>
+      </div>
+      <div class="phon-cell">
+        <div class="phon-sound" style="color:var(--gold)">/id/</div>
+        <div class="phon-rule-text">Tận cùng âm T hoặc D</div>
+        <div class="phon-examples">
+          <span class="phon-ex">wanted</span><span class="phon-ex">needed</span><span class="phon-ex">started</span><span class="phon-ex">landed</span><span class="phon-ex">visited</span><span class="phon-ex">added</span>
+        </div>
+      </div>
+      <div class="phon-cell">
+        <div class="phon-sound" style="color:var(--green)">/d/</div>
+        <div class="phon-rule-text">CÁC TRƯỜNG HỢP CÒN LẠI<br>(âm hữu thanh, nguyên âm)</div>
+        <div class="phon-examples">
+          <span class="phon-ex">played</span><span class="phon-ex">opened</span><span class="phon-ex">called</span><span class="phon-ex">rained</span><span class="phon-ex">loved</span><span class="phon-ex">moved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRỌNG ÂM -->
+  <div class="reveal" style="margin-bottom:1.5rem;">
+    <div class="tense-group-title">🎯 Trọng Âm (Word Stress)</div>
+    <div class="verb-table-wrap" style="margin-bottom:1.5rem;">
+      <table class="tbl">
+        <thead><tr><th>Quy tắc</th><th>Loại từ / Hậu tố</th><th>Ví dụ</th><th>Ghi chú</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:600;color:var(--gold)">Từ 2 âm tiết — Danh từ/Tính từ</td><td style="color:var(--text2)">Noun / Adjective</td><td><span class="stressed">TA</span>-ble, <span class="stressed">HAP</span>-py, <span class="stressed">MU</span>-sic, <span class="stressed">STU</span>-dent</td><td style="font-size:.8rem;color:var(--text2)">Nhấn âm tiết <strong>1</strong></td></tr>
+          <tr><td style="font-weight:600;color:var(--gold)">Từ 2 âm tiết — Động từ</td><td style="color:var(--text2)">Verb</td><td>de-<span class="stressed">CIDE</span>, be-<span class="stressed">GIN</span>, re-<span class="stressed">PEAT</span>, pre-<span class="stressed">SENT</span></td><td style="font-size:.8rem;color:var(--text2)">Nhấn âm tiết <strong>2</strong></td></tr>
+          <tr><td style="font-weight:600;color:var(--teal)">Hậu tố -tion/-sion/-ic/-ity/-ial/-ious</td><td style="font-family:'DM Mono',monospace;color:var(--teal);font-size:.8rem">Nhấn TRƯỚC hậu tố</td><td>na-<span class="stressed">TION</span>-al, e-co-<span class="stressed">NO</span>-mic, a-<span class="stressed">BIL</span>-i-ty</td><td style="font-size:.8rem;color:var(--text2)">Nhấn trước hậu tố</td></tr>
+          <tr><td style="font-weight:600;color:var(--purple)">Hậu tố -ee/-eer/-ese/-ain</td><td style="font-family:'DM Mono',monospace;color:var(--purple);font-size:.8rem">Nhấn vào HẬU TỐ</td><td>em-ploy-<span class="stressed">EE</span>, engin-<span class="stressed">EER</span>, Viet-nam-<span class="stressed">ESE</span></td><td style="font-size:.8rem;color:var(--text2)">Nhấn vào chính hậu tố</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note-box" style="margin-bottom:1.25rem;">
+      <div class="note-title">💡 Cùng đánh vần — Khác nghĩa — Khác trọng âm</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-top:.5rem;">
+        <div class="adj-prep-item"><strong><span class="stressed">RE</span>-cord</strong> (n) <span class="mean">hồ sơ, đĩa nhạc</span></div>
+        <div class="adj-prep-item"><strong>re-<span class="stressed">CORD</span></strong> (v) <span class="mean">ghi âm</span></div>
+        <div class="adj-prep-item"><strong><span class="stressed">PRE</span>-sent</strong> (n/adj) <span class="mean">quà / hiện tại</span></div>
+        <div class="adj-prep-item"><strong>pre-<span class="stressed">SENT</span></strong> (v) <span class="mean">trình bày</span></div>
+        <div class="adj-prep-item"><strong><span class="stressed">OB</span>-ject</strong> (n) <span class="mean">đồ vật</span></div>
+        <div class="adj-prep-item"><strong>ob-<span class="stressed">JECT</span></strong> (v) <span class="mean">phản đối</span></div>
+        <div class="adj-prep-item"><strong><span class="stressed">IN</span>-crease</strong> (n) <span class="mean">sự tăng trưởng</span></div>
+        <div class="adj-prep-item"><strong>in-<span class="stressed">CREASE</span></strong> (v) <span class="mean">tăng lên</span></div>
+        <div class="adj-prep-item"><strong><span class="stressed">PER</span>-mit</strong> (n) <span class="mean">giấy phép</span></div>
+        <div class="adj-prep-item"><strong>per-<span class="stressed">MIT</span></strong> (v) <span class="mean">cho phép</span></div>
+      </div>
+    </div>
+
+    <div class="advanced-box" style="margin-bottom:1rem;">
+      <div class="advanced-box-title">🔮 Nhấn Âm Câu (Sentence Stress) & Connected Speech</div>
+      <p class="note-text"><strong>Content words</strong> (danh từ, động từ chính, tính từ, trạng từ) được nhấn mạnh. <strong>Function words</strong> (a, the, am, is, at, in, of...) đọc nhẹ /ə/.</p>
+      <div style="font-family:'DM Mono',monospace;font-size:.92rem;background:var(--surface2);border-radius:8px;padding:10px 14px;margin:.75rem 0;color:var(--text2)">She <span class="stressed">BOUGHT</span> a <span class="stressed">NEW</span> <span class="stressed">PHONE</span> <span class="stressed">YESTERDAY</span>. → "a" đọc /ə/</div>
+      <table class="tbl">
+        <thead><tr><th>Hiện tượng</th><th>Mô tả</th><th>Ví dụ</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--teal)">Linking</td><td style="color:var(--text2)">Nối âm cuối từ trước với âm đầu từ sau</td><td><em>an apple → /ə ˈnæpl/</em></td></tr>
+          <tr><td style="color:var(--teal)">Elision</td><td style="color:var(--text2)">Lược bỏ âm</td><td><em>next door → /neks dɔː/</em></td></tr>
+          <tr><td style="color:var(--teal)">Assimilation</td><td style="color:var(--text2)">Âm biến đổi theo âm bên cạnh</td><td><em>ten boys → /tem bɔɪz/</em></td></tr>
+          <tr><td style="color:var(--teal)">Weak forms</td><td style="color:var(--text2)">Từ chức năng đọc nhẹ</td><td><em>"and" → /ən/, "can" → /kən/</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PHỤ ÂM DỄ NHẦM -->
+    <div class="verb-table-wrap">
+      <table class="tbl">
+        <thead><tr><th>Cặp âm dễ nhầm</th><th>Ví dụ</th><th>Mẹo phát âm</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--gold)">/θ/ vs /t/</td><td><em>think /θɪŋk/</em></td><td style="font-size:.83rem;color:var(--text2)">Đặt lưỡi giữa răng, thổi hơi</td></tr>
+          <tr><td style="color:var(--gold)">/ð/ vs /d/</td><td><em>this /ðɪs/</em></td><td style="font-size:.83rem;color:var(--text2)">Như /θ/ nhưng rung dây thanh</td></tr>
+          <tr><td style="color:var(--gold)">/v/ vs /b/</td><td><em>very /ˈveri/</em></td><td style="font-size:.83rem;color:var(--text2)">Răng trên chạm môi dưới</td></tr>
+          <tr><td style="color:var(--gold)">/l/ vs /n/</td><td><em>light vs night</em></td><td style="font-size:.83rem;color:var(--text2)">/l/ lưỡi chạm hàm trên, /n/ hơi qua mũi</td></tr>
+          <tr><td style="color:var(--gold)">/ʃ/ vs /s/</td><td><em>she /ʃiː/ vs sea /siː/</em></td><td style="font-size:.83rem;color:var(--text2)">/ʃ/ môi tròn hơn, âm dày hơn</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 5: GIỚI TỪ & PHRASAL VERBS -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="prepositions">
+  <div class="section-header reveal">
+    <div class="section-number">05</div>
+    <div class="section-title-group">
+      <h2>Giới Từ và Cụm Động Từ</h2>
+      <p>IN/ON/AT · Giới từ phức · Adj+Prep · Verb+Prep · Phrasal Verbs đầy đủ</p>
+    </div>
+  </div>
+
+  <!-- IN/ON/AT -->
+  <div class="reveal" style="margin-bottom:2rem;">
+    <div class="tense-group-title" style="margin-bottom:1.25rem">📍 IN / ON / AT — Thời Gian & Địa Điểm</div>
+    <div class="prep-grid">
+      <div class="prep-card">
+        <div class="prep-card-header" style="background:rgba(62,207,207,.06);border-color:rgba(62,207,207,.2)">
+          <div class="prep-word" style="color:var(--teal)">IN</div><span class="tag tag-teal">Không gian rộng / khoảng thời gian</span>
+        </div>
+        <div class="prep-card-body">
+          <div class="prep-item"><span class="prep-rule">thời gian</span><span style="color:var(--text2)">Tháng: <strong>in</strong> January | Năm: <strong>in</strong> 2024 | Mùa: <strong>in</strong> summer | Buổi: <strong>in</strong> the morning/afternoon</span></div>
+          <div class="prep-item"><span class="prep-rule">nơi chốn</span><span style="color:var(--text2)">Không gian kín/lớn: <strong>in</strong> a room, <strong>in</strong> Vietnam, <strong>in</strong> the box</span></div>
+          <div class="prep-item"><span class="prep-rule">tương lai</span><span style="color:var(--text2)">Sau một khoảng thời gian: <strong>in</strong> 3 days, <strong>in</strong> a week</span></div>
+        </div>
+      </div>
+      <div class="prep-card">
+        <div class="prep-card-header" style="background:rgba(245,200,66,.06);border-color:rgba(245,200,66,.2)">
+          <div class="prep-word" style="color:var(--gold)">ON</div><span class="tag tag-gold">Bề mặt / ngày cụ thể</span>
+        </div>
+        <div class="prep-card-body">
+          <div class="prep-item"><span class="prep-rule">thời gian</span><span style="color:var(--text2)">Thứ: <strong>on</strong> Monday | Ngày: <strong>on</strong> March 8th | <strong>on</strong> my birthday</span></div>
+          <div class="prep-item"><span class="prep-rule">nơi chốn</span><span style="color:var(--text2)">Bề mặt: <strong>on</strong> the table, <strong>on</strong> the wall, <strong>on</strong> Main Street</span></div>
+          <div class="prep-item"><span class="prep-rule">phương tiện</span><span style="color:var(--text2)"><strong>on</strong> the bus/train/plane/TV/radio</span></div>
+        </div>
+      </div>
+      <div class="prep-card">
+        <div class="prep-card-header" style="background:rgba(245,101,101,.06);border-color:rgba(245,101,101,.2)">
+          <div class="prep-word" style="color:var(--rose)">AT</div><span class="tag tag-rose">Điểm cụ thể / thời điểm</span>
+        </div>
+        <div class="prep-card-body">
+          <div class="prep-item"><span class="prep-rule">thời gian</span><span style="color:var(--text2)">Giờ giấc: <strong>at</strong> 7pm | <strong>at</strong> noon, <strong>at</strong> night, <strong>at</strong> the weekend</span></div>
+          <div class="prep-item"><span class="prep-rule">nơi chốn</span><span style="color:var(--text2)">Điểm cụ thể: <strong>at</strong> the bus stop, <strong>at</strong> school, <strong>at</strong> home, <strong>at</strong> work</span></div>
+          <div class="prep-item"><span class="prep-rule">tốc độ</span><span style="color:var(--text2)"><strong>at</strong> 100km/h, <strong>at</strong> a high price, <strong>by</strong> bus, <strong>by</strong> car</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GIỚI TỪ PHỨC -->
+  <div class="reveal" style="margin-bottom:2rem;">
+    <div class="tense-group-title" style="margin-bottom:1.25rem">🔗 Giới Từ Phức (Compound Prepositions) & Phương Thức</div>
+    <div class="verb-table-wrap" style="margin-bottom:1.25rem;">
+      <table class="tbl">
+        <thead><tr><th>Giới từ</th><th>Nghĩa</th><th>Ví dụ</th></tr></thead>
+        <tbody>
+          <tr><td><em>in front of</em></td><td style="color:var(--text2)">Phía trước</td><td><em>Stand in front of the door.</em></td></tr>
+          <tr><td><em>next to / beside</em></td><td style="color:var(--text2)">Bên cạnh</td><td><em>Sit next to me.</em></td></tr>
+          <tr><td><em>in spite of</em></td><td style="color:var(--text2)">Mặc dù</td><td><em>In spite of the rain, they went out.</em></td></tr>
+          <tr><td><em>because of / due to / owing to</em></td><td style="color:var(--text2)">Vì, do</td><td><em>Late because of traffic.</em></td></tr>
+          <tr><td><em>instead of</em></td><td style="color:var(--text2)">Thay vì</td><td><em>Tea instead of coffee.</em></td></tr>
+          <tr><td><em>according to</em></td><td style="color:var(--text2)">Theo (ý kiến)</td><td><em>According to the report...</em></td></tr>
+          <tr><td><em>between / among</em></td><td style="color:var(--text2)">Giữa 2 thứ / nhiều thứ</td><td><em>between A and B / among the students</em></td></tr>
+          <tr><td><em>with / without</em></td><td style="color:var(--text2)">Cùng với / không có</td><td><em>cut with a knife / without help</em></td></tr>
+          <tr><td><em>by</em></td><td style="color:var(--text2)">Phương tiện, tác nhân</td><td><em>by bus, by car, written by him</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ADJ+PREP -->
+  <div class="reveal" style="margin-bottom:2rem;">
+    <div class="tense-group-title" style="margin-bottom:1.25rem">🎯 Tính Từ + Giới Từ & Động Từ + Giới Từ</div>
+    <div class="adj-prep-grid" style="margin-bottom:1rem;">
+      <div class="adj-prep-item"><strong>interested</strong> <span class="prep">in</span> <span class="mean">quan tâm đến</span></div>
+      <div class="adj-prep-item"><strong>fond</strong> <span class="prep">of</span> <span class="mean">thích, yêu thích</span></div>
+      <div class="adj-prep-item"><strong>keen</strong> <span class="prep">on</span> <span class="mean">rất thích</span></div>
+      <div class="adj-prep-item"><strong>good/bad</strong> <span class="prep">at</span> <span class="mean">giỏi/kém về</span></div>
+      <div class="adj-prep-item"><strong>afraid</strong> <span class="prep">of</span> <span class="mean">sợ</span></div>
+      <div class="adj-prep-item"><strong>worried</strong> <span class="prep">about</span> <span class="mean">lo lắng về</span></div>
+      <div class="adj-prep-item"><strong>proud</strong> <span class="prep">of</span> <span class="mean">tự hào về</span></div>
+      <div class="adj-prep-item"><strong>responsible</strong> <span class="prep">for</span> <span class="mean">chịu trách nhiệm</span></div>
+      <div class="adj-prep-item"><strong>famous</strong> <span class="prep">for</span> <span class="mean">nổi tiếng về</span></div>
+      <div class="adj-prep-item"><strong>different</strong> <span class="prep">from</span> <span class="mean">khác với</span></div>
+      <div class="adj-prep-item"><strong>similar</strong> <span class="prep">to</span> <span class="mean">giống với</span></div>
+      <div class="adj-prep-item"><strong>satisfied</strong> <span class="prep">with</span> <span class="mean">hài lòng với</span></div>
+      <div class="adj-prep-item"><strong>angry</strong> <span class="prep">with/at</span> <span class="mean">tức giận với</span></div>
+      <div class="adj-prep-item"><strong>tired/bored</strong> <span class="prep">of/with</span> <span class="mean">chán/mệt</span></div>
+      <div class="adj-prep-item"><strong>aware</strong> <span class="prep">of</span> <span class="mean">nhận thức được</span></div>
+      <div class="adj-prep-item"><strong>dependent</strong> <span class="prep">on</span> <span class="mean">phụ thuộc vào</span></div>
+      <div class="adj-prep-item"><strong>excited</strong> <span class="prep">about</span> <span class="mean">hào hứng về</span></div>
+      <div class="adj-prep-item"><strong>surprised</strong> <span class="prep">at/by</span> <span class="mean">ngạc nhiên</span></div>
+      <div class="adj-prep-item"><strong>listen</strong> <span class="prep">to</span> <span class="mean">lắng nghe</span></div>
+      <div class="adj-prep-item"><strong>look</strong> <span class="prep">at</span> <span class="mean">nhìn vào</span></div>
+      <div class="adj-prep-item"><strong>wait</strong> <span class="prep">for</span> <span class="mean">chờ đợi</span></div>
+      <div class="adj-prep-item"><strong>agree</strong> <span class="prep">with</span> <span class="mean">đồng ý với</span></div>
+      <div class="adj-prep-item"><strong>depend</strong> <span class="prep">on</span> <span class="mean">phụ thuộc vào</span></div>
+      <div class="adj-prep-item"><strong>consist</strong> <span class="prep">of</span> <span class="mean">bao gồm</span></div>
+      <div class="adj-prep-item"><strong>apply</strong> <span class="prep">for</span> <span class="mean">nộp đơn</span></div>
+      <div class="adj-prep-item"><strong>apologize</strong> <span class="prep">for</span> <span class="mean">xin lỗi vì</span></div>
+      <div class="adj-prep-item"><strong>believe</strong> <span class="prep">in</span> <span class="mean">tin vào</span></div>
+    </div>
+  </div>
+
+  <!-- PHRASAL VERBS -->
+  <div class="reveal">
+    <div class="tense-group-title" style="margin-bottom:1.25rem">⚡ Cụm Động Từ (Phrasal Verbs)</div>
+
+    <div class="advanced-box" style="margin-bottom:1.25rem;">
+      <div class="advanced-box-title">🔮 Phân Loại Phrasal Verbs</div>
+      <ul class="glist">
+        <li><strong>Tách được (Separable):</strong> Tân ngữ có thể đứng giữa hoặc sau → Turn the TV <em>off</em> / Turn <em>off</em> the TV</li>
+        <li><strong>Không tách (Inseparable):</strong> Tân ngữ phải đứng sau cả cụm → Look <em>after her</em> ✅ / Look <em>her after</em> ❌</li>
+        <li><strong>Không tân ngữ (Intransitive):</strong> The plane took off.</li>
+      </ul>
+    </div>
+
+    <div class="phrasal-grid">
+      <div class="phrasal-card">
+        <div class="phrasal-verb-header" style="color:var(--gold)">LOOK</div>
+        <div class="phrasal-list">
+          <div class="phrasal-item"><span class="phrasal-full">look after</span><span class="phrasal-meaning">chăm sóc</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">look for</span><span class="phrasal-meaning">tìm kiếm</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">look up</span><span class="phrasal-meaning">tra cứu (từ điển)</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">look forward to</span><span class="phrasal-meaning">mong chờ (+ V-ing)</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">look out</span><span class="phrasal-meaning">cẩn thận! chú ý!</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">look into</span><span class="phrasal-meaning">điều tra</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">look down on</span><span class="phrasal-meaning">coi thường</span></div>
+        </div>
+      </div>
+      <div class="phrasal-card">
+        <div class="phrasal-verb-header" style="color:var(--teal)">TAKE</div>
+        <div class="phrasal-list">
+          <div class="phrasal-item"><span class="phrasal-full">take off</span><span class="phrasal-meaning">cất cánh / cởi ra</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">take after</span><span class="phrasal-meaning">giống (ai đó)</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">take care of</span><span class="phrasal-meaning">chăm sóc, lo liệu</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">take part in</span><span class="phrasal-meaning">tham gia vào</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">take place</span><span class="phrasal-meaning">xảy ra, diễn ra</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">take up</span><span class="phrasal-meaning">bắt đầu (sở thích)</span></div>
+        </div>
+      </div>
+      <div class="phrasal-card">
+        <div class="phrasal-verb-header" style="color:var(--rose)">GO</div>
+        <div class="phrasal-list">
+          <div class="phrasal-item"><span class="phrasal-full">go on</span><span class="phrasal-meaning">tiếp tục</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">go off</span><span class="phrasal-meaning">nổ / reo chuông / thiu</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">go out</span><span class="phrasal-meaning">ra ngoài / tắt</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">go through</span><span class="phrasal-meaning">trải qua, xem xét</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">go ahead</span><span class="phrasal-meaning">cứ tiếp tục đi</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">go back</span><span class="phrasal-meaning">quay trở lại</span></div>
+        </div>
+      </div>
+      <div class="phrasal-card">
+        <div class="phrasal-verb-header" style="color:var(--purple)">TURN</div>
+        <div class="phrasal-list">
+          <div class="phrasal-item"><span class="phrasal-full">turn on</span><span class="phrasal-meaning">bật lên</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">turn off</span><span class="phrasal-meaning">tắt đi</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">turn up</span><span class="phrasal-meaning">xuất hiện / vặn to</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">turn down</span><span class="phrasal-meaning">từ chối / vặn nhỏ</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">turn into</span><span class="phrasal-meaning">biến thành</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">turn out</span><span class="phrasal-meaning">hóa ra, kết cục</span></div>
+        </div>
+      </div>
+      <div class="phrasal-card">
+        <div class="phrasal-verb-header" style="color:var(--green)">PUT / GET</div>
+        <div class="phrasal-list">
+          <div class="phrasal-item"><span class="phrasal-full">put out</span><span class="phrasal-meaning">dập tắt (lửa)</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">put off</span><span class="phrasal-meaning">trì hoãn, dời lại</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">put up with</span><span class="phrasal-meaning">chịu đựng</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">get up</span><span class="phrasal-meaning">thức dậy</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">get over</span><span class="phrasal-meaning">vượt qua (khó khăn)</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">get rid of</span><span class="phrasal-meaning">loại bỏ</span></div>
+        </div>
+      </div>
+      <div class="phrasal-card">
+        <div class="phrasal-verb-header" style="color:var(--gold)">GIVE / SET</div>
+        <div class="phrasal-list">
+          <div class="phrasal-item"><span class="phrasal-full">give up</span><span class="phrasal-meaning">từ bỏ</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">give away</span><span class="phrasal-meaning">tặng, phân phát</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">set up</span><span class="phrasal-meaning">thành lập, thiết lập</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">set off</span><span class="phrasal-meaning">khởi hành, lên đường</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">break down</span><span class="phrasal-meaning">hỏng hóc</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">find out</span><span class="phrasal-meaning">khám phá, tìm ra</span></div>
+        </div>
+      </div>
+      <div class="phrasal-card">
+        <div class="phrasal-verb-header" style="color:var(--teal)">CARRY / BRING</div>
+        <div class="phrasal-list">
+          <div class="phrasal-item"><span class="phrasal-full">carry out</span><span class="phrasal-meaning">thực hiện (kế hoạch)</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">carry on</span><span class="phrasal-meaning">tiếp tục</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">bring up</span><span class="phrasal-meaning">nuôi dưỡng / đề cập</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">bring about</span><span class="phrasal-meaning">gây ra</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">run out of</span><span class="phrasal-meaning">hết (cái gì)</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">come across</span><span class="phrasal-meaning">tình cờ gặp</span></div>
+        </div>
+      </div>
+      <div class="phrasal-card">
+        <div class="phrasal-verb-header" style="color:var(--purple)">ĐA NGHĨA</div>
+        <div class="phrasal-list">
+          <div class="phrasal-item"><span class="phrasal-full">take off</span><span class="phrasal-meaning">cất cánh / cởi quần áo</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">make up</span><span class="phrasal-meaning">trang điểm / bịa đặt</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">pick up</span><span class="phrasal-meaning">nhặt / đón / học nhanh</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">break up</span><span class="phrasal-meaning">chia tay / tan rã</span></div>
+          <div class="phrasal-item"><span class="phrasal-full">fall behind</span><span class="phrasal-meaning">bị tụt lại, chậm tiến độ</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 6: IRREGULAR VERBS -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="irregular">
+  <div class="section-header reveal">
+    <div class="section-number">06</div>
+    <div class="section-title-group">
+      <h2>Động Từ Bất Quy Tắc</h2>
+      <p>Danh sách đầy đủ 120+ động từ V1 → V2 → V3 · Có tìm kiếm nhanh</p>
+    </div>
+  </div>
+  <div class="reveal">
+    <input type="text" class="verb-search" id="verbSearch" placeholder="🔍 Tìm kiếm động từ (VD: go, went, come, have...)" oninput="filterVerbs()">
+    <div class="verb-count" id="verbCount">Đang hiển thị tất cả động từ</div>
+    <div class="verb-table-wrap">
+      <table class="verb-table" id="verbTable">
+        <thead>
+          <tr><th>V1 (Nguyên mẫu)</th><th>V2 (Quá khứ đơn)</th><th>V3 (Quá khứ phân từ)</th><th>Nghĩa tiếng Việt</th></tr>
+        </thead>
+        <tbody id="verbTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SECTION 7: BÀI TẬP -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="quiz-main">
+  <div class="section-header reveal">
+    <div class="section-number">07</div>
+    <div class="section-title-group">
+      <h2>Bài Tập Tổng Hợp</h2>
+      <p>15 câu trắc nghiệm toàn diện + Bài tập theo từng chủ đề riêng</p>
+    </div>
+  </div>
+
+  <!-- 15-QUESTION MASTER QUIZ -->
+  <div class="quiz-section reveal">
+    <div class="quiz-section-header">
+      <div class="quiz-section-title">✏️ Bài Tập Tổng Hợp — 15 Câu</div>
+      <div class="quiz-score-badge" id="master-score-badge">0/15</div>
+    </div>
+    <div class="quiz-progress"><div class="quiz-progress-fill" id="master-progress" style="width:0%"></div></div>
+    <div id="master-quiz-container"></div>
+    <div class="result-box" id="master-result">
+      <div class="result-big" id="master-result-score"></div>
+      <div class="result-msg" id="master-result-msg"></div>
+      <div class="result-sub" id="master-result-sub"></div>
+      <button class="btn-retry" onclick="buildMasterQuiz()">🔄 Làm lại từ đầu</button>
+    </div>
+  </div>
+
+  <!-- MINI QUIZZES BY TOPIC -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1.5rem;margin-top:2rem;">
+    <div>
+      <div class="tense-group-title" style="margin-bottom:1rem;font-size:1rem;">⏱ Bài Tập: Các Thì</div>
+      <div class="mini-quiz-wrap" id="mq-tenses"></div>
+      <div class="mq-score" id="ms-tenses"></div>
+    </div>
+    <div>
+      <div class="tense-group-title" style="margin-bottom:1rem;font-size:1rem;">📍 Bài Tập: Giới Từ</div>
+      <div class="mini-quiz-wrap" id="mq-prepositions"></div>
+      <div class="mq-score" id="ms-prepositions"></div>
+    </div>
+    <div>
+      <div class="tense-group-title" style="margin-bottom:1rem;font-size:1rem;">🔄 Bài Tập: Câu Bị Động</div>
+      <div class="mini-quiz-wrap" id="mq-passive"></div>
+      <div class="mq-score" id="ms-passive"></div>
+    </div>
+    <div>
+      <div class="tense-group-title" style="margin-bottom:1rem;font-size:1rem;">🔀 Bài Tập: Điều Kiện</div>
+      <div class="mini-quiz-wrap" id="mq-conditionals"></div>
+      <div class="mq-score" id="ms-conditionals"></div>
+    </div>
+    <div>
+      <div class="tense-group-title" style="margin-bottom:1rem;font-size:1rem;">🔤 Bài Tập: Gerund & Infinitive</div>
+      <div class="mini-quiz-wrap" id="mq-gerunds"></div>
+      <div class="mq-score" id="ms-gerunds"></div>
+    </div>
+    <div>
+      <div class="tense-group-title" style="margin-bottom:1rem;font-size:1rem;">🔗 Bài Tập: Mệnh Đề Quan Hệ</div>
+      <div class="mini-quiz-wrap" id="mq-relative"></div>
+      <div class="mq-score" id="ms-relative"></div>
+    </div>
+    <div>
+      <div class="tense-group-title" style="margin-bottom:1rem;font-size:1rem;">💬 Bài Tập: Câu Tường Thuật</div>
+      <div class="mini-quiz-wrap" id="mq-reported"></div>
+      <div class="mq-score" id="ms-reported"></div>
+    </div>
+    <div>
+      <div class="tense-group-title" style="margin-bottom:1rem;font-size:1rem;">⚖️ Bài Tập: So Sánh</div>
+      <div class="mini-quiz-wrap" id="mq-comparison"></div>
+      <div class="mq-score" id="ms-comparison"></div>
+    </div>
+    <div>
+      <div class="tense-group-title" style="margin-bottom:1rem;font-size:1rem;">🌠 Bài Tập: Câu Ước</div>
+      <div class="mini-quiz-wrap" id="mq-wish"></div>
+      <div class="mq-score" id="ms-wish"></div>
+    </div>
+    <div>
+      <div class="tense-group-title" style="margin-bottom:1rem;font-size:1rem;">🔧 Bài Tập: Phrasal Verbs</div>
+      <div class="mini-quiz-wrap" id="mq-phrasal"></div>
+      <div class="mq-score" id="ms-phrasal"></div>
+    </div>
+    <div>
+      <div class="tense-group-title" style="margin-bottom:1rem;font-size:1rem;">🔊 Bài Tập: Phát Âm</div>
+      <div class="mini-quiz-wrap" id="mq-pronunciation"></div>
+      <div class="mq-score" id="ms-pronunciation"></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer style="border-top:1px solid var(--border);padding:2rem;text-align:center;color:var(--text3);font-size:.82rem;">
+  <p>✦ Tổng hợp Ngữ Pháp Tiếng Anh Toàn Diện — Kết hợp từ 3 nguồn ✦</p>
+  <p style="margin-top:4px">Các thì · Bị động · Điều kiện · Quan hệ · So sánh · Gián tiếp · Gerund · It's time · Wish · Not only · Từ nối · Đảo ngữ · Phát âm IPA · Giới từ · Phrasal Verbs · 120+ ĐT bất quy tắc · 70+ câu bài tập</p>
+</footer>
+
+<script>
+// ── ACCORDION ────────────────────────────────────────────
+function toggleBlock(h) {
+  const b = h.parentElement;
+  b.classList.toggle('open');
+}
+
+// ── SCROLL REVEAL ─────────────────────────────────────────
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.06 });
+revealEls.forEach(el => observer.observe(el));
+
+// ── IRREGULAR VERBS ───────────────────────────────────────
+const verbs = [
+  ["be","was/were","been","là, thì, ở"],["become","became","become","trở thành"],
+  ["begin","began","begun","bắt đầu"],["bite","bit","bitten","cắn"],
+  ["blow","blew","blown","thổi"],["break","broke","broken","vỡ, phá vỡ"],
+  ["bring","brought","brought","mang đến"],["build","built","built","xây dựng"],
+  ["burn","burnt/burned","burnt/burned","cháy, đốt"],["buy","bought","bought","mua"],
+  ["catch","caught","caught","bắt, chộp"],["choose","chose","chosen","chọn"],
+  ["come","came","come","đến"],["cost","cost","cost","tốn, có giá"],
+  ["cut","cut","cut","cắt"],["deal","dealt","dealt","giải quyết"],
+  ["do","did","done","làm"],["draw","drew","drawn","vẽ, rút ra"],
+  ["dream","dreamt/dreamed","dreamt/dreamed","mơ"],["drink","drank","drunk","uống"],
+  ["drive","drove","driven","lái xe"],["eat","ate","eaten","ăn"],
+  ["fall","fell","fallen","ngã, rơi xuống"],["feed","fed","fed","cho ăn"],
+  ["feel","felt","felt","cảm thấy"],["fight","fought","fought","chiến đấu"],
+  ["find","found","found","tìm thấy"],["fly","flew","flown","bay"],
+  ["forget","forgot","forgotten","quên"],["forgive","forgave","forgiven","tha thứ"],
+  ["freeze","froze","frozen","đông lạnh"],["get","got","got/gotten","lấy, nhận được"],
+  ["give","gave","given","cho, tặng"],["go","went","gone","đi"],
+  ["grow","grew","grown","lớn lên, trồng trọt"],["hang","hung","hung","treo"],
+  ["have","had","had","có"],["hear","heard","heard","nghe"],
+  ["hide","hid","hidden","ẩn nấp, giấu"],["hit","hit","hit","đánh, đập"],
+  ["hold","held","held","cầm, giữ"],["hurt","hurt","hurt","làm đau, bị thương"],
+  ["keep","kept","kept","giữ, duy trì"],["know","knew","known","biết"],
+  ["lay","laid","laid","đặt, để"],["lead","led","led","dẫn đường, lãnh đạo"],
+  ["learn","learnt/learned","learnt/learned","học"],["leave","left","left","rời đi, để lại"],
+  ["lend","lent","lent","cho mượn"],["let","let","let","cho phép"],
+  ["lie","lay","lain","nằm"],["light","lit/lighted","lit/lighted","thắp sáng"],
+  ["lose","lost","lost","mất, thua"],["make","made","made","làm, tạo ra"],
+  ["mean","meant","meant","có nghĩa là"],["meet","met","met","gặp gỡ"],
+  ["pay","paid","paid","trả tiền"],["put","put","put","đặt, để"],
+  ["read","read","read","đọc"],["ride","rode","ridden","cưỡi, đi (xe)"],
+  ["ring","rang","rung","reo, gọi điện"],["rise","rose","risen","mọc lên, tăng"],
+  ["run","ran","run","chạy"],["say","said","said","nói"],
+  ["see","saw","seen","nhìn thấy"],["sell","sold","sold","bán"],
+  ["send","sent","sent","gửi"],["set","set","set","đặt, thiết lập"],
+  ["shake","shook","shaken","lắc, rung"],["shine","shone","shone","tỏa sáng"],
+  ["shoot","shot","shot","bắn"],["show","showed","shown","chỉ, cho xem"],
+  ["shut","shut","shut","đóng, tắt"],["sing","sang","sung","hát"],
+  ["sink","sank","sunk","chìm xuống"],["sit","sat","sat","ngồi"],
+  ["sleep","slept","slept","ngủ"],["speak","spoke","spoken","nói, phát biểu"],
+  ["spend","spent","spent","tiêu tiền, trải qua"],["spread","spread","spread","lan ra, rải"],
+  ["stand","stood","stood","đứng"],["steal","stole","stolen","đánh cắp"],
+  ["stick","stuck","stuck","dán, ghim"],["swim","swam","swum","bơi lội"],
+  ["take","took","taken","lấy, mang theo"],["teach","taught","taught","dạy học"],
+  ["tear","tore","torn","xé rách"],["tell","told","told","kể, nói với"],
+  ["think","thought","thought","nghĩ"],["throw","threw","thrown","ném, quăng"],
+  ["understand","understood","understood","hiểu"],["wake","woke","woken","thức dậy"],
+  ["wear","wore","worn","mặc, đeo"],["win","won","won","chiến thắng"],
+  ["write","wrote","written","viết"],["arise","arose","arisen","nảy sinh"],
+  ["bet","bet","bet","đánh cược"],["bind","bound","bound","buộc"],
+  ["bleed","bled","bled","chảy máu"],["breed","bred","bred","nuôi, nhân giống"],
+  ["cast","cast","cast","ném, đúc"],["creep","crept","crept","bò, trườn"],
+  ["dig","dug","dug","đào bới"],["flee","fled","fled","bỏ trốn"],
+  ["fling","flung","flung","ném mạnh"],["forbid","forbade","forbidden","cấm"],
+  ["grind","ground","ground","nghiền, xay"],["leap","leapt/leaped","leapt/leaped","nhảy vọt"],
+  ["mistake","mistook","mistaken","nhầm lẫn"],["overcome","overcame","overcome","vượt qua"],
+  ["quit","quit","quit","bỏ, từ chối"],["rid","rid","rid","thoát khỏi"],
+  ["shrink","shrank","shrunk","co lại, thu nhỏ"],["slide","slid","slid","trượt"],
+  ["smell","smelt/smelled","smelt/smelled","ngửi, có mùi"],["spell","spelt/spelled","spelt/spelled","đánh vần"],
+  ["split","split","split","tách, chia"],["spoil","spoilt/spoiled","spoilt/spoiled","làm hỏng"],
+  ["spring","sprang","sprung","bật lên"],["strike","struck","struck","đánh, đình công"],
+  ["swear","swore","sworn","thề, chửi thề"],["swing","swung","swung","đu đưa"],
+  ["weep","wept","wept","khóc"],["withdraw","withdrew","withdrawn","rút lui, rút tiền"],
+  ["wring","wrung","wrung","vặn, vắt"],["sting","stung","stung","đốt, chích"],
+  ["string","strung","strung","xâu chuỗi"],
+];
+function renderVerbs(data) {
+  const tb = document.getElementById('verbTableBody');
+  const ct = document.getElementById('verbCount');
+  tb.innerHTML = '';
+  data.forEach(v => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td class="v1">${v[0]}</td><td class="v2">${v[1]}</td><td class="v3">${v[2]}</td><td class="vmean">${v[3]}</td>`;
+    tb.appendChild(tr);
+  });
+  ct.textContent = `Đang hiển thị ${data.length} / ${verbs.length} động từ`;
+}
+function filterVerbs() {
+  const q = document.getElementById('verbSearch').value.toLowerCase().trim();
+  if (!q) { renderVerbs(verbs); return; }
+  renderVerbs(verbs.filter(v => v[0].toLowerCase().includes(q)||v[1].toLowerCase().includes(q)||v[2].toLowerCase().includes(q)||v[3].toLowerCase().includes(q)));
+}
+renderVerbs(verbs);
+
+// ── MASTER QUIZ (15 questions) ───────────────────────────
+const masterQs = [
+  {topic:'Bị động',text:'The letter ______ by him yesterday.',opts:['is written','was written','has been written','be written'],ans:1,explain:'Có "yesterday" → QKĐ bị động: <strong>was + V₃</strong>.'},
+  {topic:'Bị động',text:'It ______ that he is a genius.',opts:['is said','says','was saying','said'],ans:0,explain:'Bị động verbs of thinking: <strong>It + is + V₃ + that-clause</strong>.'},
+  {topic:'Causative',text:'She had her car ______ at the garage.',opts:['repair','to repair','repaired','repairing'],ans:2,explain:'<strong>have + O vật + V₃/ed</strong> → "had her car repaired" (xe được sửa).'},
+  {topic:'Causative',text:'The teacher made the students ______ the essay.',opts:['rewrite','to rewrite','rewrote','rewriting'],ans:0,explain:'<strong>make + O + V (bare infinitive)</strong> → không dùng "to".'},
+  {topic:'Điều kiện',text:'If I ______ rich, I would travel the world.',opts:['am','was','were','had been'],ans:2,explain:'Điều kiện Loại 2: <strong>If + were</strong> (mọi ngôi trong văn viết chuẩn).'},
+  {topic:'Điều kiện',text:'______ you need assistance, feel free to contact me.',opts:['If','Should','Were','Had'],ans:1,explain:'Đảo ngữ Loại 1: <strong>Should + S + V</strong> = If + S + should + V.'},
+  {topic:'Điều kiện',text:'If she had studied harder, she ______ the exam.',opts:['will pass','would pass','would have passed','had passed'],ans:2,explain:'Điều kiện Loại 3: <strong>If + had + V₃, would have + V₃</strong>.'},
+  {topic:'Mệnh đề quan hệ',text:'The woman ______ bag was stolen called the police.',opts:['who','whom','which','whose'],ans:3,explain:'<strong>whose</strong> → sở hữu: "whose bag" = chiếc túi của người phụ nữ đó.'},
+  {topic:'Mệnh đề quan hệ',text:'He is the first student ______ this difficult problem.',opts:['who solves','solving','to solve','which solves'],ans:2,explain:'Sau "the first/last/only" → rút gọn bằng <strong>to-V</strong>.'},
+  {topic:"It's time/Wish",text:"It's high time you ______ your homework.",opts:['do','did','have done','to do'],ans:1,explain:"<strong>It's (high) time + S + V₂</strong>. 'did' là V₂ của 'do'."},
+  {topic:'Wish',text:'I wish I ______ more time to study yesterday.',opts:['have','had','had had','would have'],ans:2,explain:'Wish ước quá khứ: <strong>S + wish + S + had + V₃</strong>. "had had" = V₃ của have.'},
+  {topic:'Not only',text:'Not only ______ the exam, but he also got the highest score.',opts:['he passed','did he pass','he did pass','passed he'],ans:1,explain:'Khi "Not only" đứng đầu câu → đảo ngữ: <strong>Not only + did + S + V</strong>.'},
+  {topic:'Từ nối',text:'______ the heavy rain, they decided to continue the match.',opts:['Although','Despite','Even though','Because of'],ans:1,explain:'<strong>Despite + N/V-ing</strong> (không có S+V). "Despite the heavy rain" đúng cấu trúc.'},
+  {topic:'Từ nối',text:'She was ______ tired ______ she could not walk anymore.',opts:['such…that','so…that','too…to','enough…to'],ans:1,explain:'<strong>So + adj/adv + that</strong>. "So tired that" diễn đạt kết quả.'},
+  {topic:'Gerund',text:'I remember ______ her at the party last year.',opts:['see','to see','seeing','saw'],ans:2,explain:'<strong>remember + V-ing</strong> = nhớ lại đã làm (trong quá khứ).'},
+];
+let masterAnswered = 0, masterCorrect = 0;
+function buildMasterQuiz() {
+  const c = document.getElementById('master-quiz-container');
+  c.innerHTML = ''; masterAnswered = 0; masterCorrect = 0;
+  updateMasterScore();
+  document.getElementById('master-result').classList.remove('show');
+  masterQs.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'q-card'; card.id = 'mqc-' + i;
+    const blanked = q.text.replace('______', '<span class="blank">______</span>');
+    const optsHTML = q.opts.map((o, j) => `<button class="opt-btn" onclick="masterAnswer(${i},${j})" id="mopt-${i}-${j}">${String.fromCharCode(65+j)}. ${o}</button>`).join('');
+    card.innerHTML = `<div class="q-meta"><div class="q-num">${i+1}</div><span class="q-topic-tag">${q.topic}</span></div>
+      <div class="q-text">${blanked}</div>
+      <div class="opts">${optsHTML}</div>
+      <div class="q-explain" id="mexp-${i}">${q.explain}</div>`;
+    c.appendChild(card);
+  });
+}
+function masterAnswer(qi, oi) {
+  if (document.getElementById('mopt-'+qi+'-0').disabled) return;
+  const q = masterQs[qi];
+  for (let j = 0; j < 4; j++) { const b = document.getElementById('mopt-'+qi+'-'+j); if(b) b.disabled=true; }
+  const chosen = document.getElementById('mopt-'+qi+'-'+oi);
+  const correct = document.getElementById('mopt-'+qi+'-'+q.ans);
+  if (oi === q.ans) { chosen.classList.add('correct'); masterCorrect++; }
+  else { chosen.classList.add('wrong'); correct.classList.add('correct'); }
+  document.getElementById('mexp-'+qi).classList.add('show');
+  masterAnswered++;
+  updateMasterScore();
+  if (masterAnswered === masterQs.length) setTimeout(showMasterResult, 700);
+}
+function updateMasterScore() {
+  document.getElementById('master-score-badge').textContent = masterCorrect + '/' + masterQs.length;
+  document.getElementById('master-progress').style.width = (masterAnswered / masterQs.length * 100) + '%';
+}
+function showMasterResult() {
+  const box = document.getElementById('master-result');
+  const pct = Math.round(masterCorrect / masterQs.length * 100);
+  document.getElementById('master-result-score').textContent = masterCorrect + '/' + masterQs.length;
+  let msg, sub;
+  if (pct >= 90) { msg = 'Xuất sắc! 🎉'; sub = 'Bạn nắm vững toàn bộ ngữ pháp. Chúc thi tốt!'; }
+  else if (pct >= 70) { msg = 'Tốt lắm! 💪'; sub = 'Ôn lại những câu sai và bạn sẽ hoàn hảo.'; }
+  else if (pct >= 50) { msg = 'Khá ổn 👍'; sub = 'Đọc lại lý thuyết phần bị động và điều kiện nhé.'; }
+  else { msg = 'Cố lên! 📖'; sub = 'Đọc lại lý thuyết rồi làm thử lại bạn nhé.'; }
+  document.getElementById('master-result-msg').textContent = msg;
+  document.getElementById('master-result-sub').textContent = sub;
+  box.classList.add('show');
+  box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+buildMasterQuiz();
+
+// ── MINI QUIZZES (per topic) ──────────────────────────────
+const miniData = {
+  tenses:[
+    {q:"She ______ to school every day.",opts:["go","goes","is going","went"],ans:1,exp:"HTĐ — chủ ngữ ngôi 3 số ít + goes"},
+    {q:"They ______ TV when I called them.",opts:["watch","watched","were watching","have watched"],ans:2,exp:"QKTD — đang xảy ra khi bị gián đoạn (when)"},
+    {q:"I ______ this movie before.",opts:["see","saw","have seen","had seen"],ans:2,exp:"HTHT — kinh nghiệm đã từng làm (before)"},
+    {q:"By the time she arrived, he ______ already left.",opts:["has","had","was","will have"],ans:1,exp:"QKHT — hành động xảy ra TRƯỚC một mốc QK khác"},
+    {q:"Look at those dark clouds! It ______ rain.",opts:["will","is going to","rains","rained"],ans:1,exp:"Be going to — dự đoán có bằng chứng (nhìn thấy mây)"},
+    {q:"I ______ my homework yet.",opts:["don't finish","haven't finished","didn't finish","hadn't finished"],ans:1,exp:"HTHT với 'yet' — hành động chưa hoàn thành"},
+  ],
+  prepositions:[
+    {q:"The meeting is ______ Monday morning.",opts:["in","at","on","by"],ans:2,exp:"ON + ngày/thứ cụ thể"},
+    {q:"She was born ______ 1999.",opts:["on","in","at","since"],ans:1,exp:"IN + năm"},
+    {q:"I'm interested ______ learning new languages.",opts:["in","at","for","about"],ans:0,exp:"interested IN — cụm Adj + Prep cố định"},
+    {q:"He travels ______ train every weekend.",opts:["with","in","by","on"],ans:2,exp:"BY + phương tiện giao thông"},
+    {q:"The bank is ______ the post office and the school.",opts:["among","between","by","in"],ans:1,exp:"BETWEEN — đứng giữa 2 thứ"},
+    {q:"She's good ______ playing the piano.",opts:["in","at","for","about"],ans:1,exp:"good AT — giỏi về điều gì"},
+  ],
+  passive:[
+    {q:"The letter ______ by her yesterday.",opts:["wrote","is written","was written","has written"],ans:2,exp:"QKĐ bị động: was + V3"},
+    {q:"English ______ all over the world.",opts:["speaks","is spoke","is spoken","spoken"],ans:2,exp:"HTĐ bị động: is + V3 (spoken)"},
+    {q:"The project ______ by next week.",opts:["will complete","will be completed","is completed","has been completed"],ans:1,exp:"TLĐ bị động: will be + V3"},
+    {q:"The meeting ______ when I arrived.",opts:["was holding","has been held","was being held","is held"],ans:2,exp:"QKTD bị động: was being + V3"},
+    {q:"The rules must ______ by all students.",opts:["follow","be follow","be followed","followed"],ans:2,exp:"Modal + be + V3"},
+  ],
+  conditionals:[
+    {q:"If it ______ tomorrow, we will cancel the trip.",opts:["rained","rains","would rain","had rained"],ans:1,exp:"Loại 1: If + HTĐ, will + V"},
+    {q:"If I ______ you, I would apologize.",opts:["am","was","were","have been"],ans:2,exp:"Loại 2: If + were (mọi ngôi)"},
+    {q:"If she ______ harder, she would have passed.",opts:["studied","studies","had studied","would study"],ans:2,exp:"Loại 3: If + had + V3"},
+    {q:"______ you need help, call me.",opts:["If","Should","Were","Had"],ans:1,exp:"Đảo ngữ loại 1: Should + S + V"},
+    {q:"Unless you ______, you'll miss the bus.",opts:["hurry","hurried","will hurry","hurrying"],ans:0,exp:"Unless = if not, dùng HTĐ trong mệnh đề điều kiện"},
+  ],
+  gerunds:[
+    {q:"She enjoys ______ in the rain.",opts:["walk","walks","walking","to walk"],ans:2,exp:"enjoy + V-ing (Gerund)"},
+    {q:"He decided ______ a new car.",opts:["buy","buying","to buy","bought"],ans:2,exp:"decide + to-infinitive"},
+    {q:"I remember ______ her at the party last year.",opts:["see","to see","seeing","saw"],ans:2,exp:"remember + V-ing = nhớ lại đã làm"},
+    {q:"She stopped ______ a taxi.",opts:["get","to get","getting","got"],ans:1,exp:"stop + to-inf = dừng lại ĐỂ làm gì"},
+    {q:"He's good at ______ problems.",opts:["solve","solving","to solve","solved"],ans:1,exp:"Giới từ (at) + V-ing"},
+  ],
+  relative:[
+    {q:"The man ______ called you is waiting outside.",opts:["who","which","whom","whose"],ans:0,exp:"WHO — thay cho người, làm chủ ngữ"},
+    {q:"This is the house ______ I grew up.",opts:["which","where","when","who"],ans:1,exp:"WHERE — thay cho địa điểm"},
+    {q:"The book ______ I lent you is very old.",opts:["who","whom","which","whose"],ans:2,exp:"WHICH — thay cho vật, làm tân ngữ"},
+    {q:"The student ______ parents are teachers is very smart.",opts:["who","which","whose","whom"],ans:2,exp:"WHOSE — sở hữu"},
+    {q:"My sister, ______ lives in Canada, is a doctor.",opts:["that","who","which","whom"],ans:1,exp:"Mệnh đề không xác định (có dấy phẩy) — không dùng THAT"},
+  ],
+  reported:[
+    {q:'He said, "I am tired." → He said that he ______ tired.',opts:["is","was","has been","were"],ans:1,exp:"am → was (lùi thì: HTĐ → QKĐ)"},
+    {q:'"Do you like coffee?" → She asked ______ I liked coffee.',opts:["that","if","which","what"],ans:1,exp:"Câu hỏi Yes/No → if/whether"},
+    {q:'"Open the door!" → He told me ______ the door.',opts:["open","opening","to open","opened"],ans:2,exp:"Câu mệnh lệnh → to-infinitive"},
+    {q:'She said, "I will come tomorrow." → She said she ______ come the next day.',opts:["will","would","shall","could"],ans:1,exp:"will → would trong câu gián tiếp"},
+  ],
+  comparison:[
+    {q:"She is ______ her sister.",opts:["as tall as","tall as","as tall than","taller as"],ans:0,exp:"So sánh bằng: as + adj + as"},
+    {q:"This exam is ______ than I expected.",opts:["more difficult","difficulter","most difficult","as difficult"],ans:0,exp:"So sánh hơn tính từ dài: more + adj + than"},
+    {q:"She is ______ student in the class.",opts:["the most intelligent","the more intelligent","most intelligent","more intelligent"],ans:0,exp:"So sánh nhất: the + most + adj"},
+    {q:"______ you practice, ______ you get.",opts:["The more / the better","More / better","The most / the best","The more / better"],ans:0,exp:"The + comp, the + comp — càng...càng..."},
+    {q:"This room is ______ than that one.",opts:["twice as big","twice bigger","as twice big","two times big"],ans:0,exp:"Gấp đôi: twice as + adj + as"},
+  ],
+  wish:[
+    {q:"I wish I ______ speak Chinese. (I can't)",opts:["can","could","will","would"],ans:1,exp:"Wish hiện tại: wish + could (không có thật HT)"},
+    {q:"She wishes she ______ to the party. (She didn't go)",opts:["went","had gone","would go","goes"],ans:1,exp:"Wish quá khứ: wish + had + V3"},
+    {q:"I wish he ______ making so much noise!",opts:["stops","stopped","would stop","had stopped"],ans:2,exp:"Wish tương lai: wish + would (khó chịu với thói quen)"},
+    {q:"If only I ______ the answer! (I don't know)",opts:["know","knew","had known","would know"],ans:1,exp:"If only hiện tại: if only + V2"},
+  ],
+  phrasal:[
+    {q:"She ______ smoking last year.",opts:["gave up","gave in","gave out","gave away"],ans:0,exp:"give up = từ bỏ"},
+    {q:"We ______ milk. We need to buy more.",opts:["ran into","ran out of","ran away from","ran over"],ans:1,exp:"run out of = hết (cái gì)"},
+    {q:"Please ______ the TV. I want to watch the news.",opts:["turn off","turn up","turn on","turn in"],ans:2,exp:"turn on = bật"},
+    {q:"I ______ an old friend at the market.",opts:["came across","came up with","came by","came around"],ans:0,exp:"come across = tình cờ gặp"},
+    {q:"Don't ______ your homework till the last minute.",opts:["put out","put off","put up","put in"],ans:1,exp:"put off = hoãn lại"},
+  ],
+  pronunciation:[
+    {q:"Từ nào có trọng âm ở âm tiết 1?",opts:["decide","begin","table","prefer"],ans:2,exp:"'table' là danh từ 2 âm tiết → nhấn âm tiết 1: TA-ble"},
+    {q:"Đuôi -ed trong 'walked' được đọc là:",opts:["/ɪd/","/d/","/t/","/ed/"],ans:2,exp:"walk kết thúc bằng /k/ (vô thanh) → đuôi -ed đọc /t/"},
+    {q:"Từ nào đọc đuôi -ed là /ɪd/?",opts:["played","cooked","wanted","laughed"],ans:2,exp:"'wanted' kết thúc bằng /t/ → đuôi -ed đọc /ɪd/"},
+    {q:"Trọng âm của 'education' rơi vào:",opts:["edu-","educa-","-ca-","-tion"],ans:2,exp:"Hậu tố -tion: nhấn âm tiết TRƯỚC → edu-CA-tion"},
+    {q:"Từ 'record' (v. ghi âm) có trọng âm ở:",opts:["REC-ord","re-CORD","cả hai bằng nhau","không xác định"],ans:1,exp:"Động từ 'record' nhấn âm tiết 2: re-CORD"},
+  ],
+};
+
+const miniState = {};
+function buildMiniQuizzes() {
+  Object.entries(miniData).forEach(([topicId, data]) => {
+    const container = document.getElementById('mq-' + topicId);
+    if (!container) return;
+    miniState[topicId] = { answers: {}, total: data.length };
+    let html = '';
+    const letters = ['A','B','C','D'];
+    data.forEach((item, i) => {
+      html += `<div class="mq-card" id="mq-card-${topicId}-${i}">
+        <div class="mq-num">Câu ${i+1} / ${data.length}</div>
+        <div class="mq-q">${item.q.replace('______','<span style="border-bottom:2px solid var(--teal);padding:0 8px;color:var(--teal)">______</span>')}</div>
+        <div class="mq-opts">`;
+      item.opts.forEach((opt, j) => {
+        html += `<div class="mq-opt" onclick="mqSelect(this,'${topicId}',${i},${j})" id="mq-opt-${topicId}-${i}-${j}" data-idx="${j}"><span class="opt-letter">${letters[j]}</span>${opt}</div>`;
+      });
+      html += `</div>
+        <div class="mq-fb" id="mq-fb-${topicId}-${i}"></div>
+        <button class="mq-check" onclick="mqCheck('${topicId}',${i},${item.ans},'${item.exp.replace(/'/g,"\\'")}')">Kiểm tra</button>
+      </div>`;
+    });
+    container.innerHTML = html;
+  });
+}
+
+let mqSelected = {};
+function mqSelect(el, tid, qi, oi) {
+  const key = tid+'-'+qi;
+  if (mqSelected[key+'-locked']) return;
+  const opts = el.parentElement.querySelectorAll('.mq-opt');
+  opts.forEach(o => { o.style.borderColor=''; o.style.background=''; });
+  el.style.borderColor = 'var(--teal)';
+  el.style.background = 'rgba(62,207,207,.1)';
+  mqSelected[key] = oi;
+}
+function mqCheck(tid, qi, correct, exp) {
+  const key = tid+'-'+qi;
+  if (mqSelected[key+'-locked']) return;
+  const sel = mqSelected[key];
+  if (sel === undefined) { alert('Hãy chọn một đáp án!'); return; }
+  mqSelected[key+'-locked'] = true;
+  const opts = document.querySelectorAll(`[id^="mq-opt-${tid}-${qi}-"]`);
+  opts.forEach((o, i) => {
+    o.style.borderColor=''; o.style.background='';
+    if (i === correct) o.classList.add('correct');
+    else if (i === sel && i !== correct) o.classList.add('wrong');
+    o.onclick = null;
+  });
+  const fb = document.getElementById('mq-fb-'+tid+'-'+qi);
+  fb.classList.add('show');
+  if (sel === correct) { fb.className='mq-fb show ok'; fb.innerHTML = '✅ Chính xác! ' + exp; }
+  else { fb.className='mq-fb show no'; fb.innerHTML = '❌ Chưa đúng. ' + exp; }
+  const btn = document.getElementById('mq-card-'+tid+'-'+qi).querySelector('.mq-check');
+  btn.textContent = 'Đã kiểm tra'; btn.disabled = true; btn.style.opacity = '.6';
+  if (!miniState[tid]) return;
+  const total = miniState[tid].total;
+  let done = 0, correct_count = 0;
+  for (let i = 0; i < total; i++) {
+    if (mqSelected[tid+'-'+i+'-locked']) { done++; if (mqSelected[tid+'-'+i] === miniData[tid][i].ans) correct_count++; }
+  }
+  if (done === total) {
+    const scoreEl = document.getElementById('ms-'+tid);
+    scoreEl.classList.add('show');
+    const pct = Math.round((correct_count/total)*100);
+    let emoji = pct >= 80 ? '🎉' : pct >= 60 ? '👍' : '💪';
+    scoreEl.innerHTML = `<div class="mq-score-num">${correct_count}/${total}</div><div class="mq-score-lbl">${emoji} Điểm của bạn: ${pct}%</div>`;
+  }
+}
+buildMiniQuizzes();
+</script>
+</body>
+</html>

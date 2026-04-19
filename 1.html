@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ôn Tập Ngữ Pháp Tiếng Anh</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Be+Vietnam+Pro:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f0e17;
+  --bg2: #1a1826;
+  --bg3: #231f35;
+  --card: #1e1b2e;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.13);
+  --text: #e8e6f0;
+  --muted: #9994b0;
+  --dim: #6b6785;
+  --accent: #a78bfa;
+  --accent2: #7c3aed;
+  --gold: #fbbf24;
+  --teal: #2dd4bf;
+  --coral: #fb7185;
+  --green: #4ade80;
+  --blue: #60a5fa;
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Be Vietnam Pro', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --r: 12px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; font-size: 15px; }
+
+.hero { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 48px 24px 36px; text-align: center; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -80px; left: 50%; transform: translateX(-50%); width: 600px; height: 300px; background: radial-gradient(ellipse, rgba(124,58,237,0.25) 0%, transparent 70%); pointer-events: none; }
+.hero h1 { font-family: var(--font-display); font-size: clamp(28px, 5vw, 48px); letter-spacing: -0.5px; color: #fff; position: relative; }
+.hero h1 span { color: var(--accent); }
+.hero p { color: var(--muted); margin-top: 8px; font-size: 14px; font-weight: 300; }
+.pills { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 20px; position: relative; }
+.pill { padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; border: 1px solid var(--border2); background: var(--bg3); color: var(--muted); }
+
+.container { max-width: 860px; margin: 0 auto; padding: 32px 16px 80px; }
+
+.nav-tabs { display: flex; gap: 4px; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--r); padding: 4px; margin-bottom: 28px; }
+.nav-tab { flex: 1; padding: 9px; text-align: center; border-radius: 8px; font-size: 13px; font-weight: 500; color: var(--muted); cursor: pointer; transition: all 0.2s; border: none; background: none; font-family: var(--font-body); }
+.nav-tab.active { background: var(--accent2); color: #fff; }
+.nav-tab:hover:not(.active) { background: var(--bg3); color: var(--text); }
+
+.view { display: none; }
+.view.active { display: block; }
+
+.sec { border: 1px solid var(--border); border-radius: var(--r); background: var(--card); margin-bottom: 12px; overflow: hidden; transition: border-color 0.2s; }
+.sec:hover { border-color: var(--border2); }
+.sec-head { display: flex; align-items: center; gap: 12px; padding: 14px 16px; cursor: pointer; user-select: none; }
+.sec-num { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; }
+.sec-title { flex: 1; font-size: 15px; font-weight: 600; color: var(--text); }
+.sec-tag { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; flex-shrink: 0; }
+.sec-chev { color: var(--dim); font-size: 12px; transition: transform 0.25s; flex-shrink: 0; }
+.sec-body { display: none; border-top: 1px solid var(--border); }
+.sec-body.open { display: block; }
+
+.itabs { display: flex; border-bottom: 1px solid var(--border); background: var(--bg2); overflow-x: auto; scrollbar-width: none; }
+.itabs::-webkit-scrollbar { display: none; }
+.itab { padding: 9px 16px; font-size: 12px; font-weight: 500; color: var(--muted); cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.15s; border-top: none; border-left: none; border-right: none; background: none; font-family: var(--font-body); }
+.itab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.itab:hover:not(.active) { color: var(--text); }
+.ipanel { display: none; padding: 16px; }
+.ipanel.active { display: block; }
+
+.sub { font-size: 10px; font-weight: 600; color: var(--dim); text-transform: uppercase; letter-spacing: 0.08em; margin: 12px 0 5px; }
+.sub:first-child { margin-top: 0; }
+.struct { background: var(--bg); border: 1px solid var(--border2); border-radius: 8px; padding: 10px 14px; font-family: var(--font-mono); font-size: 12.5px; color: #c4b5fd; line-height: 1.8; margin-bottom: 8px; white-space: pre-wrap; }
+.ex { font-size: 13.5px; color: var(--muted); line-height: 1.75; }
+.ex em { color: var(--teal); font-style: normal; font-weight: 500; }
+.ex strong { color: var(--text); font-weight: 500; }
+.note { font-size: 12px; color: var(--dim); border-left: 2px solid var(--accent2); padding: 6px 10px; margin-top: 10px; border-radius: 0 6px 6px 0; background: rgba(124,58,237,0.07); line-height: 1.6; }
+.sep { height: 1px; background: var(--border); margin: 12px 0; }
+
+.s1 .sec-num { background: rgba(167,139,250,0.15); color: var(--accent); } .s1 .sec-tag { background: rgba(167,139,250,0.12); color: var(--accent); }
+.s2 .sec-num { background: rgba(45,212,191,0.12); color: var(--teal); } .s2 .sec-tag { background: rgba(45,212,191,0.10); color: var(--teal); }
+.s3 .sec-num { background: rgba(96,165,250,0.12); color: var(--blue); } .s3 .sec-tag { background: rgba(96,165,250,0.10); color: var(--blue); }
+.s4 .sec-num { background: rgba(251,191,36,0.12); color: var(--gold); } .s4 .sec-tag { background: rgba(251,191,36,0.10); color: var(--gold); }
+.s5 .sec-num { background: rgba(251,113,133,0.12); color: var(--coral); } .s5 .sec-tag { background: rgba(251,113,133,0.10); color: var(--coral); }
+.s6 .sec-num { background: rgba(249,115,22,0.12); color: #fb923c; } .s6 .sec-tag { background: rgba(249,115,22,0.10); color: #fb923c; }
+.s7 .sec-num { background: rgba(74,222,128,0.12); color: var(--green); } .s7 .sec-tag { background: rgba(74,222,128,0.10); color: var(--green); }
+
+/* QUIZ */
+.quiz-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+.quiz-header h2 { font-family: var(--font-display); font-size: 24px; color: #fff; }
+.quiz-score-box { background: var(--bg2); border: 1px solid var(--border2); border-radius: 10px; padding: 8px 18px; text-align: center; }
+.score-num { font-size: 22px; font-weight: 700; color: var(--accent); font-family: var(--font-mono); }
+.score-lbl { font-size: 11px; color: var(--muted); }
+.quiz-progress-bar { height: 3px; background: var(--bg3); border-radius: 2px; margin-bottom: 24px; overflow: hidden; }
+.quiz-progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent)); border-radius: 2px; transition: width 0.4s ease; }
+.q-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 20px; margin-bottom: 14px; }
+.q-card.answered { border-color: var(--border2); }
+.q-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.q-num { width: 24px; height: 24px; border-radius: 50%; background: var(--accent2); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.q-topic { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 20px; background: var(--bg3); color: var(--muted); }
+.q-text { font-size: 14.5px; color: var(--text); font-weight: 500; line-height: 1.6; margin-bottom: 14px; }
+.blank { display: inline-block; min-width: 80px; border-bottom: 2px solid var(--accent2); color: var(--accent); font-family: var(--font-mono); font-size: 13px; padding: 0 6px; text-align: center; vertical-align: middle; }
+.options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+@media(max-width:480px){.options{grid-template-columns:1fr;}}
+.opt { padding: 9px 14px; border-radius: 8px; border: 1px solid var(--border2); background: var(--bg2); color: var(--muted); font-size: 13.5px; cursor: pointer; transition: all 0.15s; text-align: left; font-family: var(--font-body); }
+.opt:hover:not(:disabled) { border-color: var(--accent); color: var(--text); background: var(--bg3); }
+.opt.correct { background: rgba(74,222,128,0.12); border-color: var(--green); color: var(--green); }
+.opt.wrong { background: rgba(251,113,133,0.1); border-color: var(--coral); color: var(--coral); }
+.opt:disabled { cursor: default; }
+.q-explain { display: none; margin-top: 12px; padding: 10px 14px; background: var(--bg); border-radius: 8px; border-left: 3px solid var(--accent2); font-size: 13px; color: var(--muted); line-height: 1.65; }
+.q-explain.show { display: block; }
+.q-explain strong { color: var(--accent); }
+.result-box { display: none; text-align: center; padding: 40px 20px; background: var(--card); border: 1px solid var(--border2); border-radius: var(--r); margin-top: 20px; }
+.result-box.show { display: block; }
+.result-big { font-family: var(--font-display); font-size: 56px; color: var(--accent); }
+.result-msg { font-size: 18px; color: var(--text); margin: 8px 0 4px; font-weight: 500; }
+.result-sub { font-size: 14px; color: var(--muted); }
+.btn-retry { margin-top: 24px; padding: 11px 32px; border-radius: 8px; background: var(--accent2); color: #fff; border: none; font-family: var(--font-body); font-size: 14px; font-weight: 600; cursor: pointer; }
+.btn-retry:hover { background: #6d28d9; }
+.footer { text-align: center; padding: 24px 0 8px; color: var(--dim); font-size: 12px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Ôn Tập <span>Ngữ Pháp</span> Tiếng Anh</h1>
+  <p>7 cấu trúc cơ bản &amp; nâng cao · 15 bài tập luyện thi</p>
+  <div class="pills">
+    <span class="pill">Bị động</span>
+    <span class="pill">Causative</span>
+    <span class="pill">If</span>
+    <span class="pill">Relative Clause</span>
+    <span class="pill">It's time</span>
+    <span class="pill">Not only…but also</span>
+    <span class="pill">Từ nối</span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="switchView('grammar',this)">📖 Lý thuyết</button>
+    <button class="nav-tab" onclick="switchView('advanced',this)">⚡ Nâng cao</button>
+    <button class="nav-tab" onclick="switchView('quiz',this)">✏️ Bài tập (15)</button>
+  </div>
+
+  <!-- GRAMMAR -->
+  <div id="grammar" class="view active">
+
+    <div class="sec s1">
+      <div class="sec-head" onclick="toggleSec(this)">
+        <div class="sec-num">1</div><div class="sec-title">Câu bị động</div>
+        <div class="sec-tag">Passive Voice</div><div class="sec-chev">▼</div>
+      </div>
+      <div class="sec-body">
+        <div class="itabs">
+          <button class="itab active" onclick="switchTab(this,0)">Các thì chính</button>
+          <button class="itab" onclick="switchTab(this,1)">Modal bị động</button>
+        </div>
+        <div class="ipanel active">
+          <div class="struct">S + be + V₃ (+ by O)</div>
+          <div class="sub">Chia "be" theo thì</div>
+          <div class="ex">
+            <strong>Hiện tại đơn:</strong> am/is/are + V₃<br>
+            <strong>Hiện tại tiếp diễn:</strong> am/is/are + being + V₃<br>
+            <strong>Hiện tại hoàn thành:</strong> have/has + been + V₃<br>
+            <strong>Quá khứ đơn:</strong> was/were + V₃<br>
+            <strong>Quá khứ tiếp diễn:</strong> was/were + being + V₃<br>
+            <strong>Tương lai đơn:</strong> will + be + V₃
+          </div>
+          <div class="sep"></div>
+          <div class="ex">
+            → The letter <em>is written</em> by him.<br>
+            → The cake <em>was being eaten</em> when I arrived.<br>
+            → The project <em>has been completed</em> already.
+          </div>
+        </div>
+        <div class="ipanel">
+          <div class="struct">S + modal + be + V₃</div>
+          <div class="ex">
+            → This problem <em>can be solved</em> easily.<br>
+            → The report <em>must be submitted</em> today.<br>
+            → Mistakes <em>should be avoided</em>.<br>
+            → The door <em>might be locked</em>.
+          </div>
+          <div class="note">Modal + be + V₃ → không chia "be" theo chủ ngữ.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec s2">
+      <div class="sec-head" onclick="toggleSec(this)">
+        <div class="sec-num">2</div><div class="sec-title">Thể nhờ vả</div>
+        <div class="sec-tag">Causative</div><div class="sec-chev">▼</div>
+      </div>
+      <div class="sec-body">
+        <div class="itabs">
+          <button class="itab active" onclick="switchTab(this,0)">Have / Get</button>
+          <button class="itab" onclick="switchTab(this,1)">Make / Let / Help</button>
+        </div>
+        <div class="ipanel active">
+          <div class="sub">Have – sắp xếp ai làm</div>
+          <div class="struct">have + O người + V (bare)
+have + O vật  + V₃</div>
+          <div class="ex">→ I <em>had</em> him fix my car. (nhờ anh ấy sửa)<br>→ I <em>had</em> my car fixed. (xe được sửa)</div>
+          <div class="sep"></div>
+          <div class="sub">Get – thuyết phục / nhờ</div>
+          <div class="struct">get + O người + to-V
+get + O vật  + V₃</div>
+          <div class="ex">→ She <em>got</em> him <em>to clean</em> the room.<br>→ She <em>got</em> her hair <em>cut</em>.</div>
+        </div>
+        <div class="ipanel">
+          <div class="sub">Make – ép buộc (bị động: be made to-V)</div>
+          <div class="struct">make + O + V (bare)</div>
+          <div class="ex">→ The teacher <em>made</em> students rewrite the essay.<br>→ Students <em>were made to rewrite</em> it.</div>
+          <div class="sep"></div>
+          <div class="sub">Let – cho phép (bị động: be allowed to-V)</div>
+          <div class="struct">let + O + V (bare)</div>
+          <div class="ex">→ Dad <em>let</em> me use the car.</div>
+          <div class="sep"></div>
+          <div class="sub">Help – giúp đỡ</div>
+          <div class="struct">help + O + (to) V</div>
+          <div class="ex">→ She <em>helped</em> him (to) understand the problem.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec s3">
+      <div class="sec-head" onclick="toggleSec(this)">
+        <div class="sec-num">3</div><div class="sec-title">Câu điều kiện (If)</div>
+        <div class="sec-tag">Conditionals</div><div class="sec-chev">▼</div>
+      </div>
+      <div class="sec-body">
+        <div class="itabs">
+          <button class="itab active" onclick="switchTab(this,0)">Loại 0, 1, 2, 3</button>
+          <button class="itab" onclick="switchTab(this,1)">Mixed &amp; Đảo ngữ</button>
+          <button class="itab" onclick="switchTab(this,2)">Unless / Provided…</button>
+        </div>
+        <div class="ipanel active">
+          <div class="sub">Loại 0 – Sự thật</div>
+          <div class="struct">If + HTĐ, HTĐ</div>
+          <div class="ex">→ If you <em>heat</em> water, it <em>boils</em>.</div>
+          <div class="sep"></div>
+          <div class="sub">Loại 1 – Có thể xảy ra</div>
+          <div class="struct">If + HTĐ, will + V</div>
+          <div class="ex">→ If it <em>rains</em>, we <em>will stay</em> home.</div>
+          <div class="sep"></div>
+          <div class="sub">Loại 2 – Không có thật (HT)</div>
+          <div class="struct">If + V₂/were, would + V</div>
+          <div class="ex">→ If I <em>were</em> rich, I <em>would travel</em> the world.</div>
+          <div class="sep"></div>
+          <div class="sub">Loại 3 – Không có thật (QK)</div>
+          <div class="struct">If + had + V₃, would have + V₃</div>
+          <div class="ex">→ If she <em>had studied</em>, she <em>would have passed</em>.</div>
+        </div>
+        <div class="ipanel">
+          <div class="sub">Mixed – QK → HT</div>
+          <div class="struct">If + had V₃, would + V (HT)</div>
+          <div class="ex">→ If she <em>had studied</em> medicine, she <em>would be</em> a doctor now.</div>
+          <div class="sep"></div>
+          <div class="sub">Mixed – HT → QK</div>
+          <div class="struct">If + V₂ (HT), would have + V₃</div>
+          <div class="ex">→ If I <em>were</em> braver, I <em>would have spoken</em> up.</div>
+          <div class="sep"></div>
+          <div class="sub">Đảo ngữ (bỏ "If")</div>
+          <div class="ex">L1: <em>Should</em> you need help, call me.<br>L2: <em>Were</em> I you, I would apologize.<br>L3: <em>Had</em> I known, I would have told you.</div>
+        </div>
+        <div class="ipanel">
+          <div class="ex">
+            <strong>Unless</strong> = if…not:<br>&nbsp;&nbsp;<em>Unless</em> you hurry, you'll be late.<br><br>
+            <strong>Provided that:</strong><br>&nbsp;&nbsp;<em>Provided that</em> you pass, you'll get the job.<br><br>
+            <strong>As long as:</strong><br>&nbsp;&nbsp;You can stay <em>as long as</em> you're quiet.<br><br>
+            <strong>Only if</strong> + đảo ngữ:<br>&nbsp;&nbsp;<em>Only if</em> you study hard <em>will</em> you succeed.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec s4">
+      <div class="sec-head" onclick="toggleSec(this)">
+        <div class="sec-num">4</div><div class="sec-title">Mệnh đề quan hệ</div>
+        <div class="sec-tag">Relative Clause</div><div class="sec-chev">▼</div>
+      </div>
+      <div class="sec-body">
+        <div class="itabs">
+          <button class="itab active" onclick="switchTab(this,0)">Đại từ quan hệ</button>
+          <button class="itab" onclick="switchTab(this,1)">Rút gọn</button>
+          <button class="itab" onclick="switchTab(this,2)">Non-defining &amp; What</button>
+        </div>
+        <div class="ipanel active">
+          <div class="struct">N + who / whom / which / that / whose / where / when + ...</div>
+          <div class="ex">
+            <strong>who</strong> – người (chủ ngữ): The man <em>who lives</em> next door.<br>
+            <strong>whom</strong> – người (tân ngữ): The girl <em>whom</em> I met.<br>
+            <strong>which</strong> – vật: The book <em>which</em> I bought.<br>
+            <strong>that</strong> – người hoặc vật (defining).<br>
+            <strong>whose</strong> – sở hữu: The girl <em>whose hair</em> is long.<br>
+            <strong>where</strong> – nơi &nbsp;|&nbsp; <strong>when</strong> – thời gian.
+          </div>
+        </div>
+        <div class="ipanel">
+          <div class="sub">V-ing (chủ động)</div>
+          <div class="ex">→ The man <em>standing</em> there = who is standing there.</div>
+          <div class="sep"></div>
+          <div class="sub">V₃ (bị động)</div>
+          <div class="ex">→ The letter <em>written</em> by him = which was written.</div>
+          <div class="sep"></div>
+          <div class="sub">to-V (sau first / last / only / số thứ tự)</div>
+          <div class="ex">→ He is the first man <em>to walk</em> on the moon.</div>
+        </div>
+        <div class="ipanel">
+          <div class="sub">Non-defining – dấu phẩy, không dùng "that"</div>
+          <div class="ex">→ My brother, <em>who lives in Hanoi</em>, is a doctor.</div>
+          <div class="sep"></div>
+          <div class="sub">What = the thing(s) that</div>
+          <div class="ex">→ <em>What</em> she said surprised everyone.</div>
+          <div class="sep"></div>
+          <div class="sub">Which chỉ cả mệnh đề</div>
+          <div class="ex">→ He passed, <em>which</em> surprised everyone.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec s5">
+      <div class="sec-head" onclick="toggleSec(this)">
+        <div class="sec-num">5</div><div class="sec-title">It's time – Wish – Would rather</div>
+        <div class="sec-tag">Subjunctive</div><div class="sec-chev">▼</div>
+      </div>
+      <div class="sec-body">
+        <div class="itabs">
+          <button class="itab active" onclick="switchTab(this,0)">It's time</button>
+          <button class="itab" onclick="switchTab(this,1)">Wish</button>
+          <button class="itab" onclick="switchTab(this,2)">Would rather / As if</button>
+        </div>
+        <div class="ipanel active">
+          <div class="sub">Dạng 1 – nói chung</div>
+          <div class="struct">It's time + to-V</div>
+          <div class="ex">→ It's time <em>to go</em>.</div>
+          <div class="sep"></div>
+          <div class="sub">Dạng 2 – đã đến lúc (nhẹ trách cứ)</div>
+          <div class="struct">It's (high/about) time + S + V₂</div>
+          <div class="ex">→ It's time you <em>went</em> to bed.<br>→ It's <em>high time</em> he <em>started</em> studying.</div>
+        </div>
+        <div class="ipanel">
+          <div class="sub">Ước hiện tại – trái thực tế</div>
+          <div class="struct">S + wish + S + V₂ / were</div>
+          <div class="ex">→ I <em>wish</em> I <em>were</em> taller.</div>
+          <div class="sep"></div>
+          <div class="sub">Ước quá khứ – hối tiếc</div>
+          <div class="struct">S + wish + S + had + V₃</div>
+          <div class="ex">→ I <em>wish</em> I <em>had studied</em> harder.</div>
+          <div class="sep"></div>
+          <div class="sub">Ước tương lai – muốn ai thay đổi</div>
+          <div class="struct">S + wish + S + would + V</div>
+          <div class="ex">→ I <em>wish</em> you <em>would stop</em> talking so loud.</div>
+        </div>
+        <div class="ipanel">
+          <div class="sub">Would rather</div>
+          <div class="struct">S + would rather + V (bare)   [chính mình]
+S + would rather + S + V₂   [người khác]</div>
+          <div class="ex">→ I <em>would rather stay</em> home than go out.<br>→ I <em>would rather</em> you <em>didn't</em> tell him.</div>
+          <div class="sep"></div>
+          <div class="sub">As if / As though</div>
+          <div class="struct">as if + S + V₂      → HT giả định
+as if + S + had V₃  → QK giả định</div>
+          <div class="ex">→ He talks <em>as if he knew</em> everything.<br>→ She cried <em>as if she had lost</em> everything.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec s6">
+      <div class="sec-head" onclick="toggleSec(this)">
+        <div class="sec-num">6</div><div class="sec-title">Không những… mà còn</div>
+        <div class="sec-tag">Not only…but also</div><div class="sec-chev">▼</div>
+      </div>
+      <div class="sec-body">
+        <div class="itabs">
+          <button class="itab active" onclick="switchTab(this,0)">Not only…but also</button>
+          <button class="itab" onclick="switchTab(this,1)">Các cặp khác</button>
+          <button class="itab" onclick="switchTab(this,2)">Đảo ngữ nhấn mạnh</button>
+        </div>
+        <div class="ipanel active">
+          <div class="struct">S + not only + A + but also + B
+Not only + aux + S + V, but S + also + V</div>
+          <div class="ex">→ She is <em>not only</em> smart <em>but also</em> kind.<br>→ <em>Not only did</em> he sing, but he <em>also</em> danced.</div>
+          <div class="note">Khi "Not only" đứng đầu câu → đảo ngữ mệnh đề đó.</div>
+        </div>
+        <div class="ipanel">
+          <div class="ex">
+            <strong>Both… and:</strong> She is <em>both</em> kind <em>and</em> smart.<br>
+            <strong>Either… or:</strong> Take <em>either</em> the bus <em>or</em> the train.<br>
+            <strong>Neither… nor:</strong> <em>Neither</em> he <em>nor</em> she was there.<br><br>
+            <strong>No sooner… than:</strong><br>&nbsp;&nbsp;<em>No sooner had</em> she left <em>than</em> it rained.<br><br>
+            <strong>Hardly… when:</strong><br>&nbsp;&nbsp;<em>Hardly had</em> I arrived <em>when</em> he called.
+          </div>
+        </div>
+        <div class="ipanel">
+          <div class="struct">Trạng từ phủ định + aux + S + V</div>
+          <div class="ex">→ <em>Never have</em> I seen such beauty.<br>→ <em>Seldom does</em> she complain.<br>→ <em>Little did</em> he know the truth.<br>→ <em>Only then did</em> I understand.<br>→ <em>Only if</em> you try <em>will</em> you succeed.<br>→ <em>So tired was</em> she that she fell asleep.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec s7">
+      <div class="sec-head" onclick="toggleSec(this)">
+        <div class="sec-num">7</div><div class="sec-title">Từ nối (Connectors)</div>
+        <div class="sec-tag">Linking Words</div><div class="sec-chev">▼</div>
+      </div>
+      <div class="sec-body">
+        <div class="itabs">
+          <button class="itab active" onclick="switchTab(this,0)">Thêm / Tương phản</button>
+          <button class="itab" onclick="switchTab(this,1)">Nhượng bộ</button>
+          <button class="itab" onclick="switchTab(this,2)">Kết quả / Mục đích</button>
+        </div>
+        <div class="ipanel active">
+          <div class="sub">Thêm ý (Addition)</div>
+          <div class="ex"><em>and, moreover, furthermore, in addition, besides, also, what is more</em></div>
+          <div class="sep"></div>
+          <div class="sub">Tương phản (Contrast)</div>
+          <div class="ex"><em>but, however, yet, nevertheless, whereas, while, on the other hand</em></div>
+        </div>
+        <div class="ipanel">
+          <div class="struct">Although / Even though + S + V, S + V
+Despite / In spite of + N / V-ing</div>
+          <div class="ex">→ <em>Although</em> it was expensive, she bought it.<br>→ <em>Despite</em> the rain, they played.<br>→ <em>Much as</em> I'd like to help, I can't.<br>→ <em>No matter what</em> you say, I won't change.</div>
+          <div class="note">Không viết "Although… but…" — lỗi rất phổ biến!</div>
+        </div>
+        <div class="ipanel">
+          <div class="sub">Kết quả</div>
+          <div class="ex"><em>so, therefore, thus, as a result, consequently, hence</em></div>
+          <div class="sep"></div>
+          <div class="sub">Mục đích</div>
+          <div class="ex"><em>to, in order to, so that, so as to, in order that, for fear that, lest</em></div>
+          <div class="sep"></div>
+          <div class="sub">So… that / Such… that</div>
+          <div class="struct">So + adj/adv + that + S + V
+Such + (a/an) + adj + N + that + S + V</div>
+          <div class="ex">→ She was <em>so tired that</em> she fell asleep.<br>→ It was <em>such a hard exam that</em> many failed.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end grammar -->
+
+  <!-- ADVANCED -->
+  <div id="advanced" class="view">
+    <div class="sec s1">
+      <div class="sec-head" onclick="toggleSec(this)">
+        <div class="sec-num">1</div><div class="sec-title">Bị động nâng cao</div>
+        <div class="sec-tag">Passive Advanced</div><div class="sec-chev">▼</div>
+      </div>
+      <div class="sec-body">
+        <div class="itabs">
+          <button class="itab active" onclick="switchTab(this,0)">Verbs of perception</button>
+          <button class="itab" onclick="switchTab(this,1)">Verbs of thinking</button>
+          <button class="itab" onclick="switchTab(this,2)">2 tân ngữ / V-ing</button>
+        </div>
+        <div class="ipanel active">
+          <div class="sub">See, hear, feel, watch…</div>
+          <div class="struct">S + be seen/heard + to-V    (hoàn thành)
+S + be seen/heard + V-ing   (tiếp diễn)</div>
+          <div class="ex">→ He <em>was seen to enter</em> the building.<br>→ She <em>was heard singing</em> in the shower.</div>
+          <div class="sep"></div>
+          <div class="sub">Make / Let → bị động</div>
+          <div class="ex">→ He <em>was made to work</em>. (make → be made to-V)<br>→ We <em>were allowed to go</em>. (let → be allowed to-V)</div>
+        </div>
+        <div class="ipanel">
+          <div class="struct">It + be + V₃ + that-clause
+S + be + V₃ + to-V
+S + be + V₃ + to have + V₃</div>
+          <div class="ex">→ <em>It is believed that</em> he is guilty.<br>→ He <em>is believed to be</em> guilty.<br>→ He <em>is believed to have committed</em> the crime.</div>
+          <div class="note">Verbs: believe, say, think, report, consider, know, suppose…</div>
+        </div>
+        <div class="ipanel">
+          <div class="sub">Động từ 2 tân ngữ → 2 câu bị động</div>
+          <div class="ex">Active: She gave <em>him</em> a book.<br>Passive 1: <em>He</em> was given a book.<br>Passive 2: <em>A book</em> was given to him.</div>
+          <div class="sep"></div>
+          <div class="sub">Bị động với V-ing</div>
+          <div class="struct">enjoy / avoid / consider + being + V₃</div>
+          <div class="ex">→ She enjoys <em>being praised</em>.<br>→ He hates <em>being ignored</em>.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec s3">
+      <div class="sec-head" onclick="toggleSec(this)">
+        <div class="sec-num">3</div><div class="sec-title">If – Đảo ngữ &amp; Mixed nâng cao</div>
+        <div class="sec-tag">Conditionals Adv.</div><div class="sec-chev">▼</div>
+      </div>
+      <div class="sec-body">
+        <div class="ipanel active" style="display:block;padding:16px">
+          <div class="sub">Đảo ngữ 3 loại</div>
+          <div class="struct">Should + S + V          → Loại 1
+Were  + S + (to-V/adj) → Loại 2
+Had   + S + V₃         → Loại 3</div>
+          <div class="ex">→ <em>Should</em> you need help, call me.<br>→ <em>Were</em> she to arrive late, we'd start without her.<br>→ <em>Had</em> I known, I would have told you.</div>
+          <div class="sep"></div>
+          <div class="sub">Mixed conditional</div>
+          <div class="ex">→ If I <em>had taken</em> the job, I <em>would be</em> rich now. (QK→HT)<br>→ If I <em>were</em> smarter, I <em>would have solved</em> it. (HT→QK)</div>
+          <div class="note">Mixed = kết hợp 2 thì khác nhau trong 1 câu điều kiện.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec s6">
+      <div class="sec-head" onclick="toggleSec(this)">
+        <div class="sec-num">6</div><div class="sec-title">Đảo ngữ nhấn mạnh toàn diện</div>
+        <div class="sec-tag">Full Inversion</div><div class="sec-chev">▼</div>
+      </div>
+      <div class="sec-body">
+        <div class="ipanel active" style="display:block;padding:16px">
+          <div class="struct">Trạng từ/cụm phủ định + aux + S + V</div>
+          <div class="ex">
+            <em>Never have</em> I seen such beauty.<br>
+            <em>Seldom does</em> she complain.<br>
+            <em>Rarely did</em> he arrive on time.<br>
+            <em>Little did</em> he know the truth.<br>
+            <em>No sooner had</em> she left <em>than</em> it rained.<br>
+            <em>Hardly had</em> I arrived <em>when</em> he called.<br>
+            <em>Not only did</em> he fail, but he also quit.<br>
+            <em>Only then did</em> I understand.<br>
+            <em>Only if</em> you try hard <em>will</em> you succeed.<br>
+            <em>So tired was</em> she that she fell asleep immediately.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec s4">
+      <div class="sec-head" onclick="toggleSec(this)">
+        <div class="sec-num">4</div><div class="sec-title">Relative Clause nâng cao</div>
+        <div class="sec-tag">Relative Adv.</div><div class="sec-chev">▼</div>
+      </div>
+      <div class="sec-body">
+        <div class="ipanel active" style="display:block;padding:16px">
+          <div class="sub">Giới từ + which / whom (trang trọng)</div>
+          <div class="struct">N + prep + which/whom + S + V</div>
+          <div class="ex">→ The house <em>in which</em> she lives is old.<br>→ The man <em>with whom</em> I spoke is the director.</div>
+          <div class="sep"></div>
+          <div class="sub">Which chỉ cả mệnh đề trước</div>
+          <div class="ex">→ He passed the exam, <em>which</em> surprised everyone.</div>
+          <div class="sep"></div>
+          <div class="sub">Whose dùng cho cả vật</div>
+          <div class="ex">→ The company <em>whose products</em> are popular is expanding.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec s7">
+      <div class="sec-head" onclick="toggleSec(this)">
+        <div class="sec-num">7</div><div class="sec-title">Từ nối nâng cao</div>
+        <div class="sec-tag">Connectors Adv.</div><div class="sec-chev">▼</div>
+      </div>
+      <div class="sec-body">
+        <div class="itabs">
+          <button class="itab active" onclick="switchTab(this,0)">Nhượng bộ đặc biệt</button>
+          <button class="itab" onclick="switchTab(this,1)">Mục đích nâng cao</button>
+        </div>
+        <div class="ipanel active">
+          <div class="sub">Much as / Try as</div>
+          <div class="ex">→ <em>Much as</em> I'd like to help, I can't.<br>→ <em>Try as</em> he might, he couldn't open the door.</div>
+          <div class="sep"></div>
+          <div class="sub">No matter + wh-</div>
+          <div class="ex">→ <em>No matter what</em> you say, I won't change my mind.<br>→ <em>No matter how</em> hard it is, don't give up.<br>→ <em>No matter where</em> she goes, she makes friends.</div>
+        </div>
+        <div class="ipanel">
+          <div class="sub">For fear that / Lest</div>
+          <div class="struct">S + V + for fear that + S + might/would + V
+S + V + lest + S + (should) + V</div>
+          <div class="ex">→ She whispered <em>for fear that</em> she might wake the baby.<br>→ He ran <em>lest</em> he should miss the train.</div>
+          <div class="sep"></div>
+          <div class="sub">So that / In order that</div>
+          <div class="ex">→ He studied hard <em>so that</em> he could pass.<br>→ She spoke slowly <em>in order that</em> everyone could understand.</div>
+        </div>
+      </div>
+    </div>
+  </div><!-- end advanced -->
+
+  <!-- QUIZ -->
+  <div id="quiz" class="view">
+    <div class="quiz-header">
+      <h2>15 Bài tập luyện thi</h2>
+      <div class="quiz-score-box">
+        <div class="score-num" id="score-display">0/15</div>
+        <div class="score-lbl">điểm</div>
+      </div>
+    </div>
+    <div class="quiz-progress-bar">
+      <div class="quiz-progress-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+    <div id="quiz-container"></div>
+    <div class="result-box" id="result-box">
+      <div class="result-big" id="result-score"></div>
+      <div class="result-msg" id="result-msg"></div>
+      <div class="result-sub" id="result-sub"></div>
+      <button class="btn-retry" onclick="retryQuiz()">Làm lại từ đầu</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">Ôn thi Tiếng Anh · 7 cấu trúc · 15 bài tập</div>
+
+<script>
+function switchView(id, btn) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+function toggleSec(head) {
+  const body = head.nextElementSibling;
+  const chev = head.querySelector('.sec-chev');
+  const open = body.classList.toggle('open');
+  chev.style.transform = open ? 'rotate(180deg)' : '';
+}
+function switchTab(btn, idx) {
+  const tabs = btn.closest('.itabs');
+  const container = tabs.parentElement;
+  tabs.querySelectorAll('.itab').forEach((b,i) => b.classList.toggle('active', i===idx));
+  container.querySelectorAll('.ipanel').forEach((p,i) => p.classList.toggle('active', i===idx));
+}
+
+const questions = [
+  { topic:'Bị động', text:'The letter ______ by him yesterday.', opts:['is written','was written','has been written','be written'], ans:1, explain:'Dùng <strong>was written</strong> vì có "yesterday" → Quá khứ đơn bị động: was/were + V₃.' },
+  { topic:'Bị động', text:'This problem ______ easily if we cooperate.', opts:['can solved','can be solve','can be solved','can being solved'], ans:2, explain:'Modal bị động: <strong>modal + be + V₃</strong>. "can be solved" là đúng.' },
+  { topic:'Bị động', text:'It ______ that he left the country last night.', opts:['is reported','reports','was reporting','reported'], ans:0, explain:'Bị động verbs of thinking: <strong>It + be + V₃ + that-clause</strong>. "is reported" là đúng.' },
+  { topic:'Causative', text:'She had her car ______ at the garage last week.', opts:['repair','to repair','repaired','repairing'], ans:2, explain:'<strong>have + O vật + V₃</strong> → "had her car repaired" (xe được sửa).' },
+  { topic:'Causative', text:'The teacher made the students ______ the essay again.', opts:['rewrite','to rewrite','rewrote','rewriting'], ans:0, explain:'<strong>make + O + V (bare infinitive)</strong> → không dùng "to".' },
+  { topic:'Câu điều kiện', text:'If I ______ rich, I would travel around the world.', opts:['am','was','were','had been'], ans:2, explain:'Điều kiện Loại 2: <strong>If + were/V₂</strong>. "were" dùng cho mọi chủ ngữ trong văn viết chuẩn.' },
+  { topic:'Câu điều kiện', text:'______ you need any assistance, feel free to contact me.', opts:['If','Should','Were','Had'], ans:1, explain:'Đảo ngữ Loại 1: <strong>Should + S + V</strong> = If + S + should + V. Văn viết trang trọng.' },
+  { topic:'Câu điều kiện', text:'If she had studied harder, she ______ the exam.', opts:['will pass','would pass','would have passed','had passed'], ans:2, explain:'Điều kiện Loại 3: <strong>If + had + V₃, would have + V₃</strong>.' },
+  { topic:'Relative Clause', text:'The woman ______ bag was stolen called the police immediately.', opts:['who','whom','which','whose'], ans:3, explain:'<strong>whose</strong> dùng để chỉ sở hữu: "whose bag" = chiếc túi của người phụ nữ đó.' },
+  { topic:'Relative Clause', text:'He is the first student ______ this difficult problem.', opts:['who solves','solving','to solve','which solves'], ans:2, explain:'Sau "the first / last / only" và số thứ tự, rút gọn mệnh đề quan hệ bằng <strong>to-V</strong>.' },
+  { topic:"It's time / Wish", text:"It's high time you ______ your homework.", opts:['do','did','have done','to do'], ans:1, explain:"<strong>It's (high) time + S + V₂ (quá khứ đơn)</strong>. &quot;did&quot; là V₂ của &quot;do&quot;." },
+  { topic:'Wish', text:'I wish I ______ more time to study yesterday.', opts:['have','had','had had','would have'], ans:2, explain:'Wish ước quá khứ (hối tiếc): <strong>S + wish + S + had + V₃</strong>. "had had" = had (have) → V₃ = had.' },
+  { topic:'Not only…but also', text:'Not only ______ the exam, but he also got the highest score.', opts:['he passed','did he pass','he did pass','passed he'], ans:1, explain:'Khi "Not only" đứng đầu câu → đảo ngữ: <strong>Not only + did + S + V</strong>.' },
+  { topic:'Từ nối', text:'______ the heavy rain, they decided to continue the match.', opts:['Although','Despite','Even though','Because of'], ans:1, explain:'<strong>Despite + N/V-ing</strong> (không dùng mệnh đề sau trực tiếp). "Despite the heavy rain" đúng cấu trúc.' },
+  { topic:'Từ nối', text:'She was ______ tired ______ she could not walk anymore.', opts:['such…that','so…that','too…to','enough…to'], ans:1, explain:'<strong>So + adj/adv + that</strong>. "So tired that" diễn đạt kết quả của mức độ cao.' }
+];
+
+let answered = 0, correct = 0;
+
+function buildQuiz() {
+  const c = document.getElementById('quiz-container');
+  c.innerHTML = '';
+  answered = 0; correct = 0;
+  updateScore();
+  document.getElementById('result-box').classList.remove('show');
+
+  questions.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = 'qcard-' + i;
+
+    const blanked = q.text.replace('______', '<span class="blank">______</span>');
+    const optsHTML = q.opts.map((o, j) =>
+      `<button class="opt" onclick="answer(${i},${j})" id="opt-${i}-${j}">${String.fromCharCode(65+j)}. ${o}</button>`
+    ).join('');
+
+    card.innerHTML = `
+      <div class="q-meta">
+        <div class="q-num">${i+1}</div>
+        <span class="q-topic">${q.topic}</span>
+      </div>
+      <div class="q-text">${blanked}</div>
+      <div class="options">${optsHTML}</div>
+      <div class="q-explain" id="exp-${i}">${q.explain}</div>
+    `;
+    c.appendChild(card);
+  });
+}
+
+function answer(qIdx, optIdx) {
+  if (document.getElementById('opt-'+qIdx+'-0').disabled) return;
+  const q = questions[qIdx];
+  for (let j = 0; j < 4; j++) {
+    const b = document.getElementById('opt-'+qIdx+'-'+j);
+    if (b) b.disabled = true;
+  }
+  const chosen = document.getElementById('opt-'+qIdx+'-'+optIdx);
+  const correctBtn = document.getElementById('opt-'+qIdx+'-'+q.ans);
+  if (optIdx === q.ans) { chosen.classList.add('correct'); correct++; }
+  else { chosen.classList.add('wrong'); correctBtn.classList.add('correct'); }
+  document.getElementById('exp-'+qIdx).classList.add('show');
+  document.getElementById('qcard-'+qIdx).classList.add('answered');
+  answered++;
+  updateScore();
+  if (answered === questions.length) setTimeout(showResult, 700);
+}
+
+function updateScore() {
+  document.getElementById('score-display').textContent = correct + '/15';
+  document.getElementById('progress-fill').style.width = (answered / questions.length * 100) + '%';
+}
+
+function showResult() {
+  const box = document.getElementById('result-box');
+  const pct = Math.round(correct / questions.length * 100);
+  document.getElementById('result-score').textContent = correct + '/15';
+  let msg, sub;
+  if (pct >= 90) { msg = 'Xuất sắc! 🎉'; sub = 'Bạn đã nắm vững toàn bộ ngữ pháp. Chúc thi tốt!'; }
+  else if (pct >= 70) { msg = 'Tốt lắm! 💪'; sub = 'Ôn lại những câu sai và bạn sẽ hoàn hảo.'; }
+  else if (pct >= 50) { msg = 'Khá ổn 👍'; sub = 'Hãy đọc lại lý thuyết phần bị động và điều kiện nhé.'; }
+  else { msg = 'Cố lên! 📖'; sub = 'Đọc lại lý thuyết rồi làm thử lại bạn nhé.'; }
+  document.getElementById('result-msg').textContent = msg;
+  document.getElementById('result-sub').textContent = sub;
+  box.classList.add('show');
+  box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function retryQuiz() {
+  buildQuiz();
+  document.getElementById('quiz-container').scrollIntoView({ behavior: 'smooth' });
+}
+
+buildQuiz();
+</script>
+</body>
+</html>
