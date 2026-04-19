@@ -6,7 +6,7 @@
     <title>Từ Điển & Flashcard Cá Nhân Pro</title>
     <style>
         :root {
-            --primary: #1D4ED8; /* Màu xanh Cambridge */
+            --primary: #1D4ED8; 
             --primary-hover: #1E3A8A;
             --surface: #ffffff;
             --background: #F3F4F6;
@@ -15,6 +15,7 @@
             --success: #059669;
             --danger: #DC2626;
             --accent: #F59E0B;
+            --purple: #8B5CF6;
         }
 
         body {
@@ -35,7 +36,7 @@
             border-radius: 16px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.08);
             width: 100%;
-            max-width: 600px; /* Mở rộng thẻ để chứa nhiều thông tin hơn */
+            max-width: 600px;
             padding: 30px;
             overflow: hidden;
         }
@@ -60,8 +61,8 @@
         .word-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #E5E7EB; padding-bottom: 15px; margin-bottom: 15px; }
         .word-title { font-size: 32px; font-weight: bold; margin: 0; color: var(--primary); }
         .fc-phonetic { color: var(--text-muted); font-size: 18px; margin-top: 5px; display: block; }
-        .audio-btn { background-color: #EFF6FF; color: var(--primary); border-radius: 50%; width: 45px; height: 45px; display: inline-flex; align-items: center; justify-content: center; padding: 0; margin: 0; border: none; cursor: pointer; }
-        .audio-btn:hover { background-color: #DBEAFE; }
+        .audio-btn { background-color: #EFF6FF; color: var(--primary); border-radius: 50%; width: 45px; height: 45px; display: inline-flex; align-items: center; justify-content: center; padding: 0; margin: 0; border: none; cursor: pointer; transition: 0.2s;}
+        .audio-btn:hover { background-color: #DBEAFE; transform: scale(1.05);}
         
         .main-translation { font-size: 20px; font-weight: bold; color: var(--success); margin-bottom: 20px; }
         
@@ -72,6 +73,9 @@
         .dict-section { margin-bottom: 20px; background: #F9FAFB; padding: 15px; border-radius: 8px; border-left: 4px solid var(--primary); }
         .pos-badge { display: inline-block; background: var(--primary); color: white; padding: 3px 10px; border-radius: 4px; font-size: 13px; font-weight: bold; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.5px; }
         
+        .phrase-section { border-left: 4px solid var(--purple); background: #F5F3FF; }
+        .phrase-badge { display: inline-block; background: #EDE9FE; color: #5B21B6; padding: 5px 12px; border-radius: 12px; font-size: 14px; font-weight: 600; margin: 4px; border: 1px solid #DDD6FE; }
+
         .syn-ant-row { font-size: 14px; margin-bottom: 10px; }
         .syn-badge { background: #DEF7EC; color: #03543F; padding: 2px 6px; border-radius: 4px; margin-right: 5px; font-size: 13px; display: inline-block; margin-bottom: 5px;}
         .ant-badge { background: #FDE8E8; color: #9B1C1C; padding: 2px 6px; border-radius: 4px; margin-right: 5px; font-size: 13px; display: inline-block; margin-bottom: 5px;}
@@ -97,14 +101,16 @@
         
         /* Saved List */
         .saved-words-container { max-height: 350px; overflow-y: auto; padding-right: 5px; }
-        .saved-word-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #E5E7EB; }
-        .saved-word-item:last-child { border-bottom: none; }
+        .saved-word-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 10px; border-bottom: 1px solid #E5E7EB; cursor: pointer; border-radius: 8px; transition: background-color 0.2s;}
+        .saved-word-item:hover { background-color: #F3F4F6; }
         .saved-word-info { flex: 1; }
         .saved-word-info strong { color: var(--primary); font-size: 16px; }
         .saved-word-info span { color: var(--text-muted); font-size: 13px; margin-left: 8px; }
         .saved-word-meaning { font-size: 14px; color: var(--text-main); margin-top: 4px; font-weight: 500;}
-        .delete-btn { background: none; color: var(--danger); border: none; padding: 5px; margin-left: 10px; font-size: 18px; cursor: pointer;}
-        .delete-btn:hover { background-color: #FEE2E2; border-radius: 6px; }
+        
+        .action-group { display: flex; align-items: center; gap: 5px;}
+        .delete-btn { background: none; color: var(--danger); border: none; padding: 8px; font-size: 18px; cursor: pointer; border-radius: 50%;}
+        .delete-btn:hover { background-color: #FEE2E2; }
         
         footer { margin-top: 25px; color: #9CA3AF; font-size: 13px; text-align: center; padding: 0 15px; }
     </style>
@@ -115,7 +121,7 @@
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('lookup', event)">🔍 Tra Từ</button>
             <button class="tab-btn" onclick="switchTab('flashcard', event)">🃏 Flashcard</button>
-            <button class="tab-btn" onclick="switchTab('list', event)">📚 Đã Lưu</button>
+            <button class="tab-btn" id="btn-tab-list" onclick="switchTab('list', event)">📚 Đã Lưu</button>
         </div>
 
         <div id="tab-lookup" class="tab-content active">
@@ -124,7 +130,7 @@
                 <button onclick="lookupWord()">Tra & Lưu</button>
             </div>
 
-            <div id="loading" class="loading">Đang kết nối API Dịch & Từ điển...</div>
+            <div id="loading" class="loading">Đang phân tích dữ liệu & API...</div>
 
             <div id="result-container">
                 <div class="word-header">
@@ -177,27 +183,34 @@
         </div>
     </div>
     
-    <footer>Lưu ý: Từ vựng chỉ lưu trữ cục bộ trên trình duyệt thiết bị này.</footer>
+    <footer>Lưu ý: Dữ liệu được lưu trữ an toàn ngay trên trình duyệt hiện tại.</footer>
     
     <script>
         let currentWordData = null;
         
-        // --- QUẢN LÝ DỮ LIỆU (LOCAL STORAGE) ---
-        function getSavedVocabulary() { return JSON.parse(localStorage.getItem('myVocabulary')) || []; }
+        // --- QUẢN LÝ DỮ LIỆU LOCAL STORAGE ---
+        function getSavedVocabulary() { return JSON.parse(localStorage.getItem('myVocabularyPro')) || []; }
         function saveWordToLocal(wordData) {
             let vocab = getSavedVocabulary();
-            if (!vocab.find(v => v.word.toLowerCase() === wordData.word.toLowerCase())) {
-                vocab.push(wordData);
-                localStorage.setItem('myVocabulary', JSON.stringify(vocab));
-            }
+            // Xóa từ cũ nếu đã tồn tại để cập nhật bản phân tích mới nhất
+            vocab = vocab.filter(v => v.word.toLowerCase() !== wordData.word.toLowerCase());
+            vocab.push(wordData);
+            localStorage.setItem('myVocabularyPro', JSON.stringify(vocab));
         }
 
         // --- TAB CHUYỂN ĐỔI ---
         function switchTab(tabName, event) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
             document.getElementById(`tab-${tabName}`).classList.add('active');
-            if(event) event.currentTarget.classList.add('active');
+            
+            if(event) {
+                event.currentTarget.classList.add('active');
+            } else {
+                // Xử lý active khi gọi từ JS (vd bấm vào item Đã lưu)
+                if(tabName === 'lookup') document.querySelector('.tab-btn:nth-child(1)').classList.add('active');
+            }
 
             if (tabName === 'flashcard') initFlashcardMode();
             else if (tabName === 'list') renderSavedWords();
@@ -205,13 +218,62 @@
 
         function handleKeyPress(event) { if (event.key === 'Enter') lookupWord(); }
 
-        // --- DỊCH API ---
+        // --- API DỊCH ---
         async function translateText(text) {
             try {
                 const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|vi`);
                 const data = await res.json();
                 return data.responseData.translatedText;
             } catch (e) { return "Không thể dịch."; }
+        }
+
+        // --- RENDER GIAO DIỆN TRA TỪ (Tái sử dụng cho API & Dữ liệu lưu cục bộ) ---
+        function renderLookupUI(data) {
+            document.getElementById('displayWord').innerText = data.word;
+            document.getElementById('displayPhonetic').innerText = data.phonetic || '/---/';
+            document.getElementById('displayTranslation').innerText = data.translation;
+            
+            let breakdownHTML = '';
+
+            // Render Các cụm từ thường đi kèm (Collocations / Phrases)
+            if (data.phrases && data.phrases.length > 0) {
+                breakdownHTML += `<div class="dict-section phrase-section">
+                    <div style="font-size: 14px; text-transform: uppercase; color: var(--purple); font-weight: bold; margin-bottom: 8px;">🔗 Cụm từ thường gặp (Collocations)</div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+                        ${data.phrases.map(p => `<span class="phrase-badge">${p}</span>`).join('')}
+                    </div>
+                </div>`;
+            }
+
+            // Render Nghĩa & Wordforms (Tách theo loại từ)
+            data.rawEntry.meanings.forEach(meaning => {
+                breakdownHTML += `<div class="dict-section">
+                    <div class="pos-badge">${meaning.partOfSpeech}</div>`; // Part of speech đóng vai trò xác định Form của từ
+                
+                if (meaning.synonyms && meaning.synonyms.length > 0) {
+                    breakdownHTML += `<div class="syn-ant-row"><strong>Đồng nghĩa: </strong>` + 
+                        meaning.synonyms.slice(0, 6).map(s => `<span class="syn-badge">${s}</span>`).join('') + `</div>`;
+                }
+                if (meaning.antonyms && meaning.antonyms.length > 0) {
+                    breakdownHTML += `<div class="syn-ant-row"><strong>Trái nghĩa: </strong>` + 
+                        meaning.antonyms.slice(0, 6).map(a => `<span class="ant-badge">${a}</span>`).join('') + `</div>`;
+                }
+
+                meaning.definitions.slice(0, 3).forEach(def => {
+                    breakdownHTML += `<div class="def-block">
+                        <div class="def-text"><span class="def-bullet"></span>${def.definition}</div>`;
+                    if (def.example) {
+                        breakdownHTML += `<div class="ex-text">"${def.example}"</div>`;
+                    }
+                    breakdownHTML += `</div>`;
+                });
+                breakdownHTML += `</div>`;
+            });
+
+            document.getElementById('dictBreakdown').innerHTML = breakdownHTML;
+            document.getElementById('result-container').style.display = 'block';
+            
+            currentWordData = data;
         }
 
         // --- TRA TỪ ---
@@ -223,18 +285,17 @@
             document.getElementById('loading').style.display = 'block';
 
             try {
-                // 1. Lấy dữ liệu từ điển Anh - Anh
+                // 1. API Từ Điển
                 const dictResponse = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
                 if (!dictResponse.ok) throw new Error("Không tìm thấy từ trong từ điển.");
                 const dictData = await dictResponse.json();
                 const entry = dictData[0];
                 
-                // Trích xuất Âm thanh & Phiên âm
                 const phonetic = entry.phonetic || (entry.phonetics.find(p => p.text) || {}).text || '';
                 const audioObj = entry.phonetics.find(p => p.audio && p.audio.length > 0);
                 const audioUrl = audioObj ? audioObj.audio : '';
 
-                // Tìm câu ví dụ đầu tiên để dịch cho Flashcard
+                // Lấy ví dụ đầu tiên để làm Flashcard
                 let primaryExampleEn = "";
                 outerloop: for (let m of entry.meanings) {
                     for (let d of m.definitions) {
@@ -242,61 +303,41 @@
                     }
                 }
 
-                // 2. Dịch song song Từ vựng & Câu ví dụ
-                let translatedWord = "---";
-                let translatedExampleVi = "Không có ví dụ minh họa.";
-                
-                const transWordPromise = translateText(entry.word);
-                const transExPromise = primaryExampleEn ? translateText(primaryExampleEn) : Promise.resolve("Không có ví dụ minh họa.");
-                
-                [translatedWord, translatedExampleVi] = await Promise.all([transWordPromise, transExPromise]);
-
-                // 3. Hiển thị UI phần Header
-                document.getElementById('displayWord').innerText = entry.word;
-                document.getElementById('displayPhonetic').innerText = phonetic || '/---/';
-                document.getElementById('displayTranslation').innerText = translatedWord;
-
-                // 4. Khởi tạo UI cấu trúc Cambridge (Loại từ, Đồng/Trái nghĩa, Nghĩa tiếng Anh, Ví dụ)
-                let breakdownHTML = '';
-                entry.meanings.forEach(meaning => {
-                    breakdownHTML += `<div class="dict-section">
-                        <div class="pos-badge">${meaning.partOfSpeech}</div>`;
+                // 2. Tự động lấy Cụm từ đi kèm (Collocations) bằng Datamuse API
+                let phrases = [];
+                try {
+                    // Từ đứng trước (preceding) & Đứng sau (following)
+                    const [datamuseBgb, datamuseBga] = await Promise.all([
+                        fetch(`https://api.datamuse.com/words?rel_bgb=${word}&max=3`).then(r => r.json()),
+                        fetch(`https://api.datamuse.com/words?rel_bga=${word}&max=4`).then(r => r.json())
+                    ]);
                     
-                    if (meaning.synonyms && meaning.synonyms.length > 0) {
-                        breakdownHTML += `<div class="syn-ant-row"><strong>Đồng nghĩa: </strong>` + 
-                            meaning.synonyms.slice(0, 6).map(s => `<span class="syn-badge">${s}</span>`).join('') + `</div>`;
-                    }
-                    if (meaning.antonyms && meaning.antonyms.length > 0) {
-                        breakdownHTML += `<div class="syn-ant-row"><strong>Trái nghĩa: </strong>` + 
-                            meaning.antonyms.slice(0, 6).map(a => `<span class="ant-badge">${a}</span>`).join('') + `</div>`;
-                    }
+                    datamuseBgb.forEach(w => phrases.push(`${w.word} ${word}`)); // Ví dụ: lack consistency
+                    datamuseBga.forEach(w => phrases.push(`${word} ${w.word}`)); // Ví dụ: consistency of
+                } catch(err) { console.log("Không thể tải Collocation"); }
 
-                    meaning.definitions.slice(0, 3).forEach(def => {
-                        breakdownHTML += `<div class="def-block">
-                            <div class="def-text"><span class="def-bullet"></span>${def.definition}</div>`;
-                        if (def.example) {
-                            breakdownHTML += `<div class="ex-text">"${def.example}"</div>`;
-                        }
-                        breakdownHTML += `</div>`;
-                    });
-                    breakdownHTML += `</div>`;
-                });
+                // 3. Dịch song song Nghĩa & Ví dụ
+                const [translatedWord, translatedExampleVi] = await Promise.all([
+                    translateText(entry.word),
+                    primaryExampleEn ? translateText(primaryExampleEn) : Promise.resolve("Không có ví dụ minh họa.")
+                ]);
 
-                document.getElementById('dictBreakdown').innerHTML = breakdownHTML;
-
-                // Lưu dữ liệu vào biến toàn cục và LocalStorage
-                currentWordData = {
+                // 4. Tạo Object lưu trữ toàn diện
+                const wordData = {
                     word: entry.word,
                     phonetic: phonetic,
                     translation: translatedWord,
                     exampleEn: primaryExampleEn || "No example.",
                     exampleVi: translatedExampleVi,
-                    audioUrl: audioUrl
+                    audioUrl: audioUrl,
+                    rawEntry: entry, 
+                    phrases: phrases 
                 };
-                saveWordToLocal(currentWordData);
 
+                // 5. Lưu & Trình diễn
+                saveWordToLocal(wordData);
                 document.getElementById('loading').style.display = 'none';
-                document.getElementById('result-container').style.display = 'block';
+                renderLookupUI(wordData);
                 playCurrentAudio();
 
             } catch (error) {
@@ -305,8 +346,21 @@
             }
         }
 
+        // --- XEM LẠI TỪ ĐÃ LƯU ---
+        function viewSavedWord(wordToFind) {
+            const vocab = getSavedVocabulary();
+            const item = vocab.find(v => v.word === wordToFind);
+            if (item) {
+                document.getElementById('wordInput').value = item.word;
+                switchTab('lookup', null);
+                document.getElementById('loading').style.display = 'none';
+                renderLookupUI(item); // Load lại dữ liệu không cần dùng mạng
+            }
+        }
+
         // --- PHÁT ÂM (FALLBACK AI TTS) ---
-        function playAudio(text, url) {
+        function playAudio(text, url, event) {
+            if(event) event.stopPropagation(); // Ngăn việc click nút Loa làm chuyển Tab
             if (url && url !== 'undefined') {
                 new Audio(url).play().catch(() => speakAI(text));
             } else { speakAI(text); }
@@ -383,22 +437,25 @@
             }
 
             container.innerHTML = filteredVocab.reverse().map(item => `
-                <div class="saved-word-item">
+                <div class="saved-word-item" onclick="viewSavedWord('${item.word}')">
                     <div class="saved-word-info">
                         <strong>${item.word}</strong> <span>${item.phonetic || ''}</span>
                         <div class="saved-word-meaning">${item.translation}</div>
                     </div>
-                    <button class="audio-btn" style="width: 35px; height: 35px; margin: 0; background: #F3F4F6;" onclick="playAudio('${item.word}', '${item.audioUrl}')" title="Nghe">🔊</button>
-                    <button class="delete-btn" onclick="deleteWord('${item.word}')" title="Xóa từ">🗑️</button>
+                    <div class="action-group">
+                        <button class="audio-btn" style="width: 35px; height: 35px; background: #F3F4F6;" onclick="playAudio('${item.word}', '${item.audioUrl}', event)" title="Nghe">🔊</button>
+                        <button class="delete-btn" onclick="deleteWord('${item.word}', event)" title="Xóa từ">🗑️</button>
+                    </div>
                 </div>
             `).join('');
         }
 
-        function deleteWord(wordToDelete) {
+        function deleteWord(wordToDelete, event) {
+            event.stopPropagation(); // Ngăn việc click nút xóa làm mở chế độ xem
             if(confirm(`Xóa từ "${wordToDelete}" khỏi danh sách ôn tập?`)) {
                 let vocab = getSavedVocabulary();
                 vocab = vocab.filter(item => item.word !== wordToDelete);
-                localStorage.setItem('myVocabulary', JSON.stringify(vocab));
+                localStorage.setItem('myVocabularyPro', JSON.stringify(vocab));
                 renderSavedWords();
             }
         }
