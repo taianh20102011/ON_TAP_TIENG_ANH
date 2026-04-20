@@ -17,13 +17,13 @@
 
         // ⚙️ THAY BẰNG FIREBASE CONFIG CỦA BẠN
         const firebaseConfig = {
-        apiKey: "AIzaSyDtTYdoOAZuY6fBmPAwieLdpmDAIBUgcF4",
-        authDomain: "tuvung-ce277.firebaseapp.com",
-        projectId: "tuvung-ce277",
-        storageBucket: "tuvung-ce277.firebasestorage.app",
-        messagingSenderId: "663810672091",
-        appId: "1:663810672091:web:805214c61c8f96d38ad3fe",
-        measurementId: "G-WB0EJZWE79"
+            apiKey: "AIzaSyDtTYdoOAZuY6fBmPAwieLdpmDAIBUgcF4",
+            authDomain: "tuvung-ce277.firebaseapp.com",
+            projectId: "tuvung-ce277",
+            storageBucket: "tuvung-ce277.firebasestorage.app",
+            messagingSenderId: "663810672091",
+            appId: "1:663810672091:web:805214c61c8f96d38ad3fe",
+            measurementId: "G-WB0EJZWE79"
         };
         const app  = initializeApp(firebaseConfig);
         const auth = getAuth(app);
@@ -31,13 +31,11 @@
 
         let unsubscribeVocab = null;
 
-        // ── Auth state ──────────────────────────────────────
         onAuthStateChanged(auth, user => {
             if (user) showApp(user);
             else       showAuthScreen();
         });
 
-        // ── Register ────────────────────────────────────────
         window.registerUser = async () => {
             const name = document.getElementById('reg-name').value.trim();
             const email = document.getElementById('reg-email').value.trim();
@@ -53,7 +51,6 @@
             } catch (e) { setAuthLoading(false,'register'); showAuthError(fbErr(e.code),'register'); }
         };
 
-        // ── Login ───────────────────────────────────────────
         window.loginUser = async () => {
             const email = document.getElementById('login-email').value.trim();
             const pw    = document.getElementById('login-password').value;
@@ -62,31 +59,27 @@
             catch (e) { setAuthLoading(false,'login'); showAuthError(fbErr(e.code),'login'); }
         };
 
-        // ── Logout ──────────────────────────────────────────
         window.logoutUser = async () => {
             if (!confirm('Bạn có chắc muốn đăng xuất?')) return;
             if (unsubscribeVocab) { unsubscribeVocab(); unsubscribeVocab = null; }
             await signOut(auth);
         };
 
-        // ── Firestore: save word ────────────────────────────
         window.saveWordToCloud = async (wordData) => {
             const uid = auth.currentUser?.uid;
             if (!uid) return;
             const safe = JSON.parse(JSON.stringify(wordData));
-            delete safe.rawEntry; // ← THÊM DÒNG NÀY
+            delete safe.rawEntry;
             const ref = doc(db, 'users', uid, 'vocabulary', safe.word);
             await setDoc(ref, { ...safe, savedAt: new Date().toISOString() });
         };
 
-        // ── Firestore: delete word ──────────────────────────
         window.deleteWordFromCloud = async (word) => {
             const uid = auth.currentUser?.uid;
             if (!uid) return;
             await deleteDoc(doc(db, 'users', uid, 'vocabulary', word));
         };
 
-        // ── Firestore: real-time listener ───────────────────
         function startVocabListener(uid) {
             if (unsubscribeVocab) unsubscribeVocab();
             const q = query(collection(db, 'users', uid, 'vocabulary'));
@@ -95,12 +88,10 @@
                 snapshot.forEach(d => vocab.push(d.data()));
                 vocab.sort((a,b) => (a.savedAt||'') > (b.savedAt||'') ? 1 : -1);
                 window._cloudVocab = vocab;
-                // Update UI if on list/flashcard tab
                 const listTab = document.getElementById('tab-list');
                 const fcTab   = document.getElementById('tab-flashcard');
-                if (listTab?.classList.contains('active'))     renderSavedWords();
-                if (fcTab?.classList.contains('active'))       initFlashcardMode();
-                // Update badge
+                if (listTab?.classList.contains('active'))  renderSavedWords();
+                if (fcTab?.classList.contains('active'))    initFlashcardMode();
                 const badge = document.getElementById('vocab-count');
                 if (badge) badge.textContent = vocab.length;
             }, err => {
@@ -111,7 +102,6 @@
 
         window.getCloudVocabulary = () => window._cloudVocab || [];
 
-        // ── Show App ────────────────────────────────────────
         function showApp(user) {
             document.getElementById('auth-screen').style.opacity = '0';
             setTimeout(() => {
@@ -171,7 +161,7 @@
 
     <style>
     /* ═══════════════════════════════════════════
-       CSS VARIABLES — DARK & LIGHT THEMES
+       CSS VARIABLES
     ═══════════════════════════════════════════ */
     [data-theme="dark"] {
         --bg-body:       #060c18;
@@ -200,8 +190,16 @@
         --tab-active-bg: rgba(56,189,248,0.10);
         --def-vi-bg:     rgba(56,189,248,0.05);
         --def-vi-color:  #7dd3fc;
+        --entry-rule:    rgba(99,179,237,0.18);
+        --gram-bg:       rgba(167,139,250,0.09);
+        --gram-color:    #a78bfa;
+        --usage-bg:      rgba(251,191,36,0.07);
+        --usage-color:   #fbbf24;
+        --example-line:  rgba(45,212,191,0.3);
+        --cefr-a1: #34d399; --cefr-a2: #2dd4bf;
+        --cefr-b1: #38bdf8; --cefr-b2: #a78bfa;
+        --cefr-c1: #fb7185; --cefr-c2: #f97316;
     }
-
     [data-theme="light"] {
         --bg-body:       #eef3f9;
         --bg-card:       #ffffff;
@@ -229,26 +227,26 @@
         --tab-active-bg: rgba(29,111,184,0.08);
         --def-vi-bg:     rgba(29,111,184,0.05);
         --def-vi-color:  #1d6fb8;
+        --entry-rule:    rgba(30,80,160,0.15);
+        --gram-bg:       rgba(109,40,217,0.07);
+        --gram-color:    #6d28d9;
+        --usage-bg:      rgba(180,83,9,0.06);
+        --usage-color:   #b45309;
+        --example-line:  rgba(13,148,136,0.3);
+        --cefr-a1: #047857; --cefr-a2: #0d9488;
+        --cefr-b1: #1d6fb8; --cefr-b2: #6d28d9;
+        --cefr-c1: #be123c; --cefr-c2: #c2410c;
     }
 
-    /* ═══════════════════════════════════════════
-       RESET & BASE
-    ═══════════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
         font-family: 'DM Sans', sans-serif;
-        background: var(--bg-body);
-        color: var(--text-primary);
-        min-height: 100vh;
-        overflow-x: hidden;
+        background: var(--bg-body); color: var(--text-primary);
+        min-height: 100vh; overflow-x: hidden;
         transition: background 0.4s ease, color 0.4s ease;
     }
-
-    /* Background mesh */
     body::before {
-        content: '';
-        position: fixed; inset: 0; pointer-events: none; z-index: 0;
+        content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
         background:
             radial-gradient(ellipse 70% 55% at 15% 10%, rgba(56,189,248,0.07) 0%, transparent 60%),
             radial-gradient(ellipse 55% 45% at 85% 85%, rgba(45,212,191,0.055) 0%, transparent 55%),
@@ -257,137 +255,60 @@
     }
     [data-theme="light"] body::before { opacity: 0.6; }
 
-    /* Floating orbs */
-    .orb {
-        position: fixed; border-radius: 50%; filter: blur(80px);
-        opacity: var(--orb-opacity); pointer-events: none; z-index: 0;
-        transition: opacity 0.4s;
-        animation: orbFloat linear infinite;
-    }
-    .orb-1 { width:380px;height:380px;background:#38bdf8;top:-80px;left:-80px;animation-duration:26s; }
-    .orb-2 { width:280px;height:280px;background:#2dd4bf;bottom:-60px;right:-60px;animation-duration:21s;animation-delay:-9s; }
-    .orb-3 { width:220px;height:220px;background:#a78bfa;top:45%;left:55%;animation-duration:32s;animation-delay:-6s; }
-    @keyframes orbFloat {
-        0%,100%{ transform:translate(0,0) scale(1); }
-        33%    { transform:translate(28px,-18px) scale(1.04); }
-        66%    { transform:translate(-18px,28px) scale(0.96); }
-    }
+    .orb { position:fixed;border-radius:50%;filter:blur(80px);opacity:var(--orb-opacity);pointer-events:none;z-index:0;transition:opacity 0.4s;animation:orbFloat linear infinite; }
+    .orb-1{width:380px;height:380px;background:#38bdf8;top:-80px;left:-80px;animation-duration:26s;}
+    .orb-2{width:280px;height:280px;background:#2dd4bf;bottom:-60px;right:-60px;animation-duration:21s;animation-delay:-9s;}
+    .orb-3{width:220px;height:220px;background:#a78bfa;top:45%;left:55%;animation-duration:32s;animation-delay:-6s;}
+    @keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(28px,-18px) scale(1.04);}66%{transform:translate(-18px,28px) scale(0.96);}}
     @keyframes spin    { to { transform: rotate(360deg); } }
     @keyframes fadeUp  { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
     @keyframes cardIn  { from{opacity:0;transform:translateY(36px) scale(0.96)} to{opacity:1;transform:translateY(0) scale(1)} }
     @keyframes panelIn { from{opacity:0;transform:translateX(8px)} to{opacity:1;transform:translateX(0)} }
     @keyframes shimmer { 0%{background-position:-200% center} 100%{background-position:200% center} }
+    @keyframes entryReveal { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
 
     /* ═══════════════════════════════════════════
-       AUTH SCREEN
+       AUTH SCREEN (unchanged)
     ═══════════════════════════════════════════ */
     #auth-screen {
-        position: fixed; inset: 0; z-index: 100;
-        display: flex; align-items: center; justify-content: center;
-        padding: 20px;
-        opacity: 0; transition: opacity 0.35s ease;
+        position:fixed;inset:0;z-index:100;
+        display:flex;align-items:center;justify-content:center;
+        padding:20px; opacity:0; transition:opacity 0.35s ease;
     }
-
     .auth-card {
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        border-radius: 24px;
-        box-shadow: var(--shadow-card);
-        width: 100%; max-width: 440px;
-        overflow: hidden; position: relative; z-index: 1;
-        animation: cardIn 0.55s cubic-bezier(0.34,1.5,0.64,1) both;
-        transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
+        background:var(--bg-card); border:1px solid var(--border);
+        border-radius:24px; box-shadow:var(--shadow-card);
+        width:100%;max-width:440px;overflow:hidden;position:relative;z-index:1;
+        animation:cardIn 0.55s cubic-bezier(0.34,1.5,0.64,1) both;
+        transition:background 0.4s,border-color 0.4s,box-shadow 0.4s;
     }
     .auth-card::before {
-        content:''; position:absolute; top:0;left:0;right:0; height:2px;
-        background: linear-gradient(90deg,transparent,var(--accent-blue) 30%,var(--accent-teal) 70%,transparent);
-        background-size: 200%;
-        animation: shimmer 3.5s linear infinite;
+        content:'';position:absolute;top:0;left:0;right:0;height:2px;
+        background:linear-gradient(90deg,transparent,var(--accent-blue) 30%,var(--accent-teal) 70%,transparent);
+        background-size:200%; animation:shimmer 3.5s linear infinite;
     }
-
-    .auth-header { padding: 36px 32px 22px; text-align:center; }
+    .auth-header { padding:36px 32px 22px; text-align:center; }
     .auth-brand  { display:flex;align-items:center;justify-content:center;gap:11px;margin-bottom:6px; }
-    .auth-brand-icon {
-        width:50px;height:50px;border-radius:14px;
-        background: linear-gradient(135deg,var(--accent-blue),var(--accent-teal));
-        display:flex;align-items:center;justify-content:center;font-size:25px;
-        box-shadow: 0 8px 22px rgba(56,189,248,0.28);
-    }
-    .auth-brand-name {
-        font-family:'DM Serif Display',serif;font-size:31px;letter-spacing:-1px;
-        background: linear-gradient(135deg,var(--accent-blue),var(--accent-teal));
-        -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-    }
+    .auth-brand-icon { width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,var(--accent-blue),var(--accent-teal));display:flex;align-items:center;justify-content:center;font-size:25px;box-shadow:0 8px 22px rgba(56,189,248,0.28); }
+    .auth-brand-name { font-family:'DM Serif Display',serif;font-size:31px;letter-spacing:-1px;background:linear-gradient(135deg,var(--accent-blue),var(--accent-teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
     .auth-tagline { font-size:13.5px;color:var(--text-muted);letter-spacing:0.2px;margin-top:2px; }
-
-    .auth-tabs {
-        display:flex; margin:0 28px 0; background:var(--bg-elevated);
-        border-radius:12px; padding:4px; gap:4px;
-        border:1px solid var(--border); transition: background 0.4s, border-color 0.4s;
-    }
-    .auth-tab-btn {
-        flex:1; padding:10px; border:none; background:transparent;
-        font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600;
-        color:var(--text-muted); cursor:pointer; border-radius:9px; transition:all 0.22s ease;
-    }
-    .auth-tab-btn.active {
-        background: linear-gradient(135deg,rgba(56,189,248,0.13),rgba(45,212,191,0.08));
-        color:var(--accent-blue); border:1px solid rgba(56,189,248,0.2);
-        box-shadow: 0 2px 10px rgba(56,189,248,0.1);
-    }
-
-    .auth-panel { display:none; padding:22px 28px 30px; }
-    .auth-panel.active { display:block; animation:panelIn 0.28s ease both; }
-
+    .auth-tabs { display:flex;margin:0 28px 0;background:var(--bg-elevated);border-radius:12px;padding:4px;gap:4px;border:1px solid var(--border);transition:background 0.4s,border-color 0.4s; }
+    .auth-tab-btn { flex:1;padding:10px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--text-muted);cursor:pointer;border-radius:9px;transition:all 0.22s ease; }
+    .auth-tab-btn.active { background:linear-gradient(135deg,rgba(56,189,248,0.13),rgba(45,212,191,0.08));color:var(--accent-blue);border:1px solid rgba(56,189,248,0.2);box-shadow:0 2px 10px rgba(56,189,248,0.1); }
+    .auth-panel { display:none;padding:22px 28px 30px; }
+    .auth-panel.active { display:block;animation:panelIn 0.28s ease both; }
     .form-group { margin-bottom:15px; }
-    .form-label {
-        display:block; font-size:11.5px; font-weight:700;
-        color:var(--text-secondary); margin-bottom:7px;
-        text-transform:uppercase; letter-spacing:0.7px;
-    }
-    .form-input {
-        width:100%; padding:12px 15px;
-        background:var(--bg-input); border:1.5px solid var(--border);
-        border-radius:11px; font-family:'DM Sans',sans-serif;
-        font-size:15px; color:var(--text-primary); outline:none;
-        transition: all 0.22s ease;
-    }
+    .form-label { display:block;font-size:11.5px;font-weight:700;color:var(--text-secondary);margin-bottom:7px;text-transform:uppercase;letter-spacing:0.7px; }
+    .form-input { width:100%;padding:12px 15px;background:var(--bg-input);border:1.5px solid var(--border);border-radius:11px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text-primary);outline:none;transition:all 0.22s ease; }
     .form-input::placeholder { color:var(--text-muted); }
-    .form-input:focus {
-        border-color:var(--accent-blue);
-        background: color-mix(in srgb, var(--bg-input) 90%, var(--accent-blue) 10%);
-        box-shadow: 0 0 0 4px rgba(56,189,248,0.09);
-    }
-
-    .auth-error {
-        background: rgba(251,113,133,0.09); border:1px solid rgba(251,113,133,0.22);
-        border-radius:10px; padding:10px 14px; font-size:13.5px; font-weight:500;
-        color:var(--accent-rose); margin-bottom:15px;
-        opacity:0; transform:translateY(-4px); transition:all 0.28s ease;
-    }
-
-    .auth-submit-btn {
-        width:100%; padding:14px; border:none; border-radius:12px;
-        background: linear-gradient(135deg,#0ea5e9,#06b6d4);
-        font-family:'DM Sans',sans-serif; font-size:15px; font-weight:700; color:white;
-        cursor:pointer; letter-spacing:0.3px;
-        box-shadow: 0 8px 22px rgba(14,165,233,0.28);
-        transition:all 0.22s ease; margin-top:6px;
-        display:flex; align-items:center; justify-content:center; gap:8px;
-        position:relative; overflow:hidden;
-    }
-    .auth-submit-btn::before {
-        content:''; position:absolute; top:0;left:-100%;width:100%;height:100%;
-        background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent);
-        transition:left 0.5s;
-    }
+    .form-input:focus { border-color:var(--accent-blue);background:color-mix(in srgb,var(--bg-input) 90%,var(--accent-blue) 10%);box-shadow:0 0 0 4px rgba(56,189,248,0.09); }
+    .auth-error { background:rgba(251,113,133,0.09);border:1px solid rgba(251,113,133,0.22);border-radius:10px;padding:10px 14px;font-size:13.5px;font-weight:500;color:var(--accent-rose);margin-bottom:15px;opacity:0;transform:translateY(-4px);transition:all 0.28s ease; }
+    .auth-submit-btn { width:100%;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,#0ea5e9,#06b6d4);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;color:white;cursor:pointer;letter-spacing:0.3px;box-shadow:0 8px 22px rgba(14,165,233,0.28);transition:all 0.22s ease;margin-top:6px;display:flex;align-items:center;justify-content:center;gap:8px;position:relative;overflow:hidden; }
+    .auth-submit-btn::before { content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent);transition:left 0.5s; }
     .auth-submit-btn:hover:not(:disabled)::before { left:100%; }
-    .auth-submit-btn:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 12px 30px rgba(14,165,233,0.38); }
+    .auth-submit-btn:hover:not(:disabled) { transform:translateY(-2px);box-shadow:0 12px 30px rgba(14,165,233,0.38); }
     .auth-submit-btn:disabled { opacity:0.6;cursor:not-allowed; }
-    .btn-spinner {
-        width:15px;height:15px;border:2px solid rgba(255,255,255,0.3);
-        border-top-color:white;border-radius:50%;animation:spin 0.7s linear infinite;display:inline-block;
-    }
+    .btn-spinner { width:15px;height:15px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 0.7s linear infinite;display:inline-block; }
     .auth-switch-text { text-align:center;margin-top:16px;font-size:13.5px;color:var(--text-muted); }
     .auth-switch-text a { color:var(--accent-blue);font-weight:600;text-decoration:none;transition:color 0.2s; }
     .auth-switch-text a:hover { color:var(--accent-teal); }
@@ -395,373 +316,357 @@
     /* ═══════════════════════════════════════════
        APP SCREEN
     ═══════════════════════════════════════════ */
-    #app-screen {
-        display:none; flex-direction:column; align-items:center;
-        min-height:100vh; padding:22px 16px 44px;
-        position:relative; z-index:1; opacity:0; transition:opacity 0.45s ease;
-    }
+    #app-screen { display:none;flex-direction:column;align-items:center;min-height:100vh;padding:22px 16px 44px;position:relative;z-index:1;opacity:0;transition:opacity 0.45s ease; }
 
-    /* ── Topbar ── */
-    .user-topbar {
-        width:100%; max-width:680px;
-        display:flex; align-items:center; justify-content:space-between;
-        background:var(--bg-card); border:1px solid var(--border);
-        border-radius:18px; padding:11px 16px; margin-bottom:14px;
-        box-shadow: var(--shadow-card);
-        transition: background 0.4s, border-color 0.4s;
-        animation: fadeUp 0.45s 0.1s both;
-    }
+    .user-topbar { width:100%;max-width:720px;display:flex;align-items:center;justify-content:space-between;background:var(--bg-card);border:1px solid var(--border);border-radius:18px;padding:11px 16px;margin-bottom:14px;box-shadow:var(--shadow-card);transition:background 0.4s,border-color 0.4s;animation:fadeUp 0.45s 0.1s both; }
     .user-info { display:flex;align-items:center;gap:11px; }
-    .user-avatar {
-        width:40px;height:40px;border-radius:12px;flex-shrink:0;
-        background:linear-gradient(135deg,var(--accent-blue),var(--accent-teal));
-        font-family:'DM Serif Display',serif;font-size:19px;color:white;
-        display:flex;align-items:center;justify-content:center;
-        box-shadow:0 4px 14px rgba(56,189,248,0.28);
-    }
+    .user-avatar { width:40px;height:40px;border-radius:12px;flex-shrink:0;background:linear-gradient(135deg,var(--accent-blue),var(--accent-teal));font-family:'DM Serif Display',serif;font-size:19px;color:white;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(56,189,248,0.28); }
     .user-name { font-size:14.5px;font-weight:700;color:var(--text-primary);line-height:1.2; }
     .user-email-text { font-size:12px;color:var(--text-muted);margin-top:1px; }
-
     .topbar-right { display:flex;align-items:center;gap:8px; }
-
-    /* ── Theme Toggle ── */
-    .theme-toggle {
-        width:40px;height:40px;border-radius:11px;
-        background:var(--bg-elevated); border:1px solid var(--border);
-        display:flex;align-items:center;justify-content:center;
-        font-size:18px;cursor:pointer;transition:all 0.22s ease;
-        box-shadow:none;
-        color: var(--text-secondary);
-    }
+    .theme-toggle { width:40px;height:40px;border-radius:11px;background:var(--bg-elevated);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;transition:all 0.22s ease;color:var(--text-secondary); }
     .theme-toggle:hover { background:var(--tab-active-bg);border-color:var(--border-glow);transform:translateY(-1px); }
-
-    /* ── Sync badge ── */
-    #sync-status {
-        font-size:11.5px;font-weight:600;padding:4px 10px;
-        border-radius:20px; transition:all 0.3s;
-        white-space:nowrap;
-    }
+    #sync-status { font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:20px;transition:all 0.3s;white-space:nowrap; }
     #sync-status.ok    { background:rgba(52,211,153,0.1);color:var(--accent-green);border:1px solid rgba(52,211,153,0.2); }
-    #sync-status.error { background:rgba(251,113,133,0.1);color:var(--accent-rose); border:1px solid rgba(251,113,133,0.2); }
+    #sync-status.error { background:rgba(251,113,133,0.1);color:var(--accent-rose);border:1px solid rgba(251,113,133,0.2); }
     #sync-status.syncing{ background:rgba(251,191,36,0.1);color:var(--accent-amber);border:1px solid rgba(251,191,36,0.2); }
-
-    .logout-btn {
-        background:rgba(251,113,133,0.09);color:var(--accent-rose);
-        border:1px solid rgba(251,113,133,0.18);border-radius:10px;
-        padding:8px 14px;font-family:'DM Sans',sans-serif;
-        font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;white-space:nowrap;
-    }
+    .logout-btn { background:rgba(251,113,133,0.09);color:var(--accent-rose);border:1px solid rgba(251,113,133,0.18);border-radius:10px;padding:8px 14px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;white-space:nowrap; }
     .logout-btn:hover { background:rgba(251,113,133,0.16);transform:translateY(-1px); }
 
-    /* ── Main Card ── */
-    .dashboard-card {
-        background:var(--bg-card); border:1px solid var(--border);
-        border-radius:24px; box-shadow:var(--shadow-card);
-        width:100%; max-width:680px; padding:30px;
-        position:relative; overflow:hidden;
-        animation: fadeUp 0.45s 0.18s both;
-        transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
-    }
-    .dashboard-card::before {
-        content:''; position:absolute; top:0;left:0;right:0; height:1px;
-        background:linear-gradient(90deg,transparent,var(--accent-blue) 30%,var(--accent-teal) 70%,transparent);
-    }
+    .dashboard-card { background:var(--bg-card);border:1px solid var(--border);border-radius:24px;box-shadow:var(--shadow-card);width:100%;max-width:720px;padding:30px;position:relative;overflow:hidden;animation:fadeUp 0.45s 0.18s both;transition:background 0.4s,border-color 0.4s,box-shadow 0.4s; }
+    .dashboard-card::before { content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent-blue) 30%,var(--accent-teal) 70%,transparent); }
 
-    /* ── Tabs ── */
-    .tabs {
-        display:flex; gap:5px; margin-bottom:26px;
-        background:var(--bg-elevated); border:1px solid var(--border);
-        border-radius:14px; padding:4px;
-        transition: background 0.4s;
-    }
-    .tab-btn {
-        flex:1; background:transparent; color:var(--text-muted); border:none;
-        font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600;
-        cursor:pointer; padding:10px 6px; border-radius:10px;
-        transition:all 0.22s ease; white-space:nowrap;
-    }
-    .tab-btn.active {
-        color:var(--accent-blue);
-        background: var(--tab-active-bg);
-        border:1px solid rgba(56,189,248,0.18);
-        box-shadow:0 2px 10px rgba(56,189,248,0.09);
-    }
-    .tab-content { display:none; animation:panelIn 0.28s ease both; }
+    .tabs { display:flex;gap:5px;margin-bottom:26px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:14px;padding:4px;transition:background 0.4s; }
+    .tab-btn { flex:1;background:transparent;color:var(--text-muted);border:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;padding:10px 6px;border-radius:10px;transition:all 0.22s ease;white-space:nowrap; }
+    .tab-btn.active { color:var(--accent-blue);background:var(--tab-active-bg);border:1px solid rgba(56,189,248,0.18);box-shadow:0 2px 10px rgba(56,189,248,0.09); }
+    .tab-content { display:none;animation:panelIn 0.28s ease both; }
     .tab-content.active { display:block; }
 
-    /* ── Search Box ── */
     .search-box { display:flex;gap:9px;margin-bottom:22px; }
-    input {
-        flex:1; padding:13px 16px;
-        background:var(--bg-input); border:1.5px solid var(--border);
-        border-radius:12px; font-family:'DM Sans',sans-serif;
-        font-size:15px; color:var(--text-primary); outline:none;
-        transition:all 0.22s ease; width:100%;
-    }
+    input { flex:1;padding:13px 16px;background:var(--bg-input);border:1.5px solid var(--border);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text-primary);outline:none;transition:all 0.22s ease;width:100%; }
     input::placeholder { color:var(--text-muted); }
-    input:focus { border-color:var(--accent-blue); box-shadow:0 0 0 4px rgba(56,189,248,0.08); }
-    button {
-        background:linear-gradient(135deg,#0ea5e9,#06b6d4); color:white;
-        border:none; border-radius:12px; padding:12px 20px;
-        font-family:'DM Sans',sans-serif; font-size:14.5px; font-weight:700;
-        cursor:pointer; transition:all 0.22s ease;
-        box-shadow:0 4px 14px rgba(14,165,233,0.28); white-space:nowrap;
-    }
+    input:focus { border-color:var(--accent-blue);box-shadow:0 0 0 4px rgba(56,189,248,0.08); }
+    button { background:linear-gradient(135deg,#0ea5e9,#06b6d4);color:white;border:none;border-radius:12px;padding:12px 20px;font-family:'DM Sans',sans-serif;font-size:14.5px;font-weight:700;cursor:pointer;transition:all 0.22s ease;box-shadow:0 4px 14px rgba(14,165,233,0.28);white-space:nowrap; }
     button:hover:not(:disabled) { transform:translateY(-2px);box-shadow:0 8px 22px rgba(14,165,233,0.38); }
     button:active:not(:disabled) { transform:translateY(0); }
 
-    /* ── Result ── */
-    #result-container { display:none; }
+    /* ─────────────────────────────────────────────
+       LOADING
+    ───────────────────────────────────────────── */
+    .loading { text-align:center;color:var(--text-muted);display:none;margin:36px 0;font-size:14.5px;font-weight:500; }
+    .loading::before { content:'';display:block;width:38px;height:38px;border:3px solid var(--border);border-top-color:var(--accent-blue);border-radius:50%;margin:0 auto 14px;animation:spin 0.75s linear infinite; }
 
-    .word-header {
-        display:flex; align-items:flex-start; justify-content:space-between;
-        padding-bottom:20px; margin-bottom:18px; border-bottom:1px solid var(--border);
-        gap:12px;
-    }
+    /* ═══════════════════════════════════════════
+       OXFORD-STYLE ENTRY — NEW DESIGN
+    ═══════════════════════════════════════════ */
+    #result-container { display:none; animation: entryReveal 0.45s cubic-bezier(0.22,1,0.36,1) both; }
 
-    .word-title {
-        font-family:'DM Serif Display',serif; font-size:46px;
-        color:var(--text-primary); letter-spacing:-1.5px; line-height:1;
-        margin-bottom:10px;
-    }
-
-    /* ─── PHONETIC PILL ─── */
-    .phonetic-pill {
-        display:inline-flex; align-items:center; gap:8px;
-        background: var(--phonetic-bg);
-        border:1px solid var(--phonetic-border);
-        border-radius:999px; padding:6px 14px 6px 10px;
-        margin-top:4px;
-    }
-    .phonetic-dot {
-        width:6px;height:6px;border-radius:50%;
-        background:var(--accent-teal);flex-shrink:0;
-        box-shadow:0 0 6px var(--accent-teal);
-    }
-    .phonetic-text {
-        /* Noto Serif renders IPA symbols cleanly */
-        font-family:'Noto Serif',serif; font-style:italic;
-        font-size:17px; letter-spacing:1.5px;
-        color:var(--accent-teal); font-weight:400;
-        line-height:1;
+    /* ── Entry Header ── */
+    .entry-header {
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid var(--entry-rule);
     }
 
-    .audio-btn {
-        background:var(--tab-active-bg); border:1px solid rgba(56,189,248,0.2);
-        color:var(--accent-blue); border-radius:14px;
-        width:50px;height:50px; display:inline-flex;
-        align-items:center;justify-content:center;
-        padding:0; font-size:21px; cursor:pointer;
-        transition:all 0.2s; flex-shrink:0;
-        box-shadow:0 4px 12px rgba(56,189,248,0.1);
+    .entry-wordline {
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 10px;
     }
+
+    .cefr-badge {
+        font-size: 9px;
+        font-weight: 900;
+        letter-spacing: 1.2px;
+        padding: 3px 7px;
+        border-radius: 5px;
+        text-transform: uppercase;
+        align-self: center;
+        flex-shrink: 0;
+    }
+    .cefr-a1 { background: rgba(52,211,153,0.15); color: var(--cefr-a1); border: 1px solid rgba(52,211,153,0.25); }
+    .cefr-a2 { background: rgba(45,212,191,0.15); color: var(--cefr-a2); border: 1px solid rgba(45,212,191,0.25); }
+    .cefr-b1 { background: rgba(56,189,248,0.12); color: var(--cefr-b1); border: 1px solid rgba(56,189,248,0.25); }
+    .cefr-b2 { background: rgba(167,139,250,0.12); color: var(--cefr-b2); border: 1px solid rgba(167,139,250,0.25); }
+    .cefr-c1 { background: rgba(251,113,133,0.12); color: var(--cefr-c1); border: 1px solid rgba(251,113,133,0.25); }
+    .cefr-c2 { background: rgba(249,115,22,0.12);  color: var(--cefr-c2); border: 1px solid rgba(249,115,22,0.25); }
+
+    .entry-word {
+        font-family: 'DM Serif Display', serif;
+        font-size: 48px;
+        color: var(--text-primary);
+        letter-spacing: -2px;
+        line-height: 1;
+    }
+
+    /* Frequency dots */
+    .freq-wrap { display:inline-flex;align-items:center;gap:4px;margin-left:4px;align-self:center; }
+    .freq-dot { width:7px;height:7px;border-radius:50%;background:var(--border);transition:background 0.3s; }
+    .freq-dot.on { background:var(--accent-amber); box-shadow:0 0 5px rgba(251,191,36,0.5); }
+    .freq-label { font-size:10px;color:var(--text-muted);font-weight:600;letter-spacing:0.5px;margin-left:2px; }
+
+    /* POS strip */
+    .pos-strip { display:flex;flex-wrap:wrap;gap:6px;margin-bottom:13px; }
+    .pos-chip {
+        font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;
+        padding:4px 11px;border-radius:5px;
+        background:rgba(56,189,248,0.09);
+        color:var(--accent-blue);
+        border:1px solid rgba(56,189,248,0.2);
+    }
+    .pos-chip.verb { background:rgba(45,212,191,0.09);color:var(--accent-teal);border-color:rgba(45,212,191,0.22); }
+    .pos-chip.adjective { background:rgba(167,139,250,0.09);color:var(--accent-purple);border-color:rgba(167,139,250,0.22); }
+    .pos-chip.adverb { background:rgba(251,191,36,0.09);color:var(--accent-amber);border-color:rgba(251,191,36,0.22); }
+    .pos-chip.preposition,.pos-chip.conjunction,.pos-chip.interjection { background:rgba(251,113,133,0.09);color:var(--accent-rose);border-color:rgba(251,113,133,0.22); }
+
+    /* Pronunciation row */
+    .pron-row { display:flex;align-items:center;gap:12px;flex-wrap:wrap; }
+    .phonetic-pill { display:inline-flex;align-items:center;gap:8px;background:var(--phonetic-bg);border:1px solid var(--phonetic-border);border-radius:999px;padding:6px 14px 6px 10px; }
+    .phonetic-dot { width:6px;height:6px;border-radius:50%;background:var(--accent-teal);flex-shrink:0;box-shadow:0 0 6px var(--accent-teal); }
+    .phonetic-text { font-family:'Noto Serif',serif;font-style:italic;font-size:17px;letter-spacing:1.5px;color:var(--accent-teal);font-weight:400;line-height:1; }
+    .pron-label { font-size:10px;font-weight:700;color:var(--text-muted);letter-spacing:0.5px;text-transform:uppercase; }
+
+    /* Audio button */
+    .audio-btn { background:var(--tab-active-bg);border:1px solid rgba(56,189,248,0.2);color:var(--accent-blue);border-radius:12px;width:46px;height:46px;display:inline-flex;align-items:center;justify-content:center;padding:0;font-size:20px;cursor:pointer;transition:all 0.2s;flex-shrink:0;box-shadow:0 4px 12px rgba(56,189,248,0.1); }
     .audio-btn:hover { background:rgba(56,189,248,0.16);border-color:rgba(56,189,248,0.4);transform:scale(1.08) translateY(0); }
 
-    /* ── Main Translation Block ── */
+    /* Word forms */
+    .wordforms-row {
+        display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+        margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);
+    }
+    .wordforms-label { font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.7px;color:var(--text-muted); }
+    .wordform-chip { font-size:12.5px;font-weight:500;color:var(--text-secondary);background:var(--bg-elevated);border:1px solid var(--border);padding:2px 9px;border-radius:5px; }
+
+    /* ── Main Translation ── */
     .main-translation {
-        margin-bottom:22px; padding:14px 18px;
-        background:var(--trans-bg); border:1px solid var(--trans-border);
-        border-left:3px solid var(--accent-green); border-radius:12px;
+        display:flex;align-items:stretch;gap:0;
+        margin-bottom:22px;
+        border-radius:14px;overflow:hidden;
+        border:1px solid var(--trans-border);
     }
-    .trans-label {
-        font-size:10.5px;font-weight:700;text-transform:uppercase;
-        letter-spacing:0.9px;color:var(--text-muted);margin-bottom:5px;
+    .trans-sidebar {
+        background:var(--accent-green);
+        display:flex;align-items:center;justify-content:center;
+        padding:0 14px;writing-mode:vertical-rl;text-orientation:mixed;
+        font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:2px;
+        color:rgba(0,0,0,0.55);transform:rotate(180deg);
+        flex-shrink:0;
     }
-    .trans-word {
-        font-size:22px;font-weight:700;color:var(--accent-green);
-        line-height:1.3;
+    .trans-body { flex:1;background:var(--trans-bg);padding:14px 18px; }
+    .trans-label { font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.9px;color:var(--text-muted);margin-bottom:5px; }
+    .trans-word { font-size:21px;font-weight:700;color:var(--accent-green);line-height:1.3; }
+
+    /* ── POS Divider ── */
+    .pos-divider {
+        display:flex;align-items:center;gap:10px;
+        margin:20px 0 14px;
+    }
+    .pos-divider-label {
+        font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:2px;
+        color:var(--accent-blue);flex-shrink:0;font-style:italic;
+    }
+    .pos-divider-line { flex:1;height:1px;background:linear-gradient(90deg,var(--border-glow),transparent); }
+
+    /* ── Definition Card (Oxford style) ── */
+    .def-card {
+        display:grid;
+        grid-template-columns: 38px 1fr;
+        gap: 0 10px;
+        margin-bottom: 12px;
+        padding: 14px 14px 14px 0;
+        border-bottom: 1px solid var(--border);
+        transition: background 0.2s;
+        border-radius: 8px;
+    }
+    .def-card:last-child { border-bottom: none; margin-bottom: 0; }
+    .def-card:hover { background: var(--bg-elevated); padding-left: 14px; }
+
+    .def-num-oxford {
+        font-family: 'DM Serif Display', serif;
+        font-size: 26px;
+        color: var(--accent-blue);
+        line-height: 1;
+        text-align: center;
+        align-self: start;
+        padding-top: 2px;
+        opacity: 0.6;
     }
 
-    /* ── Dict Breakdown ── */
-    .dict-breakdown { max-height:440px;overflow-y:auto;padding-right:6px; }
-    .dict-breakdown::-webkit-scrollbar { width:4px; }
-    .dict-breakdown::-webkit-scrollbar-track { background:var(--bg-elevated);border-radius:4px; }
-    .dict-breakdown::-webkit-scrollbar-thumb { background:var(--border-glow);border-radius:4px; }
+    .def-body-oxford { grid-column: 2; }
 
-    .dict-section {
-        margin-bottom:14px; background:var(--bg-elevated);
-        padding:15px; border-radius:14px;
-        border:1px solid var(--border); border-left:3px solid var(--accent-blue);
-        transition:all 0.2s;
+    /* Grammar + usage tags row */
+    .def-tags { display:flex;flex-wrap:wrap;gap:5px;margin-bottom:7px; }
+    .gram-tag {
+        font-size:10.5px;font-weight:700;font-style:italic;
+        color:var(--gram-color);background:var(--gram-bg);
+        border:1px solid rgba(167,139,250,0.2);
+        padding:2px 8px;border-radius:4px;
     }
-    .dict-section:hover { box-shadow:0 4px 18px rgba(56,189,248,0.07); }
-    .phrase-section { border-left-color:var(--accent-purple); }
-
-    .pos-badge {
-        display:inline-block; padding:3px 12px; border-radius:20px;
-        font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;
-        margin-bottom:11px;
-        background:linear-gradient(135deg,rgba(56,189,248,0.13),rgba(45,212,191,0.08));
-        border:1px solid rgba(56,189,248,0.22); color:var(--accent-blue);
+    .usage-tag {
+        font-size:10.5px;font-weight:700;
+        color:var(--usage-color);background:var(--usage-bg);
+        border:1px solid rgba(251,191,36,0.2);
+        padding:2px 8px;border-radius:4px;
     }
-    .phrase-badge {
-        display:inline-block; background:rgba(167,139,250,0.1); color:var(--accent-purple);
-        border:1px solid rgba(167,139,250,0.2); padding:5px 12px;
-        border-radius:20px; font-size:13px;font-weight:600;margin:3px;
-        transition:all 0.2s; cursor:default;
-    }
-    .phrase-badge:hover { background:rgba(167,139,250,0.18);transform:translateY(-1px); }
-
-    .syn-ant-row { font-size:13px; margin-bottom:11px; }
-    .syn-label { font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--text-muted);margin-bottom:5px;display:block; }
-    .syn-badge {
-        background:rgba(52,211,153,0.09);color:var(--accent-green);
-        border:1px solid rgba(52,211,153,0.18); padding:3px 9px;
-        border-radius:6px;margin-right:4px;font-size:12.5px;display:inline-block;margin-bottom:4px;
+    .region-tag {
+        font-size:10px;font-weight:800;
+        color:var(--accent-teal);background:rgba(45,212,191,0.08);
+        border:1px solid rgba(45,212,191,0.2);
+        padding:2px 7px;border-radius:4px;letter-spacing:0.3px;
     }
 
-    .def-block {
-        margin-bottom:15px; padding-bottom:14px;
-        border-bottom:1px solid var(--border);
+    /* English definition text */
+    .def-en-text {
+        font-size:15px;color:var(--text-primary);line-height:1.7;
+        font-weight:400;margin-bottom:9px;
     }
-    .def-block:last-child { border-bottom:none;margin-bottom:0;padding-bottom:0; }
-
-    /* English definition */
-    .def-en {
-        font-size:15px;font-weight:500;color:var(--text-primary);
-        line-height:1.65; display:flex; gap:8px;
-    }
-    .def-num { color:var(--accent-blue);font-weight:700;flex-shrink:0;margin-top:1px; }
 
     /* Vietnamese definition */
-    .def-vi {
-        display:flex; align-items:flex-start; gap:7px;
-        background:var(--def-vi-bg); border-radius:9px;
-        padding:8px 12px; margin-top:8px;
+    .def-vi-row {
+        display:flex;align-items:flex-start;gap:7px;
+        background:var(--def-vi-bg);border-radius:8px;
+        padding:8px 12px;margin-bottom:9px;
         border:1px solid rgba(56,189,248,0.1);
     }
     .def-vi-flag { flex-shrink:0;font-size:13px;margin-top:1px; }
-    .def-vi-text {
-        font-size:14.5px;font-weight:600;color:var(--def-vi-color);
-        line-height:1.55;
-    }
+    .def-vi-text { font-size:14.5px;font-weight:600;color:var(--def-vi-color);line-height:1.55; }
 
-    /* English example */
-    .ex-text {
-        font-style:italic; font-size:14px; line-height:1.6;
-        color:var(--accent-blue); opacity:0.85;
-        background:rgba(56,189,248,0.04); border:1px solid rgba(56,189,248,0.1);
-        padding:8px 13px; border-radius:9px; margin-top:9px;
+    /* Example sentence */
+    .example-row {
+        display:flex;align-items:flex-start;gap:8px;
+        padding:9px 12px;
+        border-left:2px solid var(--example-line);
+        background:transparent;
+        border-radius:0 8px 8px 0;
+        margin-top:4px;
     }
+    .example-icon { font-size:12px;flex-shrink:0;margin-top:2px;opacity:0.6; }
+    .example-en {
+        font-style:italic;font-size:14px;color:var(--text-secondary);line-height:1.65;
+        font-family:'Noto Serif',serif;
+    }
+    .example-en b { color:var(--text-primary);font-style:normal;font-weight:700; }
+
+    /* Synonyms inline */
+    .def-synonyms { margin-top:9px; }
+    .def-syn-label { font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.7px;color:var(--text-muted);margin-right:6px; }
+    .inline-syn { font-size:13px;color:var(--accent-green);font-weight:600;cursor:pointer;transition:color 0.2s; }
+    .inline-syn:hover { color:var(--accent-teal);text-decoration:underline; }
+    .inline-syn::after { content:', ';color:var(--text-muted);font-weight:400; }
+    .inline-syn:last-child::after { content:''; }
+
+    /* ── Section Boxes ── */
+    .dict-section-box {
+        background:var(--bg-elevated);border:1px solid var(--border);
+        border-radius:14px;padding:16px;margin-top:16px;
+        transition:all 0.2s;
+    }
+    .dict-section-box:hover { box-shadow:0 4px 18px rgba(56,189,248,0.05); }
+
+    .section-header {
+        font-size:10px;font-weight:900;text-transform:uppercase;
+        letter-spacing:2px;color:var(--text-muted);
+        display:flex;align-items:center;gap:8px;margin-bottom:13px;
+    }
+    .section-header::after { content:'';flex:1;height:1px;background:var(--border); }
+    .section-header .sh-icon { font-size:13px; }
+
+    /* Collocation chips */
+    .coll-chips { display:flex;flex-wrap:wrap;gap:6px; }
+    .coll-chip {
+        display:inline-flex;align-items:center;gap:0;
+        padding:5px 12px;border-radius:8px;
+        font-size:13.5px;font-weight:500;
+        background:var(--bg-card);border:1px solid var(--border);
+        color:var(--text-secondary);cursor:default;
+        transition:all 0.2s;
+    }
+    .coll-chip:hover { border-color:var(--border-glow);background:var(--tab-active-bg);transform:translateY(-1px); }
+    .coll-chip b { color:var(--accent-blue);font-weight:800;margin: 0 2px }
+    .coll-chip .coll-sep { color:var(--text-muted);margin:0 1px; }
+
+    /* Thesaurus */
+    .thes-grid { display:flex;gap:16px;flex-wrap:wrap; }
+    .thes-col { flex:1;min-width:140px; }
+    .thes-col-label { font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px; }
+    .thes-col-label.syn { color:var(--accent-green); }
+    .thes-col-label.ant { color:var(--accent-rose); }
+    .thes-chips { display:flex;flex-wrap:wrap;gap:5px; }
+    .thes-chip {
+        padding:4px 11px;border-radius:6px;font-size:13px;font-weight:600;
+        cursor:pointer;transition:all 0.2s;
+    }
+    .thes-chip:hover { transform:translateY(-1px); }
+    .thes-chip.syn { background:rgba(52,211,153,0.1);color:var(--accent-green);border:1px solid rgba(52,211,153,0.2); }
+    .thes-chip.ant { background:rgba(251,113,133,0.1);color:var(--accent-rose);border:1px solid rgba(251,113,133,0.2); }
+
+    /* Related words (triggers) */
+    .related-chips { display:flex;flex-wrap:wrap;gap:5px; }
+    .related-chip {
+        padding:4px 11px;border-radius:6px;font-size:13px;font-weight:500;
+        background:rgba(167,139,250,0.09);color:var(--accent-purple);
+        border:1px solid rgba(167,139,250,0.18);cursor:pointer;transition:all 0.2s;
+    }
+    .related-chip:hover { background:rgba(167,139,250,0.16);transform:translateY(-1px); }
 
     /* ── Note Section ── */
-    .note-section {
-        background:var(--note-bg); border:1px solid var(--note-border);
-        border-left:3px solid var(--accent-amber);
-        padding:15px; border-radius:14px; margin-top:18px;
-    }
-    .note-header {
-        font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;
-        color:var(--accent-amber);margin-bottom:9px;
-        display:flex;justify-content:space-between;align-items:center;
-    }
-    .note-textarea {
-        width:100%;border:none;background:transparent;resize:vertical;min-height:62px;
-        font-family:'DM Sans',sans-serif;font-size:14.5px;color:var(--text-primary);
-        outline:none;line-height:1.65;
-    }
+    .note-section { background:var(--note-bg);border:1px solid var(--note-border);border-left:3px solid var(--accent-amber);padding:15px;border-radius:14px;margin-top:18px; }
+    .note-header { font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--accent-amber);margin-bottom:9px;display:flex;justify-content:space-between;align-items:center; }
+    .note-textarea { width:100%;border:none;background:transparent;resize:vertical;min-height:62px;font-family:'DM Sans',sans-serif;font-size:14.5px;color:var(--text-primary);outline:none;line-height:1.65; }
     .note-textarea::placeholder { color:color-mix(in srgb,var(--accent-amber) 40%,transparent); }
     .save-indicator { font-size:11.5px;color:var(--accent-green);opacity:0;transition:opacity 0.4s;font-weight:600; }
 
-    /* ── Loading ── */
-    .loading {
-        text-align:center;color:var(--text-muted);display:none;
-        margin:36px 0;font-size:14.5px;font-weight:500;
-    }
-    .loading::before {
-        content:'';display:block;width:38px;height:38px;
-        border:3px solid var(--border);border-top-color:var(--accent-blue);
-        border-radius:50%;margin:0 auto 14px;animation:spin 0.75s linear infinite;
-    }
-
-    /* ── Flashcard ── */
+    /* ═══════════════════════════════════════════
+       FLASHCARD
+    ═══════════════════════════════════════════ */
     .stats { text-align:center;color:var(--text-muted);margin-bottom:16px;font-size:14px; }
-    .flashcard {
-        background:var(--bg-elevated);border:1px solid var(--border);
-        border-radius:20px;padding:34px 22px;
-        text-align:center;min-height:270px;
-        display:flex;flex-direction:column;justify-content:center;
-        position:relative;overflow:hidden;
-        transition:background 0.4s,border-color 0.4s;
-    }
-    .flashcard::before {
-        content:'';position:absolute;inset:0;
-        background:radial-gradient(ellipse 80% 55% at 50% 0%,rgba(56,189,248,0.05),transparent);
-        pointer-events:none;
-    }
-    .fc-word {
-        font-family:'DM Serif Display',serif;font-size:54px;
-        color:var(--text-primary);margin:0 0 8px 0;letter-spacing:-2px;
-    }
+    .flashcard { background:var(--bg-elevated);border:1px solid var(--border);border-radius:20px;padding:34px 22px;text-align:center;min-height:270px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;transition:background 0.4s,border-color 0.4s; }
+    .flashcard::before { content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 55% at 50% 0%,rgba(56,189,248,0.05),transparent);pointer-events:none; }
+    .fc-word { font-family:'DM Serif Display',serif;font-size:54px;color:var(--text-primary);margin:0 0 8px 0;letter-spacing:-2px; }
     .fc-meaning { font-size:23px;font-weight:700;color:var(--accent-green);margin:14px 0; }
-    .fc-example-box {
-        background:var(--bg-card);padding:14px;border-radius:12px;
-        border:1px solid var(--border);border-left:3px solid var(--accent-blue);
-        text-align:left;margin-top:14px;
-    }
+    .fc-example-box { background:var(--bg-card);padding:14px;border-radius:12px;border:1px solid var(--border);border-left:3px solid var(--accent-blue);text-align:left;margin-top:14px; }
     .fc-example-en { font-style:italic;color:var(--text-primary);font-size:14.5px;margin-bottom:7px;font-weight:500; }
     .fc-example-vi { color:var(--text-muted);font-size:13.5px;padding-top:7px;border-top:1px solid var(--border); }
-    .fc-note-box {
-        background:var(--note-bg);border-left:3px solid var(--accent-amber);
-        border:1px solid var(--note-border);padding:11px 13px;border-radius:10px;
-        text-align:left;margin-top:13px;font-size:14px;color:var(--accent-amber);
-        font-weight:500;display:none;
-    }
+    .fc-note-box { background:var(--note-bg);border-left:3px solid var(--accent-amber);border:1px solid var(--note-border);padding:11px 13px;border-radius:10px;text-align:left;margin-top:13px;font-size:14px;color:var(--accent-amber);font-weight:500;display:none; }
     .fc-actions { display:flex;justify-content:center;gap:11px;margin-top:22px; }
-    .btn-outline {
-        background:transparent;color:var(--accent-blue);
-        border:1.5px solid rgba(56,189,248,0.35);box-shadow:none;
-    }
+    .btn-outline { background:transparent;color:var(--accent-blue);border:1.5px solid rgba(56,189,248,0.35);box-shadow:none; }
     .btn-outline:hover { background:var(--tab-active-bg);border-color:var(--accent-blue);box-shadow:none; }
 
-    /* ── Empty State ── */
-    #empty-state {
-        text-align:center;padding:44px 20px;color:var(--text-muted);display:none;
-    }
+    /* ═══════════════════════════════════════════
+       SAVED WORDS LIST
+    ═══════════════════════════════════════════ */
+    #empty-state { text-align:center;padding:44px 20px;color:var(--text-muted);display:none; }
     #empty-state .es-icon { font-size:46px;margin-bottom:13px;opacity:0.45; }
     #empty-state p { font-size:15px;font-weight:500; }
     #empty-state small { font-size:13.5px;margin-top:6px;display:block; }
-
-    /* ── Saved Words List ── */
     .saved-words-container { max-height:390px;overflow-y:auto;padding-right:4px; }
     .saved-words-container::-webkit-scrollbar { width:4px; }
     .saved-words-container::-webkit-scrollbar-thumb { background:var(--border-glow);border-radius:4px; }
-
-    .saved-word-item {
-        display:flex;justify-content:space-between;align-items:center;
-        padding:13px 12px;border-bottom:1px solid var(--border);
-        cursor:pointer;border-radius:12px;transition:all 0.2s;
-    }
+    .saved-word-item { display:flex;justify-content:space-between;align-items:center;padding:13px 12px;border-bottom:1px solid var(--border);cursor:pointer;border-radius:12px;transition:all 0.2s; }
     .saved-word-item:hover { background:var(--bg-elevated);transform:translateX(5px); }
     .saved-word-info { flex:1; }
     .saved-word-info strong { color:var(--accent-blue);font-size:16px;font-weight:700; }
-    .sw-phonetic {
-        font-family:'Noto Serif',serif;font-style:italic;
-        font-size:12.5px;color:var(--text-muted);margin-left:7px;letter-spacing:0.8px;
-    }
+    .sw-phonetic { font-family:'Noto Serif',serif;font-style:italic;font-size:12.5px;color:var(--text-muted);margin-left:7px;letter-spacing:0.8px; }
     .saved-word-meaning { font-size:14px;color:var(--text-secondary);margin-top:3px;font-weight:500; }
-    .saved-note-indicator {
-        display:inline-block;font-size:11px;background:rgba(251,191,36,0.09);
-        color:var(--accent-amber);padding:2px 8px;border-radius:20px;
-        margin-left:7px;border:1px solid rgba(251,191,36,0.2);font-weight:600;
-    }
+    .saved-note-indicator { display:inline-block;font-size:11px;background:rgba(251,191,36,0.09);color:var(--accent-amber);padding:2px 8px;border-radius:20px;margin-left:7px;border:1px solid rgba(251,191,36,0.2);font-weight:600; }
     .action-group { display:flex;align-items:center;gap:6px; }
-    .delete-btn {
-        background:rgba(251,113,133,0.08);color:var(--accent-rose);
-        border:1px solid rgba(251,113,133,0.15);padding:7px;
-        font-size:16px;cursor:pointer;border-radius:10px;transition:all 0.2s;box-shadow:none;
-    }
+    .delete-btn { background:rgba(251,113,133,0.08);color:var(--accent-rose);border:1px solid rgba(251,113,133,0.15);padding:7px;font-size:16px;cursor:pointer;border-radius:10px;transition:all 0.2s;box-shadow:none; }
     .delete-btn:hover { background:rgba(251,113,133,0.16);transform:translateY(-1px);box-shadow:none; }
 
     footer { margin-top:22px;color:var(--text-muted);font-size:12px;text-align:center;opacity:0.65;letter-spacing:0.3px; }
 
     @media(max-width:500px){
         .dashboard-card{padding:18px;}
-        .word-title{font-size:36px;}
+        .entry-word{font-size:36px;}
         .fc-word{font-size:42px;}
         .tab-btn{font-size:12.5px;padding:9px 5px;}
         .topbar-right{gap:5px;}
         #sync-status{display:none;}
+        .thes-grid{flex-direction:column;}
+        .trans-sidebar{display:none;}
     }
     </style>
 </head>
@@ -783,51 +688,42 @@
             </div>
             <p class="auth-tagline">Từ vựng của bạn — đồng bộ mọi thiết bị</p>
         </div>
-
         <div style="padding:0 24px 14px;">
             <div class="auth-tabs">
                 <button class="auth-tab-btn active" onclick="switchAuthTab('login')">Đăng Nhập</button>
                 <button class="auth-tab-btn"        onclick="switchAuthTab('register')">Tạo Tài Khoản</button>
             </div>
         </div>
-
         <div id="auth-login" class="auth-panel active">
             <div id="login-error" class="auth-error"></div>
             <div class="form-group">
                 <label class="form-label">Email</label>
-                <input id="login-email" type="email" class="form-input" placeholder="example@email.com"
-                       onkeypress="if(event.key==='Enter')loginUser()">
+                <input id="login-email" type="email" class="form-input" placeholder="example@email.com" onkeypress="if(event.key==='Enter')loginUser()">
             </div>
             <div class="form-group">
                 <label class="form-label">Mật khẩu</label>
-                <input id="login-password" type="password" class="form-input" placeholder="••••••••"
-                       onkeypress="if(event.key==='Enter')loginUser()">
+                <input id="login-password" type="password" class="form-input" placeholder="••••••••" onkeypress="if(event.key==='Enter')loginUser()">
             </div>
             <button id="login-btn" class="auth-submit-btn" onclick="loginUser()">Đăng Nhập</button>
             <p class="auth-switch-text">Chưa có tài khoản? <a href="#" onclick="switchAuthTab('register')">Đăng ký ngay</a></p>
         </div>
-
         <div id="auth-register" class="auth-panel">
             <div id="register-error" class="auth-error"></div>
             <div class="form-group">
                 <label class="form-label">Họ và Tên</label>
-                <input id="reg-name" type="text" class="form-input" placeholder="Nguyễn Văn A"
-                       onkeypress="if(event.key==='Enter')registerUser()">
+                <input id="reg-name" type="text" class="form-input" placeholder="Nguyễn Văn A" onkeypress="if(event.key==='Enter')registerUser()">
             </div>
             <div class="form-group">
                 <label class="form-label">Email</label>
-                <input id="reg-email" type="email" class="form-input" placeholder="example@email.com"
-                       onkeypress="if(event.key==='Enter')registerUser()">
+                <input id="reg-email" type="email" class="form-input" placeholder="example@email.com" onkeypress="if(event.key==='Enter')registerUser()">
             </div>
             <div class="form-group">
                 <label class="form-label">Mật khẩu <span style="color:var(--text-muted);font-weight:400;text-transform:none;font-size:11px;">(tối thiểu 6 ký tự)</span></label>
-                <input id="reg-password" type="password" class="form-input" placeholder="••••••••"
-                       onkeypress="if(event.key==='Enter')registerUser()">
+                <input id="reg-password" type="password" class="form-input" placeholder="••••••••" onkeypress="if(event.key==='Enter')registerUser()">
             </div>
             <div class="form-group">
                 <label class="form-label">Xác nhận mật khẩu</label>
-                <input id="reg-confirm" type="password" class="form-input" placeholder="••••••••"
-                       onkeypress="if(event.key==='Enter')registerUser()">
+                <input id="reg-confirm" type="password" class="form-input" placeholder="••••••••" onkeypress="if(event.key==='Enter')registerUser()">
             </div>
             <button id="register-btn" class="auth-submit-btn" onclick="registerUser()">Tạo Tài Khoản</button>
             <p class="auth-switch-text">Đã có tài khoản? <a href="#" onclick="switchAuthTab('login')">Đăng nhập</a></p>
@@ -840,7 +736,6 @@
 ══════════════════════════════════════ -->
 <div id="app-screen">
 
-    <!-- Topbar -->
     <div class="user-topbar">
         <div class="user-info">
             <div class="user-avatar" id="user-avatar">?</div>
@@ -856,7 +751,6 @@
         </div>
     </div>
 
-    <!-- Dashboard -->
     <div class="dashboard-card">
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('lookup',event)">🔍 Tra Từ</button>
@@ -871,25 +765,47 @@
                 <button onclick="lookupWord()">Tra & Lưu</button>
             </div>
             <div id="loading" class="loading">Đang tra cứu...</div>
+
+            <!-- ══ OXFORD-STYLE ENTRY ══ -->
             <div id="result-container">
-                <div class="word-header">
-                    <div>
-                        <div class="word-title" id="displayWord"></div>
+
+                <!-- ── Entry Header ── -->
+                <div class="entry-header">
+                    <div class="entry-wordline">
+                        <span id="cefrBadge" class="cefr-badge" style="display:none;"></span>
+                        <h1 class="entry-word" id="displayWord"></h1>
+                        <div class="freq-wrap" id="freqDots"></div>
+                    </div>
+
+                    <div class="pos-strip" id="posStrip"></div>
+
+                    <div class="pron-row">
                         <div class="phonetic-pill" id="phoneticPill" style="display:none;">
                             <div class="phonetic-dot"></div>
                             <span class="phonetic-text" id="displayPhonetic"></span>
                         </div>
+                        <button class="audio-btn" onclick="playCurrentAudio()" title="Nghe phát âm">🔊</button>
                     </div>
-                    <button class="audio-btn" onclick="playCurrentAudio()" title="Nghe phát âm">🔊</button>
+
+                    <div class="wordforms-row" id="wordformsRow" style="display:none;">
+                        <span class="wordforms-label">Dạng từ:</span>
+                        <div id="wordformsList"></div>
+                    </div>
                 </div>
 
+                <!-- ── Main Translation ── -->
                 <div class="main-translation">
-                    <div class="trans-label">🇻🇳 Nghĩa tiếng Việt</div>
-                    <div class="trans-word" id="displayTranslation"></div>
+                    <div class="trans-sidebar">Tiếng Việt</div>
+                    <div class="trans-body">
+                        <div class="trans-label">🇻🇳 Nghĩa chính</div>
+                        <div class="trans-word" id="displayTranslation"></div>
+                    </div>
                 </div>
 
-                <div class="dict-breakdown" id="dictBreakdown"></div>
+                <!-- ── Dictionary Body ── -->
+                <div id="dictBreakdown"></div>
 
+                <!-- ── Personal Note ── -->
                 <div class="note-section">
                     <div class="note-header">
                         <span>✍️ Ghi chú cá nhân</span>
@@ -948,21 +864,15 @@
 
 <script>
 // ══════════════════════════════════════════════
-//  THEME TOGGLE
+//  THEME
 // ══════════════════════════════════════════════
 function getTheme() { return localStorage.getItem('lv_theme') || 'dark'; }
-
 function applyTheme(t) {
     document.documentElement.setAttribute('data-theme', t);
     document.getElementById('theme-btn').textContent = t === 'dark' ? '🌙' : '☀️';
     localStorage.setItem('lv_theme', t);
 }
-
-function toggleTheme() {
-    applyTheme(getTheme() === 'dark' ? 'light' : 'dark');
-}
-
-// Apply saved theme immediately
+function toggleTheme() { applyTheme(getTheme() === 'dark' ? 'light' : 'dark'); }
 applyTheme(getTheme());
 
 // ══════════════════════════════════════════════
@@ -971,8 +881,7 @@ applyTheme(getTheme());
 function showSyncStatus(msg, type) {
     const el = document.getElementById('sync-status');
     if (!el) return;
-    el.textContent = msg;
-    el.className   = type;
+    el.textContent = msg; el.className = type;
 }
 
 // ══════════════════════════════════════════════
@@ -990,7 +899,6 @@ function switchAuthTab(tab) {
 //  NOTE AUTO-SAVE
 // ══════════════════════════════════════════════
 let currentWordData = null, saveTimeout = null;
-
 function updateNote(noteText) {
     if (!currentWordData) return;
     currentWordData.note = noteText;
@@ -1012,75 +920,302 @@ function switchTab(tabName, event) {
     if (tabName === 'flashcard') initFlashcardMode();
     else if (tabName === 'list') renderSavedWords();
 }
-
 function handleKeyPress(e) { if (e.key === 'Enter') lookupWord(); }
 
 // ══════════════════════════════════════════════
-//  TRANSLATE API
+//  TRANSLATE
 // ══════════════════════════════════════════════
 async function translateText(text) {
     try {
+        if (!text || !text.trim()) return '—';
         const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|vi`);
-        return (await res.json()).responseData.translatedText;
+        return (await res.json()).responseData.translatedText || '—';
     } catch { return '—'; }
 }
-
-// Translate array of texts in parallel
 async function translateBatch(texts) {
     return Promise.all(texts.map(t => translateText(t)));
+}
+
+// ══════════════════════════════════════════════
+//  HELPERS — Grammar & Display
+// ══════════════════════════════════════════════
+
+// Detect grammar tags from POS + definition
+function detectGramTags(pos, definition) {
+    const tags = [];
+    const def = (definition || '').toLowerCase();
+    if (pos === 'noun') {
+        if (def.includes('usually singular') || def.match(/^the\s/)) tags.push('[sing.]');
+        else if (def.includes('usually plural') || def.includes('in plural')) tags.push('[pl.]');
+        else if (/\b(state|quality|act|process|condition|absence|lack)\s+of\b/.test(def)) tags.push('[U]');
+        else tags.push('[C]');
+    } else if (pos === 'verb') {
+        if (def.includes('(yourself)') || def.includes('oneself') || def.includes('reflexive')) tags.push('[VR]');
+        else if (/\b(somebody|someone|something|sb|sth)\b/.test(def)) tags.push('[T]');
+        else if (def.startsWith('to be ') || /\(of\s/.test(def)) tags.push('[I]');
+        if (def.includes('usually passive') || def.includes('be ~ed')) tags.push('[usu. passive]');
+    }
+    return tags;
+}
+
+// Detect usage labels
+function detectUsageTags(definition) {
+    const tags = [];
+    const def = (definition || '').toLowerCase();
+    if (def.includes('(formal)') || def.includes('formal use'))  tags.push('formal');
+    if (def.includes('(informal)') || def.includes('colloquial')) tags.push('informal');
+    if (def.includes('(figurative)') || def.includes('(fig.'))   tags.push('figurative');
+    if (def.includes('(british)') || def.includes('brit.'))      tags.push('BrE');
+    if (def.includes('(american)') || def.includes('us english'))tags.push('AmE');
+    if (def.includes('(old-fashioned)') || def.includes('dated'))tags.push('dated');
+    if (def.includes('(literary)'))                               tags.push('literary');
+    if (def.includes('(technical)') || def.includes('(tech.)'))  tags.push('technical');
+    return tags;
+}
+
+// Highlight the main word (+ common forms) in an example sentence
+function highlightWord(example, word) {
+    if (!example || !word) return example;
+    // Build regex matching word + common inflections
+    const base = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`\\b(${base}(?:s|es|d|ed|ing|er|est|ly)?)\\b`, 'gi');
+    return example.replace(regex, '<b>$1</b>');
+}
+
+// Estimate frequency level (1–5) from Datamuse freq tag
+function parseFrequency(freqData) {
+    if (!freqData || !freqData.length) return null;
+    const tags = freqData[0].tags || [];
+    const fTag = tags.find(t => t.startsWith('f:'));
+    if (!fTag) return null;
+    const f = parseFloat(fTag.slice(2));
+    if (f > 200)  return { dots: 5, label: 'rất phổ biến', cefr: 'A1' };
+    if (f > 50)   return { dots: 4, label: 'phổ biến',     cefr: 'A2' };
+    if (f > 10)   return { dots: 3, label: 'thường gặp',   cefr: 'B1' };
+    if (f > 2)    return { dots: 2, label: 'ít phổ biến',  cefr: 'B2' };
+    return         { dots: 1, label: 'nâng cao',           cefr: 'C1' };
+}
+
+// POS chip color class
+function posClass(pos) {
+    const map = { verb:'verb', adjective:'adjective', adverb:'adverb',
+                  preposition:'preposition', conjunction:'conjunction', interjection:'interjection' };
+    return map[pos] || '';
+}
+
+// ══════════════════════════════════════════════
+//  BUILD HTML SECTIONS
+// ══════════════════════════════════════════════
+function buildMeaningGroup(meaning, mi, data, word) {
+    const parsedDefs = data.translatedDefsStr
+        ? JSON.parse(data.translatedDefsStr)
+        : (data.translatedDefs || []);
+    const viDefs = parsedDefs[mi] || [];
+
+    let html = `<div class="pos-divider">
+        <span class="pos-divider-label">${meaning.partOfSpeech}</span>
+        <div class="pos-divider-line"></div>
+    </div>`;
+
+    // Synonyms from this POS group
+    const posSyns = (meaning.synonyms || []).slice(0, 5);
+
+    meaning.definitions.forEach((def, di) => {
+        const gramTags  = detectGramTags(meaning.partOfSpeech, def.definition);
+        const usageTags = detectUsageTags(def.definition);
+        const viText    = viDefs[di] || '';
+        const exEn      = def.example ? highlightWord(def.example, word) : '';
+
+        html += `<div class="def-card">
+            <div class="def-num-oxford">${di + 1}</div>
+            <div class="def-body-oxford">`;
+
+        // Grammar + usage tags
+        if (gramTags.length || usageTags.length) {
+            html += `<div class="def-tags">`;
+            gramTags.forEach(t  => { html += `<span class="gram-tag">${t}</span>`; });
+            usageTags.forEach(t => { html += `<span class="usage-tag">${t}</span>`; });
+            html += `</div>`;
+        }
+
+        // English definition
+        html += `<div class="def-en-text">${def.definition}</div>`;
+
+        // Vietnamese translation
+        if (viText && viText !== '—') {
+            html += `<div class="def-vi-row">
+                <span class="def-vi-flag">🇻🇳</span>
+                <span class="def-vi-text">${viText}</span>
+            </div>`;
+        }
+
+        // Example sentence
+        if (exEn) {
+            html += `<div class="example-row">
+                <span class="example-icon">❝</span>
+                <div class="example-en">${exEn}</div>
+            </div>`;
+        }
+
+        // Inline synonyms from this definition
+        const defSyns = (def.synonyms || []).slice(0, 4);
+        if (defSyns.length) {
+            html += `<div class="def-synonyms">
+                <span class="def-syn-label">Syn:</span>
+                ${defSyns.map(s => `<span class="inline-syn" onclick="searchWord('${s}')">${s}</span>`).join('')}
+            </div>`;
+        }
+
+        html += `</div></div>`; // close def-body + def-card
+    });
+
+    // POS-level synonyms block
+    if (posSyns.length) {
+        html += `<div style="margin-bottom:8px;padding:10px 14px;background:rgba(52,211,153,0.05);border-radius:10px;border:1px solid rgba(52,211,153,0.12);">
+            <span style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.8px;color:var(--accent-green);margin-right:8px;">Từ đồng nghĩa</span>
+            ${posSyns.map(s => `<span class="thes-chip syn" onclick="searchWord('${s}')" style="margin:2px;">${s}</span>`).join('')}
+        </div>`;
+    }
+
+    return html;
+}
+
+function buildCollocationSection(colls, word) {
+    if (!colls.length) return '';
+    const chipsHTML = colls.map(c => {
+        // Bold the main word in the collocation
+        const highlighted = c.replace(
+            new RegExp(`\\b(${word})\\b`, 'gi'),
+            '<b>$1</b>'
+        );
+        return `<span class="coll-chip">${highlighted}</span>`;
+    }).join('');
+
+    return `<div class="dict-section-box">
+        <div class="section-header"><span class="sh-icon">📎</span> Collocations — Cụm từ đi kèm</div>
+        <div class="coll-chips">${chipsHTML}</div>
+    </div>`;
+}
+
+function buildThesaurusSection(synonyms, antonyms) {
+    if (!synonyms.length && !antonyms.length) return '';
+    let html = `<div class="dict-section-box"><div class="section-header"><span class="sh-icon">🔄</span> Thesaurus — Từ đồng / trái nghĩa</div><div class="thes-grid">`;
+    if (synonyms.length) {
+        html += `<div class="thes-col">
+            <div class="thes-col-label syn">Từ đồng nghĩa</div>
+            <div class="thes-chips">
+                ${synonyms.map(w => `<span class="thes-chip syn" onclick="searchWord('${w.word}')">${w.word}</span>`).join('')}
+            </div>
+        </div>`;
+    }
+    if (antonyms.length) {
+        html += `<div class="thes-col">
+            <div class="thes-col-label ant">Từ trái nghĩa</div>
+            <div class="thes-chips">
+                ${antonyms.map(w => `<span class="thes-chip ant" onclick="searchWord('${w.word}')">${w.word}</span>`).join('')}
+            </div>
+        </div>`;
+    }
+    return html + `</div></div>`;
+}
+
+function buildRelatedSection(triggers) {
+    if (!triggers.length) return '';
+    return `<div class="dict-section-box">
+        <div class="section-header"><span class="sh-icon">🔗</span> Từ liên quan</div>
+        <div class="related-chips">
+            ${triggers.map(w => `<span class="related-chip" onclick="searchWord('${w.word}')">${w.word}</span>`).join('')}
+        </div>
+    </div>`;
+}
+
+// Quick-search a word (click synonym/related)
+function searchWord(word) {
+    document.getElementById('wordInput').value = word;
+    lookupWord();
+    document.querySelector('.tab-btn').classList.add('active');
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-lookup').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ══════════════════════════════════════════════
 //  RENDER LOOKUP UI
 // ══════════════════════════════════════════════
 function renderLookupUI(data) {
+    // Basic fields
     document.getElementById('displayWord').textContent      = data.word;
     document.getElementById('displayTranslation').textContent = data.translation;
     document.getElementById('personalNote').value           = data.note || '';
 
-    // Phonetic pill
-    const pill     = document.getElementById('phoneticPill');
-    const phonEl   = document.getElementById('displayPhonetic');
+    // Phonetic
+    const pill = document.getElementById('phoneticPill');
     if (data.phonetic) {
-        phonEl.textContent = data.phonetic;
+        document.getElementById('displayPhonetic').textContent = data.phonetic;
         pill.style.display = 'inline-flex';
     } else {
         pill.style.display = 'none';
     }
 
-    let html = '';
-
-    // Collocations
-    if (data.phrases && data.phrases.length) {
-        html += `<div class="dict-section phrase-section">
-            <div style="font-size:11px;text-transform:uppercase;color:var(--accent-purple);font-weight:700;letter-spacing:1px;margin-bottom:9px;">🔗 Collocations — Cụm từ đi kèm</div>
-            <div style="display:flex;flex-wrap:wrap;gap:4px;">${data.phrases.map(p=>`<span class="phrase-badge">${p}</span>`).join('')}</div>
-        </div>`;
+    // POS strip
+    if (data.rawEntry) {
+        const poses = [...new Set(data.rawEntry.meanings.map(m => m.partOfSpeech))];
+        document.getElementById('posStrip').innerHTML = poses.map(p =>
+            `<span class="pos-chip ${posClass(p)}">${p}</span>`
+        ).join('');
     }
 
-    // Meanings with both EN and VI definitions
-    data.rawEntry.meanings.forEach((m, mi) => {
-        html += `<div class="dict-section"><div class="pos-badge">${m.partOfSpeech}</div>`;
-        if (m.synonyms && m.synonyms.length) {
-            html += `<div class="syn-ant-row">
-                <span class="syn-label">Từ đồng nghĩa</span>
-                ${m.synonyms.slice(0,6).map(s=>`<span class="syn-badge">${s}</span>`).join('')}
-            </div>`;
-        }
-        const parsedDefs = data.translatedDefsStr
-            ? JSON.parse(data.translatedDefsStr)
-            : (data.translatedDefs || []);
-        const viDefs = parsedDefs[mi] || [];
-        m.definitions.forEach((def, di) => {
-            const viText = viDefs[di] || '';
-            html += `<div class="def-block">
-                <div class="def-en"><span class="def-num">${di+1}.</span><span>${def.definition}</span></div>
-                ${viText ? `<div class="def-vi"><span class="def-vi-flag">🇻🇳</span><span class="def-vi-text">${viText}</span></div>` : ''}
-                ${def.example ? `<div class="ex-text">"${def.example}"</div>` : ''}
-            </div>`;
+    // CEFR badge + frequency dots
+    const freqInfo = data.freqInfo || null;
+    const cefrEl   = document.getElementById('cefrBadge');
+    const freqEl   = document.getElementById('freqDots');
+    if (freqInfo) {
+        cefrEl.textContent  = freqInfo.cefr;
+        cefrEl.className    = `cefr-badge cefr-${freqInfo.cefr.toLowerCase()}`;
+        cefrEl.title        = `Mức độ CEFR ước tính: ${freqInfo.cefr}`;
+        cefrEl.style.display = 'inline-block';
+        freqEl.innerHTML = Array.from({length:5}, (_,i) =>
+            `<div class="freq-dot ${i < freqInfo.dots ? 'on' : ''}"></div>`
+        ).join('') + `<span class="freq-label">${freqInfo.label}</span>`;
+    } else {
+        cefrEl.style.display = 'none';
+        freqEl.innerHTML = '';
+    }
+
+    // Word forms
+    const formsRow  = document.getElementById('wordformsRow');
+    const formsList = document.getElementById('wordformsList');
+    if (data.wordForms && data.wordForms.length) {
+        formsList.innerHTML = data.wordForms.map(f =>
+            `<span class="wordform-chip">${f}</span>`
+        ).join('');
+        formsRow.style.display = 'flex';
+    } else {
+        formsRow.style.display = 'none';
+    }
+
+    // Build definitions
+    let html = '';
+    if (data.rawEntry) {
+        data.rawEntry.meanings.forEach((m, mi) => {
+            html += buildMeaningGroup(m, mi, data, data.word);
         });
-        html += `</div>`;
-    });
+    }
+
+    // Collocations
+    if (data.collocations && data.collocations.length) {
+        html += buildCollocationSection(data.collocations, data.word);
+    }
+
+    // Thesaurus
+    if ((data.synonymsData && data.synonymsData.length) || (data.antonymsData && data.antonymsData.length)) {
+        html += buildThesaurusSection(data.synonymsData || [], data.antonymsData || []);
+    }
+
+    // Related words
+    if (data.triggers && data.triggers.length) {
+        html += buildRelatedSection(data.triggers);
+    }
 
     document.getElementById('dictBreakdown').innerHTML = html;
     document.getElementById('result-container').style.display = 'block';
@@ -1088,7 +1223,7 @@ function renderLookupUI(data) {
 }
 
 // ══════════════════════════════════════════════
-//  LOOKUP WORD (MAIN)
+//  LOOKUP WORD (ENHANCED)
 // ══════════════════════════════════════════════
 async function lookupWord() {
     const word = document.getElementById('wordInput').value.trim().toLowerCase();
@@ -1099,39 +1234,58 @@ async function lookupWord() {
     showSyncStatus('Đang tra cứu...', 'syncing');
 
     try {
-        // Check if already saved (to preserve note)
-        const existing     = getCloudVocabulary().find(v => v.word.toLowerCase() === word);
+        const existing      = getCloudVocabulary().find(v => v.word.toLowerCase() === word);
         const preservedNote = existing ? (existing.note || '') : '';
 
-        const dictRes = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-        if (!dictRes.ok) throw new Error('Không tìm thấy từ này trong từ điển.');
-        const entry = (await dictRes.json())[0];
+        // ── Parallel fetch: Dictionary + Datamuse enrichment ──
+        const [
+            dictResult,
+            synData, antData, triggerData,
+            bgbData, bgaData,
+            freqData, wordFormData
+        ] = await Promise.allSettled([
+            fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`).then(r => r.json()),
+            fetch(`https://api.datamuse.com/words?rel_syn=${word}&max=10`).then(r => r.json()),
+            fetch(`https://api.datamuse.com/words?rel_ant=${word}&max=8`).then(r => r.json()),
+            fetch(`https://api.datamuse.com/words?rel_trg=${word}&max=10`).then(r => r.json()),
+            fetch(`https://api.datamuse.com/words?rel_bgb=${word}&max=4`).then(r => r.json()),
+            fetch(`https://api.datamuse.com/words?rel_bga=${word}&max=5`).then(r => r.json()),
+            fetch(`https://api.datamuse.com/words?sp=${word}&md=f&max=1`).then(r => r.json()),
+            fetch(`https://api.datamuse.com/words?rel_dre=${word}&max=6`).then(r => r.json()),
+        ]);
 
-        const phonetic = entry.phonetic || (entry.phonetics.find(p=>p.text)||{}).text || '';
-        const audioObj = entry.phonetics.find(p=>p.audio && p.audio.length>0);
+        const resolve = r => r.status === 'fulfilled' ? r.value : [];
+
+        const entry = (resolve(dictResult))[0];
+        if (!entry || !entry.word) throw new Error('Không tìm thấy từ này trong từ điển.');
+
+        const synonymsData = resolve(synData);
+        const antonymsData = resolve(antData);
+        const triggers     = resolve(triggerData).slice(0, 8);
+        const bgb          = resolve(bgbData);
+        const bga          = resolve(bgaData);
+        const freqRaw      = resolve(freqData);
+        const wordForms    = resolve(wordFormData).map(w => w.word).filter(w => w !== word).slice(0, 6);
+
+        // Build collocations
+        const collocations = [
+            ...bgb.map(w => `${w.word} ${word}`),
+            ...bga.map(w => `${word} ${w.word}`)
+        ];
+
+        const phonetic = entry.phonetic || (entry.phonetics.find(p => p.text) || {}).text || '';
+        const audioObj = entry.phonetics.find(p => p.audio && p.audio.length > 0);
         const audioUrl = audioObj ? audioObj.audio : '';
 
-        // First example sentence
+        // First example
         let primaryExEn = '';
         outer: for (const m of entry.meanings)
             for (const d of m.definitions)
                 if (d.example) { primaryExEn = d.example; break outer; }
 
-        // Collocations
-        let phrases = [];
-        try {
-            const [bgb, bga] = await Promise.all([
-                fetch(`https://api.datamuse.com/words?rel_bgb=${word}&max=3`).then(r=>r.json()),
-                fetch(`https://api.datamuse.com/words?rel_bga=${word}&max=4`).then(r=>r.json())
-            ]);
-            bgb.forEach(w=>phrases.push(`${w.word} ${word}`));
-            bga.forEach(w=>phrases.push(`${word} ${w.word}`));
-        } catch {}
-
-        // Collect ALL texts to translate in parallel:
-        // [0] = word itself, [1] = example, [2..] = each definition (up to 3 per meaning)
+        // Collect all texts to translate in batch
         const toTranslate = [entry.word, primaryExEn || ''];
-        const defMap = []; // [{mi, di, idx}]
+        const defMap = [];
         entry.meanings.forEach((m, mi) => {
             m.definitions.slice(0, 3).forEach((def, di) => {
                 defMap.push({ mi, di, idx: toTranslate.length });
@@ -1140,26 +1294,36 @@ async function lookupWord() {
         });
 
         const translated = await translateBatch(toTranslate);
-
         const translatedWord  = translated[0];
         const translatedExVi  = primaryExEn ? translated[1] : 'Không có ví dụ minh họa.';
 
-        // Rebuild translatedDefs: array indexed by [mi][di]
+        // Rebuild translatedDefs
         const translatedDefs = [];
-        entry.meanings.forEach((m, mi) => { translatedDefs[mi] = []; });
-        defMap.forEach(({mi, di, idx}) => { translatedDefs[mi][di] = translated[idx]; });
+        entry.meanings.forEach((_, mi) => { translatedDefs[mi] = []; });
+        defMap.forEach(({ mi, di, idx }) => { translatedDefs[mi][di] = translated[idx]; });
+
+        const freqInfo = parseFrequency(freqRaw);
 
         const wordData = {
-            word: entry.word, phonetic, translation: translatedWord,
+            word: entry.word,
+            phonetic,
+            translation: translatedWord,
             exampleEn: primaryExEn || 'No example available.',
             exampleVi: translatedExVi,
-            audioUrl, rawEntry: entry, phrases,
-            translatedDefsStr: JSON.stringify(translatedDefs), note: preservedNote,
+            audioUrl,
+            rawEntry: entry,
+            collocations,
+            synonymsData: synonymsData.slice(0, 8),
+            antonymsData: antonymsData.slice(0, 6),
+            triggers,
+            wordForms,
+            freqInfo,
+            translatedDefsStr: JSON.stringify(translatedDefs),
+            note: preservedNote,
         };
 
         await saveWordToCloud(wordData);
         showSyncStatus('☁️ Đã lưu & đồng bộ', 'ok');
-
         document.getElementById('loading').style.display = 'none';
         renderLookupUI(wordData);
         playCurrentAudio();
@@ -1189,11 +1353,11 @@ function viewSavedWord(w) {
 // ══════════════════════════════════════════════
 function playAudio(text, url, event) {
     if (event) event.stopPropagation();
-    if (url && url !== 'undefined') new Audio(url).play().catch(()=>speakAI(text));
+    if (url && url !== 'undefined') new Audio(url).play().catch(() => speakAI(text));
     else speakAI(text);
 }
 function speakAI(t) {
-    const u = new SpeechSynthesisUtterance(t); u.lang='en-US'; speechSynthesis.speak(u);
+    const u = new SpeechSynthesisUtterance(t); u.lang = 'en-US'; speechSynthesis.speak(u);
 }
 function playCurrentAudio()   { if (currentWordData)  playAudio(currentWordData.word,  currentWordData.audioUrl); }
 function playFlashcardAudio() { if (currentFlashcard) playAudio(currentFlashcard.word, currentFlashcard.audioUrl); }
@@ -1211,7 +1375,7 @@ function initFlashcardMode() {
     document.getElementById('fc-actions').style.display          = has ? 'flex' : 'none';
     document.getElementById('empty-state').style.display         = has ? 'none' : 'block';
     if (!has) return;
-    flashcardQueue = [...vocab].sort(()=>Math.random()-0.5);
+    flashcardQueue = [...vocab].sort(() => Math.random() - 0.5);
     nextCard();
 }
 
@@ -1221,15 +1385,13 @@ function nextCard() {
         initFlashcardMode(); return;
     }
     currentFlashcard = flashcardQueue.pop();
-    document.getElementById('fc-word').textContent    = currentFlashcard.word;
-
+    document.getElementById('fc-word').textContent = currentFlashcard.word;
     const pill = document.getElementById('fc-phonetic-pill');
     const pEl  = document.getElementById('fc-phonetic');
     if (currentFlashcard.phonetic) {
         pEl.textContent = currentFlashcard.phonetic;
         pill.style.display = 'inline-flex';
     } else { pill.style.display = 'none'; }
-
     document.getElementById('fc-meaning').textContent    = currentFlashcard.translation;
     const nb = document.getElementById('fc-note');
     if (currentFlashcard.note && currentFlashcard.note.trim()) {
@@ -1252,8 +1414,8 @@ function flipCard() {
 //  SAVED WORDS LIST
 // ══════════════════════════════════════════════
 function renderSavedWords() {
-    const vocab    = getCloudVocabulary();
-    const term     = (document.getElementById('searchSavedInput')?.value || '').trim().toLowerCase();
+    const vocab     = getCloudVocabulary();
+    const term      = (document.getElementById('searchSavedInput')?.value || '').trim().toLowerCase();
     const container = document.getElementById('saved-words-container');
     const filtered  = vocab.filter(i =>
         i.word.toLowerCase().includes(term) || i.translation.toLowerCase().includes(term));
@@ -1264,7 +1426,6 @@ function renderSavedWords() {
             <p>${term ? 'Không tìm thấy từ phù hợp.' : 'Danh sách từ vựng trống.'}</p></div>`;
         return;
     }
-
     container.innerHTML = [...filtered].reverse().map(item => `
         <div class="saved-word-item" onclick="viewSavedWord('${item.word}')">
             <div class="saved-word-info">
@@ -1291,10 +1452,10 @@ async function handleDelete(w, event) {
     } catch { showSyncStatus('Lỗi xóa từ', 'error'); }
 }
 
-// Guard: if firebase not loaded yet
-if (!window.getCloudVocabulary) window.getCloudVocabulary = () => [];
-if (!window.saveWordToCloud)    window.saveWordToCloud    = async () => {};
-if (!window.deleteWordFromCloud)window.deleteWordFromCloud= async () => {};
+// Guards
+if (!window.getCloudVocabulary)  window.getCloudVocabulary  = () => [];
+if (!window.saveWordToCloud)     window.saveWordToCloud     = async () => {};
+if (!window.deleteWordFromCloud) window.deleteWordFromCloud = async () => {};
 </script>
 </body>
 </html>
