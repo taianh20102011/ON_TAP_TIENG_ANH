@@ -1,608 +1,219 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WordFamily — Tra từ & Họ từ tiếng Anh</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --ink: #1a1a1a;
-    --muted: #555;
-    --hint: #999;
-    --surface: #ffffff;
-    --raised: #f5f5f3;
-    --border: rgba(0,0,0,0.12);
-    --border-md: rgba(0,0,0,0.25);
-    --r: 12px;
-    --r-sm: 8px;
-    --teal600: #0F6E56;
-    --teal50: #E1F5EE;
-    --teal100: #9FE1CB;
-    --teal800: #085041;
-    --amber50: #FAEEDA;
-    --amber800: #633806;
-    --purple50: #EEEDFE;
-    --purple800: #3C3489;
-    --coral50: #FAECE7;
-    --coral600: #993C1D;
-    --coral800: #712B13;
-    --blue50: #E6F1FB;
-    --blue800: #0C447C;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --ink: #f0ede8;
-      --muted: #a0a09a;
-      --hint: #666;
-      --surface: #1c1c1a;
-      --raised: #272724;
-      --border: rgba(255,255,255,0.1);
-      --border-md: rgba(255,255,255,0.22);
-      --teal50: #04342C;
-      --teal100: #085041;
-      --teal800: #9FE1CB;
-      --amber50: #412402;
-      --amber800: #FAC775;
-      --purple50: #26215C;
-      --purple800: #CECBF6;
-      --coral50: #4A1B0C;
-      --coral800: #F5C4B3;
-      --blue50: #042C53;
-      --blue800: #B5D4F4;
-    }
-  }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    color: var(--ink);
-    background: var(--surface);
-    min-height: 100vh;
-    padding: 2.5rem 1rem;
-    line-height: 1.6;
-  }
-
-  .container {
-    max-width: 680px;
-    margin: 0 auto;
-  }
-
-  h1.brand {
-    font-family: 'Playfair Display', serif;
-    font-size: 32px;
-    font-weight: 600;
-    letter-spacing: -0.5px;
-    color: var(--ink);
-    margin-bottom: 4px;
-  }
-
-  .tagline {
-    font-size: 14px;
-    color: var(--muted);
-    font-weight: 300;
-    margin-bottom: 2rem;
-  }
-
-  .search-bar {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 2rem;
-  }
-
-  .search-bar input {
-    flex: 1;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
-    padding: 11px 15px;
-    border: 0.5px solid var(--border-md);
-    border-radius: var(--r-sm);
-    background: var(--surface);
-    color: var(--ink);
-    outline: none;
-    transition: border-color 0.15s, box-shadow 0.15s;
-  }
-
-  .search-bar input:focus {
-    border-color: var(--teal600);
-    box-shadow: 0 0 0 3px rgba(15,110,86,0.12);
-  }
-
-  .search-bar input::placeholder { color: var(--hint); }
-
-  .search-bar button {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    padding: 11px 22px;
-    background: var(--teal600);
-    color: #fff;
-    border: none;
-    border-radius: var(--r-sm);
-    cursor: pointer;
-    transition: opacity 0.15s, transform 0.1s;
-    white-space: nowrap;
-  }
-
-  .search-bar button:hover { opacity: 0.88; }
-  .search-bar button:active { transform: scale(0.97); }
-  .search-bar button:disabled { opacity: 0.45; cursor: not-allowed; }
-
-  .loader {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--muted);
-    font-size: 14px;
-    padding: 1.5rem 0;
-  }
-
-  .spinner {
-    width: 18px; height: 18px;
-    border: 2px solid var(--border);
-    border-top-color: var(--teal600);
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-    flex-shrink: 0;
-  }
-
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  .result-wrap { animation: fadeUp 0.35s ease both; }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
-  .word-header {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-    margin-bottom: 0.25rem;
-  }
-
-  .word-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--ink);
-  }
-
-  .phonetic {
-    font-size: 15px;
-    color: var(--muted);
-    font-weight: 300;
-  }
-
-  .section-label {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--hint);
-    margin-bottom: 10px;
-    margin-top: 1.5rem;
-  }
-
-  .wf-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .wf-chip {
-    display: inline-flex;
-    flex-direction: column;
-    padding: 7px 13px;
-    border-radius: var(--r-sm);
-    border: 0.5px solid var(--border);
-    background: var(--raised);
-    transition: border-color 0.12s;
-  }
-
-  .wf-chip:hover { border-color: var(--border-md); }
-  .wf-chip .word { font-size: 14px; font-weight: 500; color: var(--ink); }
-  .wf-chip .pos { font-size: 11px; font-weight: 400; color: var(--muted); margin-top: 1px; }
-
-  .meanings-list { display: flex; flex-direction: column; gap: 10px; }
-
-  .meaning-item {
-    padding: 12px 15px;
-    border-radius: var(--r-sm);
-    background: var(--raised);
-    border: 0.5px solid var(--border);
-  }
-
-  .pos-badge {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 500;
-    padding: 2px 9px;
-    border-radius: 99px;
-    margin-bottom: 7px;
-  }
-
-  .pos-noun { background: var(--blue50);   color: var(--blue800); }
-  .pos-verb { background: var(--teal50);   color: var(--teal800); }
-  .pos-adj  { background: var(--purple50); color: var(--purple800); }
-  .pos-adv  { background: var(--amber50);  color: var(--amber800); }
-  .pos-other{ background: var(--coral50);  color: var(--coral800); }
-
-  .meaning-def { font-size: 14px; color: var(--ink); line-height: 1.55; }
-  .meaning-def b { font-weight: 500; }
-  .meaning-ex  { font-size: 13px; color: var(--muted); margin-top: 5px; font-style: italic; }
-
-  .quiz-section {
-    margin-top: 1.75rem;
-    padding: 18px;
-    border-radius: var(--r);
-    border: 0.5px solid var(--border);
-    background: var(--surface);
-  }
-
-  .quiz-title {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--teal600);
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .quiz-item { margin-bottom: 20px; }
-  .quiz-item:last-child { margin-bottom: 0; }
-
-  .quiz-q {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--ink);
-    margin-bottom: 10px;
-    line-height: 1.5;
-  }
-
-  .quiz-options { display: flex; flex-direction: column; gap: 6px; }
-
-  .quiz-opt {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    padding: 9px 13px;
-    border: 0.5px solid var(--border);
-    border-radius: var(--r-sm);
-    background: var(--surface);
-    color: var(--ink);
-    cursor: pointer;
-    text-align: left;
-    transition: border-color 0.12s, background 0.12s;
-  }
-
-  .quiz-opt:hover:not(:disabled) { border-color: var(--border-md); background: var(--raised); }
-  .quiz-opt.correct { background: var(--teal50); border-color: var(--teal100); color: var(--teal800); font-weight: 500; }
-  .quiz-opt.wrong   { background: var(--coral50); border-color: #F0997B; color: var(--coral800); }
-  .quiz-opt:disabled { cursor: default; }
-
-  .quiz-feedback {
-    font-size: 12px;
-    margin-top: 7px;
-    padding: 6px 11px;
-    border-radius: var(--r-sm);
-    display: none;
-  }
-  .quiz-feedback.show { display: block; }
-  .quiz-feedback.ok  { background: var(--teal50); color: var(--teal800); }
-  .quiz-feedback.bad { background: var(--coral50); color: var(--coral800); }
-
-  .divider { height: 0.5px; background: var(--border); margin: 2.5rem 0; }
-
-  .history-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 12px;
-  }
-
-  .history-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-
-  .hist-chip {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    padding: 5px 13px;
-    border: 0.5px solid var(--border);
-    border-radius: 99px;
-    background: var(--raised);
-    color: var(--muted);
-    cursor: pointer;
-    transition: color 0.12s, border-color 0.12s;
-  }
-  .hist-chip:hover { color: var(--ink); border-color: var(--border-md); }
-
-  .clear-btn {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    color: var(--hint);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 2px 4px;
-    transition: color 0.12s;
-  }
-  .clear-btn:hover { color: var(--coral600); }
-
-  .error-box {
-    padding: 13px 15px;
-    border-radius: var(--r-sm);
-    background: var(--coral50);
-    color: var(--coral800);
-    font-size: 14px;
-    border: 0.5px solid #F0997B;
-    margin-bottom: 1rem;
-  }
-
-  .empty-history { font-size: 13px; color: var(--hint); font-style: italic; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Word Master</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
+    </style>
 </head>
-<body>
-<div class="container">
+<body class="p-4 md:p-8">
 
-  <h1 class="brand">WordFamily</h1>
-  <p class="tagline">Tra từ — xem họ từ, nghĩa đầy đủ, luyện 2 câu hỏi kiểm tra</p>
+    <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-indigo-600 mb-2">Word Form & Quiz</h1>
+            <p class="text-gray-500">Tra từ, học Word Form và kiểm tra kiến thức ngay lập tức.</p>
+        </div>
 
-  <div class="search-bar">
-    <input type="text" id="wordInput" placeholder="Nhập từ tiếng Anh (vd: beautiful, run, happy...)" autocomplete="off" />
-    <button id="searchBtn" onclick="lookupWord()">Tra từ</button>
-  </div>
+        <div class="glass p-6 rounded-2xl shadow-xl mb-8 flex gap-2">
+            <input type="text" id="wordInput" placeholder="Nhập từ tiếng Anh (vđ: Success, Beauty...)" 
+                   class="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
+            <button onclick="lookupWord()" id="searchBtn" class="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition-all font-semibold">
+                Tra từ
+            </button>
+        </div>
 
-  <div id="loader" class="loader" style="display:none;">
-    <div class="spinner"></div>
-    <span id="loaderMsg">Đang phân tích từ...</span>
-  </div>
+        <div id="contentArea" class="hidden grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <div class="md:col-span-2 space-y-6">
+                <div id="resultCard" class="glass p-6 rounded-2xl shadow-lg border-l-4 border-indigo-500">
+                    <div id="wordHeader" class="mb-4">
+                        <h2 id="displayWord" class="text-3xl font-bold text-gray-800 capitalize"></h2>
+                        <p id="phonetic" class="text-indigo-500 italic"></p>
+                    </div>
+                    <div id="meanings" class="space-y-4"></div>
+                </div>
 
-  <div id="errorBox" class="error-box" style="display:none;"></div>
-  <div id="resultArea"></div>
+                <div id="quizCard" class="glass p-6 rounded-2xl shadow-lg border-l-4 border-green-500">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <span class="mr-2">📝</span> Kiểm tra kiến thức
+                    </h3>
+                    <div id="quizContainer" class="space-y-6"></div>
+                    <button onclick="checkQuiz()" id="checkBtn" class="mt-4 w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 hidden">
+                        Nộp bài
+                    </button>
+                </div>
+            </div>
 
-  <div class="divider" id="histDivider" style="display:none;"></div>
+            <div class="space-y-6">
+                <div class="glass p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <span class="mr-2">📚</span> Lịch sử tra từ
+                    </h3>
+                    <ul id="historyList" class="space-y-2 max-h-96 overflow-y-auto">
+                        </ul>
+                    <button onclick="clearHistory()" class="mt-4 text-sm text-red-500 hover:underline">Xóa lịch sử</button>
+                </div>
+            </div>
 
-  <div id="histSection" style="display:none;">
-    <div class="history-header">
-      <span class="section-label" style="margin:0;">Từ đã tra</span>
-      <button class="clear-btn" onclick="clearHistory()">Xóa tất cả</button>
+        </div>
+
+        <div id="errorBox" class="hidden text-center p-10 glass rounded-2xl shadow-lg">
+            <p class="text-red-500 font-semibold">Không tìm thấy từ này trong từ điển. Thử lại nhé!</p>
+        </div>
     </div>
-    <div class="history-chips" id="histChips"></div>
-  </div>
 
-</div>
+    <script>
+        const input = document.getElementById('wordInput');
+        let currentQuizData = [];
 
-<script>
-  const HISTORY_KEY = 'wf_history_v2';
+        // Hỗ trợ Enter để tra từ
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') lookupWord();
+        });
 
-  function loadHistory() {
-    try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); } catch { return []; }
-  }
+        async function lookupWord() {
+            const word = input.value.trim().toLowerCase();
+            if (!word) return;
 
-  function saveHistory(list) {
-    try { localStorage.setItem(HISTORY_KEY, JSON.stringify(list)); } catch {}
-  }
+            const btn = document.getElementById('searchBtn');
+            btn.innerHTML = "Đang tải...";
+            btn.disabled = true;
 
-  function renderHistory() {
-    const list = loadHistory();
-    const sec  = document.getElementById('histSection');
-    const div  = document.getElementById('histDivider');
-    const chips = document.getElementById('histChips');
-    if (!list.length) { sec.style.display = 'none'; div.style.display = 'none'; return; }
-    sec.style.display = 'block';
-    div.style.display = 'block';
-    chips.innerHTML = list.slice().reverse().map(w =>
-      `<button class="hist-chip" onclick="reLookup('${w}')">${w}</button>`
-    ).join('');
-  }
+            try {
+                const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+                if (!response.ok) throw new Error('Not found');
+                const data = await response.json();
+                
+                renderResults(data[0]);
+                saveToHistory(data[0].word);
+                generateQuiz(data[0]);
+                
+                document.getElementById('contentArea').classList.remove('hidden');
+                document.getElementById('errorBox').classList.add('hidden');
+            } catch (err) {
+                document.getElementById('contentArea').classList.add('hidden');
+                document.getElementById('errorBox').classList.remove('hidden');
+            } finally {
+                btn.innerHTML = "Tra từ";
+                btn.disabled = false;
+            }
+        }
 
-  function addToHistory(word) {
-    let list = loadHistory().filter(w => w.toLowerCase() !== word.toLowerCase());
-    list.push(word);
-    if (list.length > 30) list = list.slice(-30);
-    saveHistory(list);
-    renderHistory();
-  }
+        function renderResults(data) {
+            document.getElementById('displayWord').innerText = data.word;
+            document.getElementById('phonetic').innerText = data.phonetic || "";
+            
+            const meaningsDiv = document.getElementById('meanings');
+            meaningsDiv.innerHTML = "";
 
-  function clearHistory() {
-    saveHistory([]);
-    renderHistory();
-  }
+            data.meanings.forEach(m => {
+                const section = document.createElement('div');
+                section.innerHTML = `
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded text-sm font-bold uppercase">${m.partOfSpeech}</span>
+                    </div>
+                    <ul class="list-disc ml-5 text-gray-700 space-y-1">
+                        ${m.definitions.slice(0, 3).map(d => `<li>${d.definition}</li>`).join('')}
+                    </ul>
+                `;
+                meaningsDiv.appendChild(section);
+            });
+        }
 
-  function reLookup(word) {
-    document.getElementById('wordInput').value = word;
-    lookupWord();
-  }
+        function generateQuiz(data) {
+            const container = document.getElementById('quizContainer');
+            const checkBtn = document.getElementById('checkBtn');
+            container.innerHTML = "";
+            currentQuizData = [];
 
-  const loaderMsgs = ['Đang phân tích từ...', 'Tìm họ từ và nghĩa...', 'Tạo câu hỏi kiểm tra...'];
-  let loaderInterval;
+            // Lấy các định nghĩa hoặc ví dụ làm câu hỏi
+            let count = 0;
+            data.meanings.forEach(m => {
+                m.definitions.forEach(def => {
+                    if (count < 2) {
+                        const question = {
+                            word: data.word,
+                            pos: m.partOfSpeech,
+                            definition: def.definition
+                        };
+                        currentQuizData.push(question);
+                        
+                        const qDiv = document.createElement('div');
+                        qDiv.className = "p-4 bg-gray-50 rounded-xl border border-gray-200";
+                        qDiv.innerHTML = `
+                            <p class="text-sm font-medium text-gray-600 mb-2">Câu hỏi ${count + 1}: Điền từ phù hợp với loại từ <b class="text-indigo-600 underline">${m.partOfSpeech}</b></p>
+                            <p class="italic text-gray-800 mb-3">"${def.definition}"</p>
+                            <input type="text" data-index="${count}" class="quiz-input w-full p-2 border rounded border-gray-300 focus:ring-2 focus:ring-green-400 outline-none" placeholder="Nhập đáp án...">
+                            <p id="feedback-${count}" class="mt-2 text-sm hidden font-semibold"></p>
+                        `;
+                        container.appendChild(qDiv);
+                        count++;
+                    }
+                });
+            });
 
-  function startLoader() {
-    let i = 0;
-    document.getElementById('loaderMsg').textContent = loaderMsgs[0];
-    loaderInterval = setInterval(() => {
-      i = (i + 1) % loaderMsgs.length;
-      document.getElementById('loaderMsg').textContent = loaderMsgs[i];
-    }, 1200);
-  }
+            if (count > 0) checkBtn.classList.remove('hidden');
+        }
 
-  function stopLoader() { clearInterval(loaderInterval); }
+        function checkQuiz() {
+            const inputs = document.querySelectorAll('.quiz-input');
+            inputs.forEach((input, idx) => {
+                const val = input.value.trim().toLowerCase();
+                const correct = currentQuizData[idx].word.toLowerCase();
+                const feedback = document.getElementById(`feedback-${idx}`);
+                
+                feedback.classList.remove('hidden');
+                if (val === correct) {
+                    feedback.innerText = "Chính xác! Cố gắng phát huy nhé.";
+                    feedback.className = "mt-2 text-sm text-green-600 font-semibold";
+                    input.className = "quiz-input w-full p-2 border rounded border-green-500 bg-green-50";
+                } else {
+                    feedback.innerText = `Chưa đúng rồi. Đáp án là: ${correct}`;
+                    feedback.className = "mt-2 text-sm text-red-500 font-semibold";
+                    input.className = "quiz-input w-full p-2 border rounded border-red-500 bg-red-50";
+                }
+            });
+        }
 
-  function posClass(pos) {
-    const p = (pos || '').toLowerCase();
-    if (p.includes('noun') || p.includes('danh')) return 'pos-noun';
-    if (p.includes('verb') || p.includes('động')) return 'pos-verb';
-    if (p.includes('adj') || p.includes('tính'))  return 'pos-adj';
-    if (p.includes('adv') || p.includes('phó'))   return 'pos-adv';
-    return 'pos-other';
-  }
+        // Local Storage Logic
+        function saveToHistory(word) {
+            let history = JSON.parse(localStorage.getItem('wordHistory') || '[]');
+            if (!history.includes(word)) {
+                history.unshift(word);
+                history = history.slice(0, 20); // Giữ lại 20 từ gần nhất
+                localStorage.setItem('wordHistory', JSON.stringify(history));
+            }
+            displayHistory();
+        }
 
-  function renderResult(data, word) {
-    const ra = document.getElementById('resultArea');
+        function displayHistory() {
+            const historyList = document.getElementById('historyList');
+            const history = JSON.parse(localStorage.getItem('wordHistory') || '[]');
+            historyList.innerHTML = history.map(w => `
+                <li class="group flex items-center justify-between p-2 hover:bg-indigo-50 rounded-lg cursor-pointer transition-colors" onclick="searchFromHistory('${w}')">
+                    <span class="text-gray-700 capitalize font-medium">${w}</span>
+                    <span class="text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity">➜</span>
+                </li>
+            `).join('');
+        }
 
-    const wfHTML = (data.word_family || []).map(item => `
-      <div class="wf-chip">
-        <span class="word">${item.word}</span>
-        <span class="pos">${item.pos}</span>
-      </div>`).join('');
+        function searchFromHistory(word) {
+            document.getElementById('wordInput').value = word;
+            lookupWord();
+        }
 
-    const meansHTML = (data.meanings || []).map(item => `
-      <div class="meaning-item">
-        <span class="pos-badge ${posClass(item.pos)}">${item.pos}</span>
-        <div class="meaning-def">${item.definition_vi ? `<b>${item.definition_vi}</b> — ` : ''}${item.definition_en}</div>
-        ${item.example ? `<div class="meaning-ex">"${item.example}"</div>` : ''}
-      </div>`).join('');
+        function clearHistory() {
+            localStorage.removeItem('wordHistory');
+            displayHistory();
+        }
 
-    const quizHTML = (data.quiz || []).map((q, qi) => {
-      const opts = q.options.map((opt, oi) =>
-        `<button class="quiz-opt" id="q${qi}_o${oi}" onclick="checkAnswer(${qi},${oi},${q.correct_index})">${opt}</button>`
-      ).join('');
-      return `
-        <div class="quiz-item">
-          <div class="quiz-q">${qi + 1}. ${q.question}</div>
-          <div class="quiz-options">${opts}</div>
-          <div class="quiz-feedback" id="qfb${qi}"></div>
-        </div>`;
-    }).join('');
-
-    ra.innerHTML = `
-      <div class="result-wrap">
-        <div class="word-header">
-          <span class="word-title">${data.word || word}</span>
-          ${data.phonetic ? `<span class="phonetic">${data.phonetic}</span>` : ''}
-        </div>
-
-        <div class="section-label">Họ từ (Word Family)</div>
-        <div class="wf-grid">${wfHTML || '<span style="font-size:13px;color:var(--hint)">Không tìm thấy họ từ</span>'}</div>
-
-        <div class="section-label">Nghĩa của từ</div>
-        <div class="meanings-list">${meansHTML || '<div style="font-size:13px;color:var(--hint)">Không tìm thấy nghĩa</div>'}</div>
-
-        <div class="quiz-section">
-          <div class="quiz-title">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-              <circle cx="8" cy="8" r="7" stroke="#0F6E56" stroke-width="1.2"/>
-              <path d="M8 5.5C7.17 5.5 6.5 6.17 6.5 7" stroke="#0F6E56" stroke-width="1.2" stroke-linecap="round"/>
-              <circle cx="8" cy="10.5" r="0.7" fill="#0F6E56"/>
-              <line x1="8" y1="8.5" x2="8" y2="9.5" stroke="#0F6E56" stroke-width="1.2" stroke-linecap="round"/>
-            </svg>
-            Kiểm tra nhanh
-          </div>
-          ${quizHTML || '<span style="font-size:13px;color:var(--hint)">Không tạo được câu hỏi</span>'}
-        </div>
-      </div>`;
-  }
-
-  function checkAnswer(qi, oi, correct) {
-    const opts = document.querySelectorAll(`[id^="q${qi}_o"]`);
-    opts.forEach(b => { b.disabled = true; });
-    opts[oi].classList.add(oi === correct ? 'correct' : 'wrong');
-    if (oi !== correct) opts[correct].classList.add('correct');
-    const fb = document.getElementById(`qfb${qi}`);
-    fb.classList.add('show', oi === correct ? 'ok' : 'bad');
-    fb.textContent = oi === correct
-      ? '✓ Chính xác!'
-      : `✗ Đáp án đúng là: "${opts[correct].textContent}"`;
-  }
-
-  async function lookupWord() {
-    const word = document.getElementById('wordInput').value.trim();
-    if (!word) return;
-
-    const btn = document.getElementById('searchBtn');
-    const loader = document.getElementById('loader');
-    const errorBox = document.getElementById('errorBox');
-    const ra = document.getElementById('resultArea');
-
-    btn.disabled = true;
-    loader.style.display = 'flex';
-    errorBox.style.display = 'none';
-    ra.innerHTML = '';
-    startLoader();
-
-    const prompt = `You are an expert English dictionary and linguist. Given the English word "${word}", provide a complete analysis in JSON format.
-
-Return ONLY valid JSON with this exact structure (no markdown, no backticks):
-{
-  "word": "base form of the word",
-  "phonetic": "IPA phonetic transcription like /bɪˈɡɪn/",
-  "word_family": [
-    {"word": "begin", "pos": "verb"},
-    {"word": "beginning", "pos": "noun"},
-    {"word": "beginner", "pos": "noun"},
-    {"word": "begun", "pos": "verb (past participle)"}
-  ],
-  "meanings": [
-    {
-      "pos": "noun",
-      "definition_en": "English definition here",
-      "definition_vi": "Vietnamese translation here",
-      "example": "An example sentence using the word"
-    }
-  ],
-  "quiz": [
-    {
-      "question": "Fill in: She is a complete ___ at tennis. (beginner form)",
-      "options": ["begin", "beginning", "beginner", "begun"],
-      "correct_index": 2
-    },
-    {
-      "question": "Which sentence uses the word correctly?",
-      "options": ["sentence A", "sentence B", "sentence C", "sentence D"],
-      "correct_index": 1
-    }
-  ]
-}
-
-Rules:
-- word_family must include ALL forms: noun(s), verb(s), adjective(s), adverb(s), past tense, past participle, comparative, superlative as applicable
-- meanings must cover ALL distinct meanings/senses with both English and Vietnamese definitions
-- quiz must have exactly 2 questions, each with exactly 4 options, testing different aspects
-- correct_index is 0-based
-- Return only JSON, nothing else`;
-
-    try {
-      const resp = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1500,
-          messages: [{ role: 'user', content: prompt }]
-        })
-      });
-
-      if (resp.status === 401) throw new Error('API key không hợp lệ. Vui lòng thêm API key của bạn vào file HTML.');
-
-      const data = await resp.json();
-      if (!resp.ok) throw new Error(data.error?.message || 'Lỗi API');
-
-      const raw = data.content?.[0]?.text || '';
-      const clean = raw.replace(/```json|```/g, '').trim();
-      const parsed = JSON.parse(clean);
-
-      stopLoader();
-      loader.style.display = 'none';
-      btn.disabled = false;
-
-      renderResult(parsed, word);
-      addToHistory(word);
-
-    } catch (e) {
-      stopLoader();
-      loader.style.display = 'none';
-      btn.disabled = false;
-      errorBox.style.display = 'block';
-      errorBox.textContent = 'Lỗi: ' + (e.message || 'Không thể kết nối. Thử lại nhé!');
-    }
-  }
-
-  document.getElementById('wordInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') lookupWord();
-  });
-
-  renderHistory();
-</script>
+        // Khởi tạo lịch sử khi load trang
+        displayHistory();
+    </script>
 </body>
 </html>
